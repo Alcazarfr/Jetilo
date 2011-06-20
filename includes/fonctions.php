@@ -52,7 +52,6 @@ function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Coul
 	$sql = "INSERT INTO Message (MessagePartie, MessageDestinataire, MessageExclus, MessageTitre, MessageTexte, MessageSource, MessageTime, MessageCouleur, MessageDuree)
 		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . $Titre . "', '" . $Texte . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
 	mysql_query($sql) or die('Erreur SQL #29 Message<br />'.$sql.'<br />'.mysql_error());	
-	mysql_free_result($req);
 }
 
 
@@ -474,7 +473,7 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 	{
 		$resultat = FALSE;
 	}
-	mysql_free_result($req5);
+	mysql_free_result($req);
 	return $resultat;
 }
 
