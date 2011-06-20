@@ -14,11 +14,14 @@
 							WHERE JoueurID = " . $Joueur;
 						$req = mysql_query($sql) or die('Erreur SQL #025<br />'.$sql.'<br />'.mysql_error());
 						
+						$JoueurNom = "";
 						if ($data = mysql_fetch_array($req))
 						{
 							$JoueurNom = $data['JoueurNom'] ? $data['JoueurNom'] : '';
-						}  
+							
+						} 
 						mysql_free_result($req);  
+						
 						echo '<input type="text" name="JoueurNom" value="' . $JoueurNom . '">';
  					?>
  				</td>
@@ -40,7 +43,7 @@
 							echo '<option value="'.$data['PartieID'].'">'.$data['PartieNom'].'</option>';     
 						}  
 						mysql_free_result($req);  
- 						mysql_close();
+ 						//mysql_close();
  					?>
  					</select>
  				</td>
