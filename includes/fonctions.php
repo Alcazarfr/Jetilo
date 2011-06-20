@@ -170,6 +170,7 @@ function Production($Partie, $Etat)
 		// Il y a plus de population que de population soutenable = famine !
 		// EtatFamine = le temps depuis lequel l'Etat est en famine
 		
+		$CroissanceTotale = 0;	
 		$EtatFamine += time() - $DerniereProduction;
 		
 		$sql = "SELECT TerritoireID, TerritoireNom, TerritoirePopulation, TerritoireCroissance
@@ -180,7 +181,7 @@ function Production($Partie, $Etat)
 		{
 			$PopulationLocaleSoutenable = $PopulationSoutenableParTerritoire * $Multiplicateur;
 			$PopulationMourrante = 0;
-			
+					
 			if ( $data['TerritoirePopulation'] > $PopulationLocaleSoutenable )
 			{
 				$PopulationMourrante = $data['TerritoirePopulation'] - $PopulationLocaleSoutenable;
@@ -227,11 +228,11 @@ function Production($Partie, $Etat)
 				mysql_query($sql) or die('Erreur SQL #054<br />'.$sql.'<br />'.mysql_error());
 			}
 			$CroissanceTotale += $CroissanceLocale;
-			$PopulationTotale = $PopulationTotale + $PopulationNouvelle - $PopulationMorte;
+			$EtatPopulation += $PopulationNouvelle - $PopulationMorte;
 		}
 		//
 		
-		$CroissanceTotale = round(($CroissanceTotale / $NombreTerritoire) *$Coefficient, 2);
+		$EtatCroissance = round(($CroissanceTotale / $NombreTerritoire) *$Coefficient, 2);
 	}
 	else
 	{
@@ -241,7 +242,7 @@ function Production($Partie, $Etat)
 			SET TerritoirePopulation = TerritoirePopulation + (TerritoirePopulation*TerritoireCroissance*".$Coefficient." / 100), TerritoireCroissance = TerritoireCroissance + (0.05*".$Coefficient.")
 			WHERE TerritoireEtat = " . $Etat;
 		mysql_query($sql) or die('Erreur SQL #055<br />'.$sql.'<br />'.mysql_error());
-		$PopulationTotale	= ( $PopulationTotale * $Croissance / 100 );
+		$EtatPopulation	= ( $EtatPopulation * $EtatCroissance / 100 );
 	}
 	
 	$PopulationTotale = 0;
