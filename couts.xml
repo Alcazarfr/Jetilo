@@ -1,0 +1,33 @@
+<construction>
+	<ville>
+		<1>
+			<nom>Village</nom>
+			<or>1</or>
+			<ble>1</ble>
+			<bois>1</bois>
+			<pierre>1</pierre>
+			<fer>1</fer>
+		</1>
+		<2>
+			<nom>Bourg</nom>
+			<or>2</or>
+			<ble>2</ble>
+			<bois>2</bois>
+			<pierre>2</pierre>
+			<fer>2</fer>
+		</2>
+		<3>
+			<nom>Ville</nom>
+			<or>3</or>
+			<ble>3</ble>
+			<bois>3</bois>
+			<pierre>3</pierre>
+			<fer>3</fer>
+		</3>
+	</ville>
+	<economique>
+	</economique>
+
+
+
+</construction>
