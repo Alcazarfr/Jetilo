@@ -8,6 +8,7 @@
 				<td style="border: none;" border="0">
 					<?php
 						connectMaBase();
+						$JoueurNom = "";
 						
 						$sql = "SELECT JoueurNom
 							FROM Joueur
@@ -40,7 +41,6 @@
 							echo '<option value="'.$data['PartieID'].'">'.$data['PartieNom'].'</option>';     
 						}  
 						mysql_free_result($req);  
- 						mysql_close();
  					?>
  					</select>
  				</td>

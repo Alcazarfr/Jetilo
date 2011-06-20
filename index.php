@@ -1,7 +1,7 @@
 <?php
 
 /* Inclusion des fichiers de configuration et de fonctions */
-include 'includes/config.php';
+include 'config.php';
 include 'includes/fonctions.php';
 
 /* Connexion à la Base de données */
@@ -50,10 +50,6 @@ include 'includes/prepartie.php';
 
 		<?php
 
-			if ( $message != "" )
-			{
-				echo "<div class=\"postgrand\"><div class=\"entry\"><p>".$message."</p></div></div>";
-			}
 			// Affichage des 3 champs cachés contenant l'ID de la partie, du joueur et son l'Etat
 			if ( $mode != "partie" )
 			{
@@ -62,7 +58,7 @@ include 'includes/prepartie.php';
 			echo "<input name=\"Partie\" id=\"Partie\" type=\"HIDDEN\" value=\"".$Partie."\">";
 			echo "<input name=\"Joueur\" id=\"Joueur\" type=\"HIDDEN\" value=\"".$Joueur."\">";
 			echo "<input name=\"Etat\" id=\"Etat\" type=\"HIDDEN\" value=\"".$Etat."\">";
-	
+
 	
 			// Quelle page faut il afficher?
 	
