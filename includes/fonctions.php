@@ -231,7 +231,7 @@ function Production($Partie, $Etat)
 		}
 		//
 		
-		$EtatCroissance = round(($CroissanceTotale / $NombreTerritoire) *$Coefficient, 2);
+		$EtatCroissance = round(($CroissanceTotale / $EtatTerritoires) *$Coefficient, 2);
 	}
 	else
 	{
