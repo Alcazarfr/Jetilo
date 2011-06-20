@@ -58,7 +58,7 @@ include 'includes/prepartie.php';
 			echo "<input name=\"Partie\" id=\"Partie\" type=\"HIDDEN\" value=\"".$Partie."\">";
 			echo "<input name=\"Joueur\" id=\"Joueur\" type=\"HIDDEN\" value=\"".$Joueur."\">";
 			echo "<input name=\"Etat\" id=\"Etat\" type=\"HIDDEN\" value=\"".$Etat."\">";
-	
+
 	
 			// Quelle page faut il afficher?
 	

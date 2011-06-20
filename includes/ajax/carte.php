@@ -28,11 +28,6 @@ $Partie 		= $_POST['Partie'];
 // On récupère le mode = l'action à effeectuer
 $mode = $_POST['mode'] ? $_POST['mode'] : ( $_GET['mode'] ? $_GET['mode'] : 'aucun');
 
-if ( !$mode )
-{
-	$message = "Aucun mode n'est valable";
-}
-
 // On précise le code à exécuter
 switch ( $mode )
 {
@@ -97,10 +92,10 @@ switch ( $mode )
 				
 				if ( $Region['Terrain'][$x][$y] )
 				{
-					$Nord 	= ( $Region['Territoire'][$x][$RegionNord] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$x][$RegionNord] ) ? 1 : 0 ;
-					$Sud 	= ( $Region['Territoire'][$x][$RegionSud] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$x][$RegionSud] ) ? 1 : 0 ;
-					$Est 	= ( $Region['Territoire'][$RegionEst][$y] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$RegionEst][$y] ) ? 1 : 0 ;
-					$Ouest 	= ( $Region['Territoire'][$RegionOuest][$y] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$RegionOuest][$y] ) ? 1 : 0 ;
+					$Nord 	= ( @$Region['Territoire'][$x][$RegionNord] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$x][$RegionNord] ) ? 1 : 0 ;
+					$Sud 	= ( @$Region['Territoire'][$x][$RegionSud] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$x][$RegionSud] ) ? 1 : 0 ;
+					$Est 	= ( @$Region['Territoire'][$RegionEst][$y] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$RegionEst][$y] ) ? 1 : 0 ;
+					$Ouest 	= ( @$Region['Territoire'][$RegionOuest][$y] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$RegionOuest][$y] ) ? 1 : 0 ;
 	
 					$RegionImage = $Nord . "-" . $Sud . "-" . $Est . "-" . $Ouest;
 				}
@@ -108,7 +103,7 @@ switch ( $mode )
 				{
 					$RegionImage = "poisson";
 				}
-				$Couleur[$RegionTerritoireEnCours] = $Couleur[$RegionTerritoireEnCours] ? $Couleur[$RegionTerritoireEnCours] : "blanche";
+				$Couleur[$RegionTerritoireEnCours] = @$Couleur[$RegionTerritoireEnCours] ? @$Couleur[$RegionTerritoireEnCours] : "blanche";
 				$RegionImage = $Couleur[$RegionTerritoireEnCours] . '/' . $RegionImage;
 				$Fonction = ( $PartieStatut == -1 ) ? "Selectionner" : ( ( $PartieStatut == 0 ) ? "Placer" : "Cibler");
 //				$Fonction = $Region['Terrain'][$x][$y] ? $Fonction : "Rien";
@@ -241,7 +236,4 @@ switch ( $mode )
 	break;
 }
 mysql_close();
-	
-echo $message;
-
 ?>
