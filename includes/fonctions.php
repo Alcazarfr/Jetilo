@@ -98,7 +98,6 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 			$x = $Combinaison[$i][0];
 			$y = $Combinaison[$i][1];
 			
-			$Erreur .= "<br />X = " . $x . " - Y = " . $y;
 			$sql2 = "SELECT r.RegionID, t.TerritoireID, t.TerritoireNom
 				FROM Region r, Territoire t
 				WHERE r.RegionPartie = " . $RegionPartie . "
@@ -109,9 +108,9 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 			if ( $data2 = mysql_fetch_array($req2) )
 			{
 				$TerritoireID = $data2['TerritoireID'];
-				if ( !$TerritoireTrouve[$TerritoireID] )
+				if ( !@$TerritoireTrouve[$TerritoireID] )
 				{
-					$ListeTerritoire 	.= ( $Compteur == 0 ) ? "<a href=\"#" . $RegionTerritoireEnCours . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>": ", <a href=\"#" . $TerritoireID . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>";
+					$ListeTerritoire 	.= ( $Compteur == 0 ) ? "<a href=\"#" . $TerritoireID. "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>": ", <a href=\"#" . $TerritoireID . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>";
 					$Compteur++;
 					$TerritoireTrouve[$TerritoireID] = TRUE;
 				}
