@@ -10,18 +10,20 @@ include '../fonctions.php';
 // Connexion à la BDD
 connectMaBase();
 
+//
+
+//
+
 
 // On récupère l'ID de la partie
-$Partie 		= $_POST['Partie'];
+$Partie = 0;
+$Partie = isset($_POST['Partie']) ? $_POST['Partie'] : (isset($_GET['Partie']) ? $_GET['Partie'] : 0);
 
 // On récupère le mode = l'action à effeectuer
-$mode = $_POST['mode'] ? $_POST['mode'] : ( $_GET['mode'] ? $_GET['mode'] : 'aucun');
+$mode = "";
+$mode = isset($_POST['mode']) ? $_POST['mode'] : (isset($_GET['mode']) ? $_GET['mode'] : "aucun");
 
-if ( !$mode )
-{
-	$message = "Aucun mode n'est valable";
-}
-
+$message = $mode;
 // On précise le code à exécuter
 switch ( $mode )
 {
@@ -208,7 +210,7 @@ switch ( $mode )
 			<script type="text/javascript">
 			/* In place editing des infos */
  				$(document).ready(function() {
-    				$(\'.edit\').editable(\'./includes/ajax/administration.php?mode=modifierChamp\');
+    				$(\'.edit\').editable(\'./includes/ajax/administration.php?mode=modifierChamp&PartieID='.$Partie.'\');
 				 });
  			</script>
  			<table cellpadding="3px" style="border: solid;" border="1">' . $detail . '<table>';

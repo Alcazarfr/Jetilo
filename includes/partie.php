@@ -81,6 +81,22 @@ function Production(Boucle)
 	}
 }
 
+/* Création d'un effet */
+function EffetCreer(Bidon, CibleType, CibleID, SourceType, SourceID, Nom, TimeDebut, TimeFin, Table, Variable, Type, Valeur)
+{
+	var PartieID 	= $('#Partie').val();
+	var JoueurID 	= $('#Joueur').val();
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=EffetCreer&Partie="+PartieID+"&Joueur="+JoueurID+"&CibleType="+CibleType+"&CibleID="+CibleID+"&SourceType="+SourceType+"&SourceID="+SourceID+"&Nom="+Nom+"&TimeDebut="+TimeDebut+"&TimeFin="+TimeFin+"&Table="+Table+"&Variable="+Variable+"&Type="+Type+"&Valeur="+Valeur
+	}
+	);
+	setTimeout("CarteChargement(false)",500);
+
+}
+
 /* Lecture et affichage des messages, en haut à droite */
 function MessageLire(Boucle)
 {

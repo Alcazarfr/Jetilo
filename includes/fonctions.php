@@ -34,6 +34,166 @@ function adjectif($nombre)
 	return $adjectif;
 }
 
+
+/* Créer un agent
+
+AgentNom		: Nom de l'agent
+AgentEtat		: Etat propriétaire de l'Agent
+AgentEtatOrigine: Etat qui pense être propriétaire de l'agent, qui, pour sa part, a retourné sa veste...
+AgentStatut		: 1 = l'agent est en opération ;
+				  0 = il attend ;
+				  -1 = il est compromis, en prison dans le lieu précisié par AgentTerritoire.
+AgentSecret		: L'agent est il secret (1) ou public (0) ?
+AgentTerritoire	: Lieu où l'agent opère, se repose ou est en prison
+AgentCapaciteFurtivite	: Capacité à être détecté par le contre-espionnage
+AgentCapaciteVitesse	: Capacité à se déplacer et à réaliser plus vite ses actions
+AgentCapaciteReussite	: Capacité à réussir une action ou à être plus efficace
+AgentType		: Type d'agent ("Agitateur", "Pretre", "Emissaire") ...
+
+*/
+function Agent($AgentNom, $AgentEtat, $AgentEtatOrigine, $AgentStatut, $AgentSecret, $AgentTerritoire, $AgentCapaciteFurtivite, $AgentCapaciteVitesse, $AgentCapaciteReussite, $AgentType)
+{
+	$sql = "INSERT INTO Message (AgentNom, AgentEtat, AgentEtatOrigine, AgentStatut, AgentSecret, AgentTerritoire, AgentCapaciteFurtivite, AgentCapaciteVitesse, AgentCapaciteReussite, EffetType, AgentType)
+		VALUES ('".$AgentNom."', " . $AgentEtat . ", " . $AgentEtatOrigine . ", " . $AgentStatut . ", " . $AgentSecret . ", " . $AgentTerritoire . ", " . $AgentCapaciteFurtivite . ", " . $AgentCapaciteVitesse . ", " . $AgentCapaciteReussite . ", " . $AgentType . ")";
+	mysql_query($sql) or die('Erreur SQL #57 Message<br />'.$sql.'<br />'.mysql_error());	
+
+	return TRUE;
+}
+
+
+
+/* Insérer un effet : bonus ou malus sur un territoire, un Etat, un agent...
+
+EffetID 		: ID de l'effet, automatique
+EffetCibleType 	: ETAT -> Effet national (ex: Révolte -5%)
+				  TERRITOIRE -> Effet local (ex : Croissance du territoire + 5%)
+				  AGENT -> Furtivité de l'agent +5pts, Rapidité+30%, etc.
+EffetCibleID	: ID de l'Etat, du territoire ou de l'agent
+EffetSourceType : A qui ou quoi doit-on cet effet ?
+				  AGENT -> Effet du à l'action d'un agent (à défaire lorsque l'agent part)
+				  TECHNOLOGIE ->
+				  CARTE -> Carte spéciale
+EffetSourceID	: ID de la source
+EffetNom		: Nom de l'effet (ex: "Productivité militaire + 5%)
+EffetTimeDebut	: timestamp du début de l'effet
+EffetTimeFin	: timestamp de la fin de l'effet
+EffetTable		: table surlaquelle il y a un effet
+EffetVariable	: Variable impactée par l'effet (TerritoireCroissance, EtatPopulation)
+EffetType		: Que se passera t'il? SUBSTITUTION (remplacement), ADDITION, SOUSTRACTION, DIVISION, MULTIPLICATION
+EffetValeur		: Valeur (0.25 ; 16 ; -3.5)
+
+*/
+function Effet($EffetCibleType, $EffetCibleID, $EffetSourceType, $EffetSourceID, $EffetNom, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur)
+{
+	$sql = "INSERT INTO Effet (EffetCibleType, EffetCibleID, EffetSourceType, EffetSourceID, EffetNom, EffetTimeDebut, EffetTimeFin, EffetTable, EffetVariable, EffetType, EffetValeur)
+		VALUES ('".$EffetCibleType."', " . $EffetCibleID . ", '" . $EffetSourceType . "', " . $EffetSourceID . ", '" . $EffetNom . "', " . $EffetTimeDebut . ", " . $EffetTimeFin . ", '" . $EffetTable . "', '" . $EffetVariable . "', '" . $EffetType . "', " . $EffetValeur . ")";
+	mysql_query($sql) or die('Erreur SQL #56 Message<br />'.$sql.'<br />'.mysql_error());	
+
+	return TRUE;
+}
+
+
+/* Chercher un effet
+
+SourceType		: TERRITOIRE, ETAT, AGENT...
+SourceID		: ID de la source
+Variable		: Variable qui subit, peut être, un effet
+Valeur			: Valeur originelle, sans effet, de la variable
+
+*/
+function ChercherEffet($SourceType, $SourceID, $SourceVariable, $SourceValeur)
+{
+	switch ( $SourceType )
+	{
+		case "TERRITOIRE" :
+			$Table = "Territoire";
+		break;
+	}
+	
+	$Resultat = $SourceValeur;
+	$sql = "SELECT *
+		FROM Effet
+		WHERE EffetCibleType = '" . $SourceType . "'
+			AND EffetCibleID = " . $SourceID . "
+			AND EffetTimeDebut <= " . time() . "
+			AND EffetTimeFin >= " . time() . "
+			AND EffetVariable = '" . $SourceVariable . "'
+		ORDER BY EffetID ASC";
+	$req = mysql_query($sql) or die('Erreur SQL #042<br />'.$sql.'<br />'.mysql_error());
+	while ($data = mysql_fetch_array($req) )
+	{
+		switch ( $data['EffetType'] )
+		{
+			case "ADDITION" :
+				$Resultat += $data['EffetValeur'];
+			break;
+			case "SOUSTRACTION" :
+				$Resultat -= $data['EffetValeur'];
+			break;
+			case "MULTIPLICATION" :
+				$Resultat *= $data['EffetValeur'];
+			break;
+			case "DIVISION" :
+				$Resultat = round($Resultat / $data['EffetValeur']);
+			break;
+			case "SUBSTITUTION" :
+				$Resultat = $data['EffetValeur'];
+			break;
+		}
+	}
+	return $Resultat;
+}
+
+
+
+/* Créer le lien Ajax vers Partie.php, qui appellera la fonction Effet ou Agent
+
+Utilité : générer le lien pour créer un agent ou un effet est long. D'où cette fonction.
+1. On remplit le tableau ci-dessous
+2. On
+
+
+Exemple : Création d'un agent puis d'un effet
+	  	  Dans 1 minute et pour 10 minutes,
+		  un agent (ID=33) réduit la croissance d'un territoire (ID=6) de 10%
+		  (=multiplication par 0.9)
+
+1. Remplissable du tableau
+$ModelEffet	= Array(
+	"CibleType" => "TERRITOIRE",
+	"CibleID" => 6,
+	"SourceType" => "AGENT",
+	"SourceID" => 33,
+	"Nom" => "Reduction Croissance",
+	"TimeDebut" => time() + 60,
+	"TimeFin" => time() + 660,
+	"Table" => "Territoire",
+	"Variable" => "TerritoireCroissance",
+	"Type" => "MULTIPLICATION",
+	"Valeur" => 0.90
+);
+
+2. Appel de la fonction
+$Lien = FormaterLien("Effet", $ModelEffet);
+
+3. On insère le lien
+
+*/
+function FormaterLien($Mode, $Tableau)
+{
+	$Lien = $Mode . "('Bidon'";
+	
+	foreach ($Tableau as $Cle => $Valeur)
+	{
+		$Lien .= ( is_numeric($Valeur) ) ? ", " . $Valeur : ", '" . $Valeur . "'";
+	}
+	
+	$Lien .= ")";
+	return $Lien;
+}
+
+
+
 /* Insérer un message
 
 Partie 			: ID de la Partie
@@ -152,7 +312,8 @@ function Production($Partie, $Etat)
 	$EtatCroissance 	= $Recherche["EtatCroissance"];
 	
 	$Coefficient 		= ( time() - $DerniereProduction ) / $DureeTourProduction;
-
+	$Coefficient		= $Coefficient > 5 ? 5 : $Coefficient;
+	
 	// On trouve les infos des terrritoires du joueur pour créer celles de l'Etat
 	
 	// Population que l'on peut nourrir

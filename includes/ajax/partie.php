@@ -157,7 +157,7 @@ switch ( $mode )
 					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants (".round($data['TerritoireCroissance'],1)."%)<br /><br />";
 					$message .= "<br /><br />" . TerritoireAcces($TerritoireID);
 					
-					$TerritoireDefense 	= $data['TerritoireDefense'];
+					$TerritoireDefense 	= ChercherEffet("TERRITOIRE", $Territoire, "TerritoireDefense", $data['TerritoireDefense']);
 					if ( $TerritoireDefense > 500 )
 					{
 						$TerritoireDefenseTexte = "Imprenable";
@@ -218,12 +218,55 @@ switch ( $mode )
 					{
 						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmees;
 					}
+					$time = time();
+					$ModelEffet	= Array(
+						"CibleType" => "TERRITOIRE",
+						"CibleID" => $Territoire,
+						"SourceType" => "ETAT",
+						"SourceID" => $TerritoireEtat,
+						"Nom" => "Bonus de défense + 10",
+						"TimeDebut" => time(),
+						"TimeFin" => time()+660,
+						"Table" => "Territoire",
+						"Variable" => "TerritoireDefense",
+						"Type" => "ADDITION",
+						"Valeur" => 10
+					);
+					$LienEffet = FormaterLien("EffetCreer", $ModelEffet);
+					$LienGeneral = "";
+					$message .= "<br /><a href=\"#\" onClick=".$LienGeneral.">Créer un général</a> : ";
+					$message .= "<br /><a href=\"#\" onClick=\"".$LienEffet."\">Créer un bonus défensif</a> : ";
 				break;
 			}
 		}
 		else
 		{
 			$message = "Le territoire n'existe pas";
+		}
+	break;
+	
+	case "EffetCreer":
+		$Joueur 	= $_POST['Joueur'];
+		$CibleType 	= $_POST['CibleType'];
+		$CibleID 	= $_POST['CibleID'];
+		$SourceType = $_POST['SourceType'];
+		$SourceID 	= $_POST['SourceID'];
+		$Nom 		= $_POST['Nom'];
+		$TimeDebut 	= $_POST['TimeDebut'];
+		$TimeFin 	= $_POST['TimeFin'];
+		$Table 		= $_POST['Table'];
+		$Variable 	= $_POST['Variable'];
+		$Type 		= $_POST['Type'];
+		$Valeur 	= $_POST['Valeur'];
+
+		$Succes		= Effet($CibleType, $CibleID, $SourceType, $SourceID, $Nom, $TimeDebut, $TimeFin, $Table, $Variable, $Type, $Valeur);
+		if ( $Succes )
+		{
+			Message($Partie, $Joueur, "Effet", "Création réussie", 0, "", "noire", 10);
+		}
+		else
+		{
+			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
 		}
 	break;
 	

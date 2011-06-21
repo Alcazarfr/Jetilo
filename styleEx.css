@@ -1,8 +1,0 @@
-P { color: red; font-size: 12pt }
-
-td.haut {
-	/* Sub-headers (also used as post headers, but defined later) */
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 1.05em;
-}
