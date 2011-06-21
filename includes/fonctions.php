@@ -185,14 +185,55 @@ function FormaterLien($Mode, $Tableau)
 	
 	foreach ($Tableau as $Cle => $Valeur)
 	{
-		$Lien .= ( is_numeric($Valeur) ) ? ", " . $Valeur : ", '" . $Valeur . "'";
+		if ( is_numeric($Valeur) )
+		{
+			$Lien .= ", " . $Valeur;
+		}
+//		else if ( is_array($Valeur) )
+//		{
+//			$Lien .= ", " . serialize_array($Valeur);
+//		}
+		else
+		{
+			$Lien .= ", '" . $Valeur . "'";
+		}
 	}
 	
 	$Lien .= ")";
 	return $Lien;
 }
 
+function serialize_array(&$array, $root = '$root', $depth = 0)
+{
+        $items = array();
+		$Tableau = "";
+        foreach($array as $key => &$value)
+        {
+                if(is_array($value))
+                {
+                        serialize_array($value, $root . '[\'' . $key . '\']', $depth + 1);
+                }
+                else
+                {
+                        $items[$key] = $value;
+                }
+        }
 
+        if(count($items) > 0)
+        {
+                $Tableau .= 'array(';
+
+                $prefix = '';
+                foreach($items as $key => &$value)
+                {
+                    $Tableau .= ( is_numeric(&$value) ) ? $prefix . '\'' . $key . '\' => ' . $value  : $prefix . '\'' . $key . '\' => \'' . addslashes($value) . '\'';
+                    $prefix = ', ';
+                }
+
+                $Tableau .= ')';
+        }
+    return $Tableau;
+}
 
 /* Insérer un message
 
@@ -210,7 +251,7 @@ Durée			: Durée d'affichage
 function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Couleur, $Duree)
 {
 	$sql = "INSERT INTO Message (MessagePartie, MessageDestinataire, MessageExclus, MessageTitre, MessageTexte, MessageSource, MessageTime, MessageCouleur, MessageDuree)
-		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . $Titre . "', '" . $Texte . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
+		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . $Titre . "', '" . htmlspecialchars(addslashes($Texte)) . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
 	mysql_query($sql) or die('Erreur SQL #29 Message<br />'.$sql.'<br />'.mysql_error());	
 }
 
@@ -350,6 +391,8 @@ function Production($Partie, $Etat)
 				$DureeCarre			= ( $EtatFamineLocale * $EtatFamineLocale ) / 3600;
 				$PopulationMorte	= round( $Coefficient * ( ( $PopulationMourrante / 100) * ( 10 + $DureeCarre ) ) );
 				$CroissanceLocale 	= ( $data['TerritoireCroissance'] > 0 ) ? $data['TerritoireCroissance'] - (2*$Coefficient) : 0 ;
+				$CroissanceLocale	= $CroissanceLocale < -0.2 ? -0.2 : $CroissanceLocale;
+				
 				/* Formule
 				La population qui doit mourir maintenant, chaque minute, est égale à
 				(10 + X )% de la Population Mourrante (c'est à dire en surplus),
@@ -429,6 +472,9 @@ function Production($Partie, $Etat)
 	Message($Partie, $Recherche["EtatJoueur"], "Production", "Production effectuée", 0, "", "noire", 5);
 }
 
+/*
+Capture d'un territoire
+*/
 function CaptureTerritoire($Partie, $Placement, $Joueur, $Etat, $LieuID, $isTerritoire)
 {
 	global $NombreTerritoireAuDebut;
@@ -561,12 +607,77 @@ function CaptureTerritoire($Partie, $Placement, $Joueur, $Etat, $LieuID, $isTerr
 }
 
 
+/* Réaliser une Transaction (paiement, échange...)
+Partie			: ID de la partie
+Joueur			: ID du joueur
+Etat			: ID de son Etat
+Donnees			: Array(
+					"TypeDePoint" => +/- X,
+					"TypeDePoint2" => +/- X
+				   );
+Verification	: TRUE On ne fait que vérifier que la transaction est possible
+					   et que le joueur a assez de ressources
+				  FALSE On procède à la transaction dans son ensemble
+				
+DestinataireEtat : ID de l'Etat destinataire, s'il y en a un
+
+return TRUE ou FALSE;
+*/
+function Transaction($Partie, $Joueur, $Etat, $Donnees, $Verification, $DestinataireEtat=false)
+{
+	$Requete = "";
+	$RequeteDestinataire = "";
+
+	foreach ($Donnees as $TypeDePoint => $Valeur)
+	{
+		$Requete .= ( $Verification ) ? ", " . $TypeDePoint : ", " . $TypeDePoint . " = " . $TypeDePoint . " + " . $Valeur;
+		$RequeteDestinataire .= ", " . $TypeDePoint . " = " . $TypeDePoint . " - " . $Valeur;
+	}
+	
+	if ( $Verification )
+	{
+		$sql = "SELECT EtatJoueur " . $Requete . "
+			FROM Etat
+			WHERE EtatID = " . $Etat;
+		$req = mysql_query($sql) or die('Erreur SQL # 61!<br />'.$sql.'<br />'.mysql_error());
+		$data = mysql_fetch_array($req);
+		foreach ($Donnees as $TypeDePoint => $Valeur)
+		{
+			if ( $data[$TypeDePoint] + $Valeur < 0 )
+			{
+				// On arrive ici, c'est sur
+				return false;
+			}
+		}
+	}
+	else
+	{	
+		$sql = "UPDATE Etat
+			SET EtatJoueur = EtatJoueur" . $Requete . "
+				WHERE EtatID = " . $Etat;
+		mysql_query($sql) or die('Erreur SQL #059<br />'.$sql.'<br />'.mysql_error());
+
+		if ( $DestinataireEtat )
+		{
+			$sql = "UPDATE Etat
+				SET EtatJoueur = EtatJoueur" . $RequeteDestinataire . "
+					WHERE EtatID = " . $DestinataireEtat;
+			mysql_query($sql) or die('Erreur SQL #060<br />'.$sql.'<br />'.mysql_error());
+		}
+	}
+	return true;
+}
+
+
 /* Attribut permet de récupérer une ou plusieurs valeurs d'une table
 
 ReferenceValeur : la valeur d'un champ primary key (ID) de la table. Ex: 5 = l'ID de la Partie, ou d'un Etat
 Type			: la table dont il faut extraire une donnée
 Attribut		: le ou les s champs dont il faut trouver la valeur
 				  Cela peut être un tableau ou un champ unique
+				  
+Exemple 		: Nom d'un joueur
+				  Attribut(ID_du_joueur, "Joueur", "JoueurNom");
 				  
 Return 			: FALSE s'il y a une erreur ou que la valeur n'est pas trouvée
 				  Un tableau si Attribut est un tableau

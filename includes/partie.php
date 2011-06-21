@@ -82,18 +82,21 @@ function Production(Boucle)
 }
 
 /* Création d'un effet */
-function EffetCreer(Bidon, CibleType, CibleID, SourceType, SourceID, Nom, TimeDebut, TimeFin, Table, Variable, Type, Valeur)
+function EffetCreer(Bidon, CibleType, CibleID, SourceType, SourceID, Nom, TimeDebut, TimeFin, Table, Variable, Type, Valeur, Cout)
 {
 	var PartieID 	= $('#Partie').val();
 	var JoueurID 	= $('#Joueur').val();
+	var EtatID 		= $('#Etat').val();
 	$.ajax(
 	{
 		type: "POST",
 		url: "./includes/ajax/partie.php",
-		data: "mode=EffetCreer&Partie="+PartieID+"&Joueur="+JoueurID+"&CibleType="+CibleType+"&CibleID="+CibleID+"&SourceType="+SourceType+"&SourceID="+SourceID+"&Nom="+Nom+"&TimeDebut="+TimeDebut+"&TimeFin="+TimeFin+"&Table="+Table+"&Variable="+Variable+"&Type="+Type+"&Valeur="+Valeur
+		data: "mode=EffetCreer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&CibleType="+CibleType+"&CibleID="+CibleID+"&SourceType="+SourceType+"&SourceID="+SourceID+"&Nom="+Nom+"&TimeDebut="+TimeDebut+"&TimeFin="+TimeFin+"&Table="+Table+"&Variable="+Variable+"&Type="+Type+"&Valeur="+Valeur+"&Cout="+Cout
 	}
 	);
-	setTimeout("CarteChargement(false)",500);
+	setTimeout("CarteChargement(false)",200);
+	setTimeout("Population(false)",200);
+	setTimeout("MessageLire(false)",200);
 
 }
 

@@ -220,22 +220,25 @@ switch ( $mode )
 					}
 					$time = time();
 					$ModelEffet	= Array(
-						"CibleType" => "TERRITOIRE",
-						"CibleID" => $Territoire,
-						"SourceType" => "ETAT",
-						"SourceID" => $TerritoireEtat,
-						"Nom" => "Bonus de défense + 10",
-						"TimeDebut" => time(),
-						"TimeFin" => time()+660,
-						"Table" => "Territoire",
-						"Variable" => "TerritoireDefense",
-						"Type" => "ADDITION",
-						"Valeur" => 10
+						"CibleType" 	=> "TERRITOIRE",
+						"CibleID" 		=> $Territoire,
+						"SourceType" 	=> "ETAT",
+						"SourceID"	 	=> $TerritoireEtat,
+						"Nom" 			=> "Bonus de défense + 10",
+						"TimeDebut" 	=> time(),
+						"TimeFin" 		=> time()+660,
+						"Table" 		=> "Territoire",
+						"Variable" 		=> "TerritoireDefense",
+						"Type" 			=> "ADDITION",
+						"Valeur" 		=> 10,
+//						"Cout"			=> Array("EtatPointMilitaire" => -10, "EtatOr" => -10)
+						"Cout"			=> ""
 					);
+			
 					$LienEffet = FormaterLien("EffetCreer", $ModelEffet);
 					$LienGeneral = "";
 					$message .= "<br /><a href=\"#\" onClick=".$LienGeneral.">Créer un général</a> : ";
-					$message .= "<br /><a href=\"#\" onClick=\"".$LienEffet."\">Créer un bonus défensif</a> : ";
+					$message .= "<br />".$LienEffet."<a href=\"#\" onClick=\"".$LienEffet."\">Créer un bonus défensif</a> : ";
 				break;
 			}
 		}
@@ -246,6 +249,8 @@ switch ( $mode )
 	break;
 	
 	case "EffetCreer":
+		$Partie 	= $_POST['Partie'];
+		$Etat 		= $_POST['Etat'];
 		$Joueur 	= $_POST['Joueur'];
 		$CibleType 	= $_POST['CibleType'];
 		$CibleID 	= $_POST['CibleID'];
@@ -258,16 +263,35 @@ switch ( $mode )
 		$Variable 	= $_POST['Variable'];
 		$Type 		= $_POST['Type'];
 		$Valeur 	= $_POST['Valeur'];
+		$Cout 		= Array("EtatPointMilitaire" => -10, "EtatOr" => -10);
 
+		// Cela coute t'il de l'argent ?
+		if ( is_array($Cout) )
+		{
+			// Si oui, On vérifie que le Joueur a les ressources suffisantes
+			if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+			{
+				Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
+				break;
+			}
+		}
+
+		// On réalise l'effet
 		$Succes		= Effet($CibleType, $CibleID, $SourceType, $SourceID, $Nom, $TimeDebut, $TimeFin, $Table, $Variable, $Type, $Valeur);
 		if ( $Succes )
 		{
+			if ( is_array($Cout) )
+			{
+				// On transmet les ressources au joueur
+				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+			}
 			Message($Partie, $Joueur, "Effet", "Création réussie", 0, "", "noire", 10);
 		}
 		else
 		{
 			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
 		}
+
 	break;
 	
 	case "Production":

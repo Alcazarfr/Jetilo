@@ -52,6 +52,8 @@ switch ( $mode )
 		$Type 		= $explode[1];
 		$Reference 	= $explode[2];
 		
+		$MessageNom = $Reference;
+		
 		$message = FALSE;
 		switch ( $Type )
 		{
@@ -80,6 +82,7 @@ switch ( $mode )
 					SET " . $Type . " = '" . $ChampValeur . "'
 						WHERE JoueurID = " . $Reference;
 				mysql_query($sql) or die('Erreur SQL #037<br />'.$sql.'<br />'.mysql_error());
+				$MessageNom = Attribut($Reference, "Joueur", "JoueurNom");
 			break;
 			
 			case "EtatPopulationCivil":
@@ -124,10 +127,16 @@ switch ( $mode )
 			case "EtatCouleur":
 			case "EtatPopulation":
 			case "EtatCroissance":
+			case "EtatPointCivil":
+			case "EtatPointReligion":
+			case "EtatPointCommerce":
+			case "EtatPointMilitaire":
+			case "EtatOr":
 				$sql = "UPDATE Etat
 					SET " . $Type . " = '" . $ChampValeur . "'
 						WHERE EtatID = " . $Reference;
 				mysql_query($sql) or die('Erreur SQL #041<br />'.$sql.'<br />'.mysql_error());
+			$MessageNom = Attribut($Reference, "Etat", "EtatNom");
 			break;
 			case "TerritoireNom":
 			case "TerritoireJoueur":
@@ -137,11 +146,12 @@ switch ( $mode )
 					SET " . $Type . " = '" . $ChampValeur . "'
 						WHERE TerritoireID = " . $Reference;
 				mysql_query($sql) or die('Erreur SQL #042<br />'.$sql.'<br />'.mysql_error());
+			$MessageNom = Attribut($Reference, "Territoire", "TerritoireNom");
 			break;
 		}
 		if ( !$message )
 		{
-			Message($Partie, 0, "Administration", $Type . " = " . $ChampValeur . " pour " . $Reference, 0, "", "noire", 5);
+			Message($Partie, 0, "Administration", $Type . " = " . $ChampValeur . " pour " . $MessageNom, 0, "", "noire", 5);
 		}
 		$message = $ChampValeur;
 	break;
@@ -226,6 +236,11 @@ switch ( $mode )
 			<td>Couleur</td>
 			<td>Population</td>
 			<td>Croissance</td>
+			<td>Pts civil</td>
+			<td>Pts commerce</td>
+			<td>Pts militaire</td>
+			<td>Pts religion</td>
+			<td>Or</td>
 			</tr>';
 			
 		$sql = "SELECT j.*, e.*
@@ -244,6 +259,11 @@ switch ( $mode )
 			<td><div class=\"edit\" id=\"".$Partie."-EtatCouleur-".$data['EtatID']."\">".$data['EtatCouleur']."</div></td>
 			<td><div class=\"edit\" id=\"".$Partie."-EtatPopulation-".$data['EtatID']."\">".$data['EtatPopulation']."</div></td>
 			<td><div class=\"edit\" id=\"".$Partie."-EtatCroissance-".$data['EtatID']."\">".$data['EtatCroissance']."</div></td>
+			<td><div class=\"edit\" id=\"".$Partie."-EtatPointCivil-".$data['EtatID']."\">".$data['EtatPointCivil']."</div></td>
+			<td><div class=\"edit\" id=\"".$Partie."-EtatPointCommerce-".$data['EtatID']."\">".$data['EtatPointCommerce']."</div></td>
+			<td><div class=\"edit\" id=\"".$Partie."-EtatPointMilitaire-".$data['EtatID']."\">".$data['EtatPointMilitaire']."</div></td>
+			<td><div class=\"edit\" id=\"".$Partie."-EtatPointReligion-".$data['EtatID']."\">".$data['EtatPointReligion']."</div></td>
+			<td><div class=\"edit\" id=\"".$Partie."-EtatOr-".$data['EtatID']."\">".$data['EtatOr']."</div></td>
 			</tr>";
 		}  
 		mysql_free_result($req);  
