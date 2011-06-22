@@ -112,6 +112,24 @@ switch ( $mode )
 		
 	break;
 	
+	case "EtatInformations":
+		$Joueur 	= $_POST['Joueur'];
+		$Etat	 	= $_POST['Etat'];
+		
+		$sql = "SELECT *
+			FROM Etat
+			WHERE EtatID = " . $Etat;
+		$req = mysql_query($sql) or die('Erreur SQL #038<br />'.$sql.'<br />'.mysql_error());
+		if ( $data = mysql_fetch_array($req) )
+		{
+			$message .= "<b><a href='#Etat' class='pointille' onClick='EtatInformations(".$Etat.")'>" . $data['EtatNom'] . "</a></b><br />";
+			$message .= Attribut($data['EtatJoueur'], "Joueur", "JoueurNom") . "<br />";
+			$message .= "<br />Territoires: " . $data['EtatTerritoires'];
+			$message .= "<br />Population: " . $data['EtatPopulation'];
+
+		}
+	break;
+	
 	case "territoireInformations":
 		$Joueur 	= $_POST['Joueur'];
 		$Territoire = $_POST['Territoire'];
@@ -153,12 +171,12 @@ switch ( $mode )
 					if ( $TerritoireTerrain )
 					{
 						$message .= "<br />";
-						$message .= $TerritoireEtat ? Attribut($TerritoireEtat, "Etat", "EtatNom") : "Terra Incognita";
+						$message .= $TerritoireEtat ? "<a href='#Etat' class='pointille' onClick='EtatInformations(".$TerritoireEtat.")'>" . Attribut($TerritoireEtat, "Etat", "EtatNom") . "</a>" : "Terra Incognita";
 					}
 					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants (".round($data['TerritoireCroissance'],1)."%)<br /><br />";
 					$message .= "<br /><br />" . TerritoireAcces($TerritoireID);
 					
-					$TerritoireDefense 	= $data['TerritoireDefense'];
+					$TerritoireDefense 	= ChercherEffet("TERRITOIRE", $Territoire, "TerritoireDefense", $data['TerritoireDefense']);
 					if ( $TerritoireDefense > 500 )
 					{
 						$TerritoireDefenseTexte = "Imprenable";
@@ -219,6 +237,38 @@ switch ( $mode )
 					{
 						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmees;
 					}
+					$time = time();
+					$ModelEffet	= Array(
+						"CibleType" 	=> "TERRITOIRE",
+						"CibleID" 		=> $TerritoireID,
+						"SourceType" 	=> "ETAT",
+						"SourceID"	 	=> $TerritoireEtat,
+						"Nom" 			=> "Bonus de défense + 10",
+						"TimeDebut" 	=> time(),
+						"TimeFin" 		=> time()+660,
+						"Table" 		=> "Territoire",
+						"Variable" 		=> "TerritoireDefense",
+						"Type" 			=> "ADDITION",
+						"Valeur" 		=> 10,
+//						"Cout"			=> Array("EtatPointMilitaire" => -10, "EtatOr" => -10)
+						"Cout"			=> ""
+					);
+					$LienEffet = FormaterLien("EffetCreer", $ModelEffet);
+					
+					$ModelAgent = Array(
+						"Nom" 			=> "Rondont",
+						"Statut"	 	=> 0,
+						"Secret" 		=> 0,
+						"Territoire" 	=> $TerritoireID,
+						"CapaciteFurtivite"	=> 10,
+						"CapaciteVitesse" 	=> 5,
+						"CapaciteReussite" 	=> 20,
+						"Type" 			=> "Général"
+					);
+					$LienGeneral = FormaterLien("AgentCreer", $ModelAgent);
+					
+					$message .= "<br /><a href=\"#\" onClick=\"".$LienGeneral."\">Créer un général</a> : ";
+					$message .= "<br /><a href=\"#\" onClick=\"".$LienEffet."\">Créer un bonus défensif</a> : ";
 				break;
 			}
 		}
@@ -226,6 +276,93 @@ switch ( $mode )
 		{
 			$message = "Le territoire n'existe pas";
 		}
+	break;
+
+	case "AgentCreer":
+		$Partie 			= $_POST['Partie'];
+		$Etat 				= $_POST['Etat'];
+		$Joueur 			= $_POST['Joueur'];
+		$Nom 				= $_POST['Nom'];
+		$Statut 			= $_POST['Statut'];
+		$Secret 			= $_POST['Secret'];
+		$Territoire 		= $_POST['Territoire'];
+		$CapaciteFurtivite 	= $_POST['CapaciteFurtivite'];
+		$CapaciteVitesse 	= $_POST['CapaciteVitesse'];
+		$CapaciteReussite 	= $_POST['CapaciteReussite'];
+		$Type 				= $_POST['Type'];
+		$Cout 				= Array("EtatPointMilitaire" => -10, "EtatOr" => -10);
+
+		// Cela coute t'il de l'argent ?
+		if ( is_array($Cout) )
+		{
+			// Si oui, On vérifie que le Joueur a les ressources suffisantes
+			if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+			{
+				Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
+				break;
+			}
+		}
+
+		// On réalise l'effet
+		$Succes		= Agent($Nom, $Etat, $Statut, $Secret, $Territoire, $CapaciteFurtivite, $CapaciteVitesse, $CapaciteReussite, $Type);
+		if ( $Succes )
+		{
+			if ( is_array($Cout) )
+			{
+				// On transmet les ressources au joueur
+				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+			}
+			Message($Partie, $Joueur, "Effet", "Agent crée", 0, "", "noire", 10);
+		}
+		else
+		{
+			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
+		}
+	break;
+	case "EffetCreer":
+		$Partie 	= $_POST['Partie'];
+		$Etat 		= $_POST['Etat'];
+		$Joueur 	= $_POST['Joueur'];
+		$CibleType 	= $_POST['CibleType'];
+		$CibleID 	= $_POST['CibleID'];
+		$AgentEtat 	= $_POST['SourceType'];
+		$SourceID 	= $_POST['SourceID'];
+		$Nom 		= $_POST['Nom'];
+		$TimeDebut 	= $_POST['TimeDebut'];
+		$TimeFin 	= $_POST['TimeFin'];
+		$Table 		= $_POST['Table'];
+		$Variable 	= $_POST['Variable'];
+		$Type 		= $_POST['Type'];
+		$Valeur 	= $_POST['Valeur'];
+		$Cout 		= Array("EtatPointMilitaire" => -10, "EtatOr" => -10);
+
+		// Cela coute t'il de l'argent ?
+		if ( is_array($Cout) )
+		{
+			// Si oui, On vérifie que le Joueur a les ressources suffisantes
+			if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+			{
+				Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
+				break;
+			}
+		}
+
+		// On réalise l'effet
+		$Succes		= Effet($CibleType, $CibleID, $SourceType, $SourceID, $Nom, $TimeDebut, $TimeFin, $Table, $Variable, $Type, $Valeur);
+		if ( $Succes )
+		{
+			if ( is_array($Cout) )
+			{
+				// On transmet les ressources au joueur
+				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+			}
+			Message($Partie, $Joueur, "Effet", "Création réussie", 0, "", "noire", 10);
+		}
+		else
+		{
+			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
+		}
+
 	break;
 	
 	case "Production":

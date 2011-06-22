@@ -1,18 +1,37 @@
 <?php
 
-//
-// Fonctions.php Reprend toutes les fonctions utilisées
-//
+/*
+
+ Fonctions.php Reprend toutes les fonctions utilisées
+ 
+ connectMaBase() 	: Connexion à la Base de données
+ Couleur()			: Colorer les données négatives ( <0 ) en rouge
+ adjectif()			: 
+ Agent() 			: Créer un agent
+ Effet()			: Créer un effet
+ ChercherEffet()	: Renvoie la valeur d'une variable soumise à un effet
+ FormaterLien()		: Formater la fonction pour créer un agent ou un effet
+ Message()			: Ajouter un message
+ TerritoireAcces()	: Etudier la carte pour trouver la distance entre deux territoires ou ses voisins
+ Production()		: Produire des points, faire évoluer la population
+ CaptureTerritoire(): Capturer un territoire
+ Transaction		: Réaliser une transaction
+ Attribut()			: Retourner une ou plusieurs variables de la BDD
+ 
+*/
 
 // 
 // Connexion à la Base de données
 //
 function connectMaBase()
 {
-    $base = mysql_connect('localhost', 'root', 'root');  
+	global $MotDePasse;
+	
+    $base = mysql_connect('localhost', 'root', $MotDePasse);  
     mysql_select_db ('jet', $base) ;
 }
 
+// Si $var est négatif, on la colore en rouge
 function Couleur($var)
 {
 	$return = ( $var < 0 ) ? "<font color=\"FF0000\"><b>" . $var . "</b></font>" : "<b>" . $var . "</b>";
@@ -34,6 +53,207 @@ function adjectif($nombre)
 	return $adjectif;
 }
 
+
+/* Créer un agent
+
+AgentNom		: Nom de l'agent
+AgentEtat		: Etat propriétaire de l'Agent
+AgentEtatOrigine: Etat qui pense être propriétaire de l'agent, qui, pour sa part, a retourné sa veste...
+AgentStatut		: 1 = l'agent est en opération ;
+				  0 = il attend ;
+				  -1 = il est compromis, en prison dans le lieu précisié par AgentTerritoire.
+AgentSecret		: L'agent est il secret (1) ou public (0) ?
+AgentTerritoire	: Lieu où l'agent opère, se repose ou est en prison
+AgentCapaciteFurtivite	: Capacité à être détecté par le contre-espionnage
+AgentCapaciteVitesse	: Capacité à se déplacer et à réaliser plus vite ses actions
+AgentCapaciteReussite	: Capacité à réussir une action ou à être plus efficace
+AgentType		: Type d'agent ("Agitateur", "Pretre", "Emissaire") ...
+
+*/
+function Agent($AgentNom, $AgentEtat, $AgentStatut, $AgentSecret, $AgentTerritoire, $AgentCapaciteFurtivite, $AgentCapaciteVitesse, $AgentCapaciteReussite, $AgentType)
+{
+	$sql = "INSERT INTO Agent (AgentNom, AgentEtat, AgentEtatOrigine, AgentStatut, AgentSecret, AgentTerritoire, AgentCapaciteFurtivite, AgentCapaciteVitesse, AgentCapaciteReussite, AgentType, AgentTime)
+		VALUES ('".$AgentNom."', " . $AgentEtat . ", " . $AgentEtat . ", " . $AgentStatut . ", " . $AgentSecret . ", " . $AgentTerritoire . ", " . $AgentCapaciteFurtivite . ", " . $AgentCapaciteVitesse . ", " . $AgentCapaciteReussite . ", '" . $AgentType . "', " . time() . ")";
+	mysql_query($sql) or die('Erreur SQL #57 Message<br />'.$sql.'<br />'.mysql_error());	
+
+	return true;
+}
+
+
+
+/* Insérer un effet : bonus ou malus sur un territoire, un Etat, un agent...
+
+EffetID 		: ID de l'effet, automatique
+EffetCibleType 	: ETAT -> Effet national (ex: Révolte -5%)
+				  TERRITOIRE -> Effet local (ex : Croissance du territoire + 5%)
+				  AGENT -> Furtivité de l'agent +5pts, Rapidité+30%, etc.
+EffetCibleID	: ID de l'Etat, du territoire ou de l'agent
+EffetSourceType : A qui ou quoi doit-on cet effet ?
+				  AGENT -> Effet du à l'action d'un agent (à défaire lorsque l'agent part)
+				  TECHNOLOGIE ->
+				  CARTE -> Carte spéciale
+EffetSourceID	: ID de la source
+EffetNom		: Nom de l'effet (ex: "Productivité militaire + 5%)
+EffetTimeDebut	: timestamp du début de l'effet
+EffetTimeFin	: timestamp de la fin de l'effet
+EffetTable		: table surlaquelle il y a un effet
+EffetVariable	: Variable impactée par l'effet (TerritoireCroissance, EtatPopulation)
+EffetType		: Que se passera t'il? SUBSTITUTION (remplacement), ADDITION, SOUSTRACTION, DIVISION, MULTIPLICATION
+EffetValeur		: Valeur (0.25 ; 16 ; -3.5)
+
+*/
+function Effet($EffetCibleType, $EffetCibleID, $EffetSourceType, $EffetSourceID, $EffetNom, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur)
+{
+	$sql = "INSERT INTO Effet (EffetCibleType, EffetCibleID, EffetSourceType, EffetSourceID, EffetNom, EffetTimeDebut, EffetTimeFin, EffetTable, EffetVariable, EffetType, EffetValeur)
+		VALUES ('".$EffetCibleType."', " . $EffetCibleID . ", '" . $EffetSourceType . "', " . $EffetSourceID . ", '" . $EffetNom . "', " . $EffetTimeDebut . ", " . $EffetTimeFin . ", '" . $EffetTable . "', '" . $EffetVariable . "', '" . $EffetType . "', " . $EffetValeur . ")";
+	mysql_query($sql) or die('Erreur SQL #56 Message<br />'.$sql.'<br />'.mysql_error());	
+
+	return true;
+}
+
+
+/* Chercher un effet
+
+SourceType		: TERRITOIRE, ETAT, AGENT...
+SourceID		: ID de la source
+Variable		: Variable qui subit, peut être, un effet
+Valeur			: Valeur originelle, sans effet, de la variable
+
+*/
+function ChercherEffet($SourceType, $SourceID, $SourceVariable, $SourceValeur)
+{
+	switch ( $SourceType )
+	{
+		case "TERRITOIRE" :
+			$Table = "Territoire";
+		break;
+	}
+	
+	$Resultat = $SourceValeur;
+	$sql = "SELECT *
+		FROM Effet
+		WHERE EffetCibleType = '" . $SourceType . "'
+			AND EffetCibleID = " . $SourceID . "
+			AND EffetTimeDebut <= " . time() . "
+			AND EffetTimeFin >= " . time() . "
+			AND EffetVariable = '" . $SourceVariable . "'
+		ORDER BY EffetID ASC";
+	$req = mysql_query($sql) or die('Erreur SQL #042<br />'.$sql.'<br />'.mysql_error());
+	while ($data = mysql_fetch_array($req) )
+	{
+		switch ( $data['EffetType'] )
+		{
+			case "ADDITION" :
+				$Resultat += $data['EffetValeur'];
+			break;
+			case "SOUSTRACTION" :
+				$Resultat -= $data['EffetValeur'];
+			break;
+			case "MULTIPLICATION" :
+				$Resultat *= $data['EffetValeur'];
+			break;
+			case "DIVISION" :
+				$Resultat = round($Resultat / $data['EffetValeur']);
+			break;
+			case "SUBSTITUTION" :
+				$Resultat = $data['EffetValeur'];
+			break;
+		}
+	}
+	return $Resultat;
+}
+
+
+
+/* Créer le lien Ajax vers Partie.php, qui appellera la fonction Effet ou Agent
+
+Utilité : générer le lien pour créer un agent ou un effet est long. D'où cette fonction.
+1. On remplit le tableau ci-dessous
+2. On
+
+
+Exemple : Création d'un agent puis d'un effet
+	  	  Dans 1 minute et pour 10 minutes,
+		  un agent (ID=33) réduit la croissance d'un territoire (ID=6) de 10%
+		  (=multiplication par 0.9)
+
+1. Remplissable du tableau
+$ModelEffet	= Array(
+	"CibleType" => "TERRITOIRE",
+	"CibleID" => 6,
+	"SourceType" => "AGENT",
+	"SourceID" => 33,
+	"Nom" => "Reduction Croissance",
+	"TimeDebut" => time() + 60,
+	"TimeFin" => time() + 660,
+	"Table" => "Territoire",
+	"Variable" => "TerritoireCroissance",
+	"Type" => "MULTIPLICATION",
+	"Valeur" => 0.90
+);
+
+2. Appel de la fonction
+$Lien = FormaterLien("Effet", $ModelEffet);
+
+3. On insère le lien
+
+*/
+function FormaterLien($Mode, $Tableau)
+{
+	$Lien = $Mode . "('Bidon'";
+	
+	foreach ($Tableau as $Cle => $Valeur)
+	{
+		if ( is_numeric($Valeur) )
+		{
+			$Lien .= ", " . $Valeur;
+		}
+//		else if ( is_array($Valeur) )
+//		{
+//			$Lien .= ", " . serialize_array($Valeur);
+//		}
+		else
+		{
+			$Lien .= ", '" . $Valeur . "'";
+		}
+	}
+	
+	$Lien .= ")";
+	return $Lien;
+}
+
+function serialize_array(&$array, $root = '$root', $depth = 0)
+{
+        $items = array();
+		$Tableau = "";
+        foreach($array as $key => &$value)
+        {
+                if(is_array($value))
+                {
+                        serialize_array($value, $root . '[\'' . $key . '\']', $depth + 1);
+                }
+                else
+                {
+                        $items[$key] = $value;
+                }
+        }
+
+        if(count($items) > 0)
+        {
+                $Tableau .= 'array(';
+
+                $prefix = '';
+                foreach($items as $key => &$value)
+                {
+                    $Tableau .= ( is_numeric(&$value) ) ? $prefix . '\'' . $key . '\' => ' . $value  : $prefix . '\'' . $key . '\' => \'' . addslashes($value) . '\'';
+                    $prefix = ', ';
+                }
+
+                $Tableau .= ')';
+        }
+    return $Tableau;
+}
+
 /* Insérer un message
 
 Partie 			: ID de la Partie
@@ -50,7 +270,7 @@ Durée			: Durée d'affichage
 function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Couleur, $Duree)
 {
 	$sql = "INSERT INTO Message (MessagePartie, MessageDestinataire, MessageExclus, MessageTitre, MessageTexte, MessageSource, MessageTime, MessageCouleur, MessageDuree)
-		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . $Titre . "', '" . $Texte . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
+		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . $Titre . "', '" . htmlspecialchars(addslashes($Texte)) . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
 	mysql_query($sql) or die('Erreur SQL #29 Message<br />'.$sql.'<br />'.mysql_error());	
 }
 
@@ -100,7 +320,6 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 			$x = $Combinaison[$i][0];
 			$y = $Combinaison[$i][1];
 			
-			$Erreur .= "<br />X = " . $x . " - Y = " . $y;
 			$sql2 = "SELECT r.RegionID, t.TerritoireID, t.TerritoireNom
 				FROM Region r, Territoire t
 				WHERE r.RegionPartie = " . $RegionPartie . "
@@ -111,9 +330,9 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 			if ( $data2 = mysql_fetch_array($req2) )
 			{
 				$TerritoireID = $data2['TerritoireID'];
-				if ( !$TerritoireTrouve[$TerritoireID] )
+				if ( !@$TerritoireTrouve[$TerritoireID] )
 				{
-					$ListeTerritoire 	.= ( $Compteur == 0 ) ? "<a href=\"#" . $RegionTerritoireEnCours . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>": ", <a href=\"#" . $TerritoireID . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>";
+					$ListeTerritoire 	.= ( $Compteur == 0 ) ? "<a href=\"#" . $TerritoireID. "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>": ", <a href=\"#" . $TerritoireID . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>";
 					$Compteur++;
 					$TerritoireTrouve[$TerritoireID] = TRUE;
 				}
@@ -138,7 +357,8 @@ function Production($Partie, $Etat)
 	$EtatCroissance 	= $Recherche["EtatCroissance"];
 	
 	$Coefficient 		= ( time() - $DerniereProduction ) / $DureeTourProduction;
-
+	$Coefficient		= $Coefficient > 5 ? 5 : $Coefficient;
+	
 	// On trouve les infos des terrritoires du joueur pour créer celles de l'Etat
 	
 	// Population que l'on peut nourrir
@@ -175,6 +395,8 @@ function Production($Partie, $Etat)
 				$DureeCarre			= ( $EtatFamineLocale * $EtatFamineLocale ) / 3600;
 				$PopulationMorte	= round( $Coefficient * ( ( $PopulationMourrante / 100) * ( 10 + $DureeCarre ) ) );
 				$CroissanceLocale 	= ( $data['TerritoireCroissance'] > 0 ) ? $data['TerritoireCroissance'] - (2*$Coefficient) : 0 ;
+				$CroissanceLocale	= $CroissanceLocale < -0.2 ? -0.2 : $CroissanceLocale;
+				
 				/* Formule
 				La population qui doit mourir maintenant, chaque minute, est égale à
 				(10 + X )% de la Population Mourrante (c'est à dire en surplus),
@@ -217,7 +439,7 @@ function Production($Partie, $Etat)
 		}
 		//
 		
-		$EtatCroissance = round(($CroissanceTotale / $NombreTerritoire) *$Coefficient, 2);
+		$EtatCroissance = round(($CroissanceTotale / $EtatTerritoires) *$Coefficient, 2);
 	}
 	else
 	{
@@ -402,12 +624,77 @@ function CaptureTerritoire($Partie, $Placement, $Joueur, $Etat, $LieuID, $isTerr
 }
 
 
+/* Réaliser une Transaction (paiement, échange...)
+Partie			: ID de la partie
+Joueur			: ID du joueur
+Etat			: ID de son Etat
+Donnees			: Array(
+					"TypeDePoint" => +/- X,
+					"TypeDePoint2" => +/- X
+				   );
+Verification	: TRUE On ne fait que vérifier que la transaction est possible
+					   et que le joueur a assez de ressources
+				  FALSE On procède à la transaction dans son ensemble
+				
+DestinataireEtat : ID de l'Etat destinataire, s'il y en a un
+
+return TRUE ou FALSE;
+*/
+function Transaction($Partie, $Joueur, $Etat, $Donnees, $Verification, $DestinataireEtat=false)
+{
+	$Requete = "";
+	$RequeteDestinataire = "";
+
+	foreach ($Donnees as $TypeDePoint => $Valeur)
+	{
+		$Requete .= ( $Verification ) ? ", " . $TypeDePoint : ", " . $TypeDePoint . " = " . $TypeDePoint . " + " . $Valeur;
+		$RequeteDestinataire .= ", " . $TypeDePoint . " = " . $TypeDePoint . " - " . $Valeur;
+	}
+	
+	if ( $Verification )
+	{
+		$sql = "SELECT EtatJoueur " . $Requete . "
+			FROM Etat
+			WHERE EtatID = " . $Etat;
+		$req = mysql_query($sql) or die('Erreur SQL # 61!<br />'.$sql.'<br />'.mysql_error());
+		$data = mysql_fetch_array($req);
+		foreach ($Donnees as $TypeDePoint => $Valeur)
+		{
+			if ( $data[$TypeDePoint] + $Valeur < 0 )
+			{
+				// On arrive ici, c'est sur
+				return false;
+			}
+		}
+	}
+	else
+	{	
+		$sql = "UPDATE Etat
+			SET EtatJoueur = EtatJoueur" . $Requete . "
+				WHERE EtatID = " . $Etat;
+		mysql_query($sql) or die('Erreur SQL #059<br />'.$sql.'<br />'.mysql_error());
+
+		if ( $DestinataireEtat )
+		{
+			$sql = "UPDATE Etat
+				SET EtatJoueur = EtatJoueur" . $RequeteDestinataire . "
+					WHERE EtatID = " . $DestinataireEtat;
+			mysql_query($sql) or die('Erreur SQL #060<br />'.$sql.'<br />'.mysql_error());
+		}
+	}
+	return true;
+}
+
+
 /* Attribut permet de récupérer une ou plusieurs valeurs d'une table
 
 ReferenceValeur : la valeur d'un champ primary key (ID) de la table. Ex: 5 = l'ID de la Partie, ou d'un Etat
 Type			: la table dont il faut extraire une donnée
 Attribut		: le ou les s champs dont il faut trouver la valeur
 				  Cela peut être un tableau ou un champ unique
+				  
+Exemple 		: Nom d'un joueur
+				  Attribut(ID_du_joueur, "Joueur", "JoueurNom");
 				  
 Return 			: FALSE s'il y a une erreur ou que la valeur n'est pas trouvée
 				  Un tableau si Attribut est un tableau
