@@ -268,6 +268,9 @@ switch ( $mode )
 					
 					$message .= "<br /><a href=\"#\" onClick=\"".$LienGeneral."\">Créer un général</a> : ";
 					$message .= "<br /><a href=\"#\" onClick=\"".$LienEffet."\">Créer un bonus défensif</a> : ";
+					
+					$message .= "<br /><a href=\"#\" onClick=\"Modal()\">Click un</a>";
+					$message .= "<br /><a href=\"#\" rel=\"modal\">Click deux</a>";
 				break;
 			}
 		}

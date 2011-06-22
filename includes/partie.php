@@ -76,6 +76,34 @@ function TerritoireInformations(TerritoireID)
 	);
 }
 
+/* Affichage des infos sur un territoire */
+function Modal()
+{	
+   $('a[rel="modal"]:first').qtip(
+   {
+      id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
+      content: {
+         text: $('div:hidden'),
+         title: {
+            text: 'Modal qTip',
+            button: true
+         }
+      },
+      position: {
+         my: 'center', // ...at the center of the viewport
+         at: 'center',
+         target: $(window)
+      },
+      show: {
+         event: 'click', // Show it on click...
+         solo: true, // ...and hide all other tooltips...
+         modal: true // ...and make it modal
+      },
+      hide: false,
+      style: 'ui-tooltip-light ui-tooltip-rounded'
+   });
+}
+
 /* Production */
 function Production(Boucle)
 {
@@ -218,6 +246,7 @@ $(window).load(function(){
 
 
 </script>
+
 <div class="postgrand">
 	<table width="100%" style="border: none;" cellpadding="5">
 		<tr>
@@ -235,6 +264,49 @@ $(window).load(function(){
 			</td>
 		</tr>
 	</table>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function()
+{
+   $('a[rel="modal"]:first').qtip(
+   {
+      id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
+      content: {
+         text: $('div:hidden'),
+         title: {
+            text: 'Modal qTip',
+            button: true
+         }
+      },
+      position: {
+         my: 'center', // ...at the center of the viewport
+         at: 'center',
+         target: $(window)
+      },
+      show: {
+         event: 'click', // Show it on click...
+         solo: true, // ...and hide all other tooltips...
+         modal: true // ...and make it modal
+      },
+      hide: false,
+      style: 'ui-tooltip-light ui-tooltip-rounded'
+   });
+});
+
+</script>
+
+<div id="demo-modal">
+   <a href="#" rel="modal">Click here</a> to see a qTp modal dialog.
+ 
+   <div style="display: none;">
+      Heres an example of a natural extension to qTip... use as a <b>modal dialogue</b>!
+      <br /><br />
+      Much like the <a href="http://onehackoranother.com/projects/jquery/boxy/">Boxy</a> plugin, but if you're already
+      using qTip on your page, why not utilise the same library for your dailogues too?
+   </div>
+   
 </div>
 <div class="postgrand">
 	<div class="entry">

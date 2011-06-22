@@ -118,7 +118,7 @@ switch ( $mode )
 
 				echo "</td>";
 			}
-		echo "<tr>";
+			echo "<tr>";
 		}
 	break;
 

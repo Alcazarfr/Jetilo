@@ -164,19 +164,6 @@
 
 
 /* Modal plugin */
-
-#ui-tooltip-modal{
-   max-width: 420px;
- 
-   -moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-   -webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-   box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-}
- 
-#ui-tooltip-modal .ui-tooltip-content{
-   padding: 10px;
-}
-
 #qtip-overlay{
 	position: fixed;
 	left: -10000em;
