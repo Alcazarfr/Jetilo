@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<parametres>
+	<croissance>
+		<AugmentationCroissance>0.05</AugmentationCroissance>
+		<PlafondTempsFamine>600</PlafondTempsFamine>
+	</croissance>
+</parametres>

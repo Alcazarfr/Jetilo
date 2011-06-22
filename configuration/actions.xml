@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+	<action id="révolte">
+		<nom>Attirer une révolte</nom>
+		<description>Votre agent réduit la satisfaction de la population dans un territoire précis, de façon à favoriser l'émergence d'une révolte dans ce territoire</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Agent</type_source>
+		<coût_or>10</coût_or>
+		<coût_points_civils>15</coût_points_civils>
+		<effets type="liste">
+			<effet>
+				<délai>30</délai>
+				<durée>60</durée>
+				<table_concernée>Territoire</table_concernée>
+				<variable_concernée>TerritoireSatisfaction</variable_concernée>
+				<type_effet>Soustraction</type_effet>
+				<valeur>10</valeur>
+			</effet>
+			<effet>
+				<délai>60</délai>
+				<durée>120</durée>
+				<table_concernée>Territoire</table_concernée>
+				<variable_concernée>TerritoireSatisfaction</variable_concernée>
+				<type_effet>Soustraction</type_effet>
+				<valeur>5</valeur>
+			</effet>
+		</effets>
+	</action>
+	<action id="saper_moral">
+		<nom>Saper le moral d'une armée adverse</nom>
+		<description>Sappe le moral d'une armée adverse, afin d'en réduire l'efficacitée</description>
+		<type_cible>Armée</type_cible>
+		<type_source>Carte</type_source>
+		<coût_or>35</coût_or>
+		<coût_points_civils>5</coût_points_civils>
+		<effets type="liste">
+			<effet>
+				<délai>0</délai>
+				<durée>30</durée>
+				<table_concernée>Armee</table_concernée>
+				<variable_concernée>ArmeeDefense</variable_concernée>
+				<type_effet>Soustraction</type_effet>
+				<valeur>5</valeur>
+			</effet>
+			<effet>
+				<délai>0</délai>
+				<durée>120</durée>
+				<table_concernée>Armee</table_concernée>
+				<variable_concernée>ArmeeForce</variable_concernée>
+				<type_effet>Division</type_effet>
+				<valeur>1.5</valeur>
+			</effet>
+		</effets>
+	</action>
+</actions>
