@@ -39,6 +39,25 @@ function CarteChargement(Boucle)
 	}
 }
 
+/* Affichage des infos sur un Etat */
+function EtatInformations(EtatID)
+{
+	var PartieID 	= $('#Partie').val();
+	var JoueurID 	= $('#Joueur').val();
+	
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=EtatInformations&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID,
+		success:
+    		function(retour){
+			$("#leterritoire").empty().append(retour);
+			}
+	}
+	);
+}
+
 /* Affichage des infos sur un territoire */
 function TerritoireInformations(TerritoireID)
 {
@@ -79,6 +98,25 @@ function Production(Boucle)
 	{
 		setTimeout("Production(true)",60000);
 	}
+}
+
+/* Création d'un agent */
+function AgentCreer(Bidon, Nom, Statut, Secret, Territoire, CapaciteFurtivite, CapaciteVitesse, CapaciteReussite, Type)
+{
+	var PartieID 	= $('#Partie').val();
+	var JoueurID 	= $('#Joueur').val();
+	var EtatID 		= $('#Etat').val();
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=AgentCreer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&Nom="+Nom+"&Statut="+Statut+"&Secret="+Secret+"&Territoire="+Territoire+"&CapaciteFurtivite="+CapaciteFurtivite+"&CapaciteVitesse="+CapaciteVitesse+"&CapaciteReussite="+CapaciteReussite+"&Type="+Type
+	}
+	);
+	setTimeout("CarteChargement(false)",200);
+	setTimeout("Population(false)",200);
+	setTimeout("MessageLire(false)",200);
+
 }
 
 /* Création d'un effet */
@@ -190,7 +228,7 @@ $(window).load(function(){
 			</td>
 			<td width="50%" align="right" style="border: none;">
 				<?php
-					echo $JoueurNom . " - " . $EtatNom;
+					echo $JoueurNom . " - <a href='#Etat' onClick='EtatInformations(".$Etat.")'>" . $EtatNom . "</a>";
 					$Image = "./images/carte/" . $EtatCouleur . "/1-1-1-1.gif";
 					echo "&nbsp;&nbsp;<img src=\"" . $Image . "\" width=\"20px\">";
 				?>

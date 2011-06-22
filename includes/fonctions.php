@@ -1,18 +1,37 @@
 <?php
 
-//
-// Fonctions.php Reprend toutes les fonctions utilisées
-//
+/*
+
+ Fonctions.php Reprend toutes les fonctions utilisées
+ 
+ connectMaBase() 	: Connexion à la Base de données
+ Couleur()			: Colorer les données négatives ( <0 ) en rouge
+ adjectif()			: 
+ Agent() 			: Créer un agent
+ Effet()			: Créer un effet
+ ChercherEffet()	: Renvoie la valeur d'une variable soumise à un effet
+ FormaterLien()		: Formater la fonction pour créer un agent ou un effet
+ Message()			: Ajouter un message
+ TerritoireAcces()	: Etudier la carte pour trouver la distance entre deux territoires ou ses voisins
+ Production()		: Produire des points, faire évoluer la population
+ CaptureTerritoire(): Capturer un territoire
+ Transaction		: Réaliser une transaction
+ Attribut()			: Retourner une ou plusieurs variables de la BDD
+ 
+*/
 
 // 
 // Connexion à la Base de données
 //
 function connectMaBase()
 {
-    $base = mysql_connect('localhost', 'root', 'root');  
+	global $MotDePasse;
+	
+    $base = mysql_connect('localhost', 'root', $MotDePasse);  
     mysql_select_db ('jet', $base) ;
 }
 
+// Si $var est négatif, on la colore en rouge
 function Couleur($var)
 {
 	$return = ( $var < 0 ) ? "<font color=\"FF0000\"><b>" . $var . "</b></font>" : "<b>" . $var . "</b>";
@@ -51,13 +70,13 @@ AgentCapaciteReussite	: Capacité à réussir une action ou à être plus effica
 AgentType		: Type d'agent ("Agitateur", "Pretre", "Emissaire") ...
 
 */
-function Agent($AgentNom, $AgentEtat, $AgentEtatOrigine, $AgentStatut, $AgentSecret, $AgentTerritoire, $AgentCapaciteFurtivite, $AgentCapaciteVitesse, $AgentCapaciteReussite, $AgentType)
+function Agent($AgentNom, $AgentEtat, $AgentStatut, $AgentSecret, $AgentTerritoire, $AgentCapaciteFurtivite, $AgentCapaciteVitesse, $AgentCapaciteReussite, $AgentType)
 {
-	$sql = "INSERT INTO Message (AgentNom, AgentEtat, AgentEtatOrigine, AgentStatut, AgentSecret, AgentTerritoire, AgentCapaciteFurtivite, AgentCapaciteVitesse, AgentCapaciteReussite, EffetType, AgentType)
-		VALUES ('".$AgentNom."', " . $AgentEtat . ", " . $AgentEtatOrigine . ", " . $AgentStatut . ", " . $AgentSecret . ", " . $AgentTerritoire . ", " . $AgentCapaciteFurtivite . ", " . $AgentCapaciteVitesse . ", " . $AgentCapaciteReussite . ", " . $AgentType . ")";
+	$sql = "INSERT INTO Agent (AgentNom, AgentEtat, AgentEtatOrigine, AgentStatut, AgentSecret, AgentTerritoire, AgentCapaciteFurtivite, AgentCapaciteVitesse, AgentCapaciteReussite, AgentType, AgentTime)
+		VALUES ('".$AgentNom."', " . $AgentEtat . ", " . $AgentEtat . ", " . $AgentStatut . ", " . $AgentSecret . ", " . $AgentTerritoire . ", " . $AgentCapaciteFurtivite . ", " . $AgentCapaciteVitesse . ", " . $AgentCapaciteReussite . ", '" . $AgentType . "', " . time() . ")";
 	mysql_query($sql) or die('Erreur SQL #57 Message<br />'.$sql.'<br />'.mysql_error());	
 
-	return TRUE;
+	return true;
 }
 
 
@@ -89,7 +108,7 @@ function Effet($EffetCibleType, $EffetCibleID, $EffetSourceType, $EffetSourceID,
 		VALUES ('".$EffetCibleType."', " . $EffetCibleID . ", '" . $EffetSourceType . "', " . $EffetSourceID . ", '" . $EffetNom . "', " . $EffetTimeDebut . ", " . $EffetTimeFin . ", '" . $EffetTable . "', '" . $EffetVariable . "', '" . $EffetType . "', " . $EffetValeur . ")";
 	mysql_query($sql) or die('Erreur SQL #56 Message<br />'.$sql.'<br />'.mysql_error());	
 
-	return TRUE;
+	return true;
 }
 
 
