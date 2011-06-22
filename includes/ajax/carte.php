@@ -16,8 +16,9 @@ fclose($file);
 */
 
 // Inclusion des fonctions
-include '../../config.php';
-include '../fonctions.php';
+define('ROOT_PATH', '../../');
+include ROOT_PATH.'config.php';
+include ROOT_PATH.'includes/fonctions.php';
 
 // Connexion à la BDD
 connectMaBase();

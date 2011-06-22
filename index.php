@@ -1,8 +1,9 @@
 <?php
 
+define('ROOT_PATH', '');
 /* Inclusion des fichiers de configuration et de fonctions */
-include 'config.php';
-include 'includes/fonctions.php';
+include ROOT_PATH.'config.php';
+include ROOT_PATH.'includes/fonctions.php';
 
 /* Connexion à la Base de données */
 connectMaBase();
@@ -38,6 +39,14 @@ include 'includes/prepartie.php';
 	<link href="./css/style.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="./css/jquery.jgrowl.css" rel="stylesheet" type="text/css" media="screen" />
 	<link href="./css/jquery.qtip.css" rel="stylesheet" type="text/css" media="screen" />
+	
+<?php
+	if ($__DEBUG_CONFIG_RECHARGEE)
+	{
+		print ("<script type=\"text/javascript\">$(window).load(function(){ $.jGrowl('Configuration rechargée', { life: 5000, header : 'Debug' }); });</script>");
+	}
+?>
+	
 </head>
 <body>
 	<div id="logo">

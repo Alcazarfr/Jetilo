@@ -294,6 +294,8 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 	$TerritoireTrouve[$TerritoireOrigine] = TRUE;
 	$Compteur = 0;
 
+	$Erreur = "";
+
 	$sql = "SELECT RegionPartie, RegionID, RegionTerrain, RegionCoordonneeX, RegionCoordonneeY
 		FROM Region
 		WHERE RegionTerritoire = " . $TerritoireOrigine;
@@ -312,7 +314,7 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 		$Combinaison[2] = Array($RegionCoordonneeX - 1, $RegionCoordonneeY);
 		$Combinaison[3] = Array($RegionCoordonneeX + 1, $RegionCoordonneeY);
 		$Combinaison[4] = Array($RegionCoordonneeX, $RegionCoordonneeY + 1);
-
+		
 		for ( $i = 1; $i <= 4; $i++ )
 		{
 			$x = $Combinaison[$i][0];
@@ -342,23 +344,6 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 }
 
 
-
-/* Capturer un territoire 
-
-Partie 		: ID de la partie
-Placement 	: est on en phase de placement ? SI oui, TRUE. Si non, FALSE.
-			  Cela détermine si l'on doit, ou non, vérifier le nombre de territoires contrôlés
-Joueur		: ID du joueur
-			  S'il est vide, on le cherche avec Partie et Etat
-Etat		: ID de l'Etat du joueur.
-			  S'il est vide, on le cherche avec Partie et Joueur
-LieuID		: ID du lieu à capturer
-isTerritoire: Est ce un territoire? Si TRUE, oui. Si FALSE, c'est une région
-			  S'il s'agit d'une région, on détermine l'ID de son territoire
-			  
-Return 		: FALSE (Erreur) ou TRUE;
-
-*/
 
 function Production($Partie, $Etat)
 {
@@ -491,8 +476,21 @@ function Production($Partie, $Etat)
 	Message($Partie, $Recherche["EtatJoueur"], "Production", "Production effectuée", 0, "", "noire", 5);
 }
 
-/*
-Capture d'un territoire
+/* Capturer un territoire 
+
+Partie 		: ID de la partie
+Placement 	: est on en phase de placement ? SI oui, TRUE. Si non, FALSE.
+			  Cela détermine si l'on doit, ou non, vérifier le nombre de territoires contrôlés
+Joueur		: ID du joueur
+			  S'il est vide, on le cherche avec Partie et Etat
+Etat		: ID de l'Etat du joueur.
+			  S'il est vide, on le cherche avec Partie et Joueur
+LieuID		: ID du lieu à capturer
+isTerritoire: Est ce un territoire? Si TRUE, oui. Si FALSE, c'est une région
+			  S'il s'agit d'une région, on détermine l'ID de son territoire
+			  
+Return 		: FALSE (Erreur) ou TRUE;
+
 */
 function CaptureTerritoire($Partie, $Placement, $Joueur, $Etat, $LieuID, $isTerritoire)
 {
@@ -767,5 +765,19 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 	mysql_free_result($req);
 	return $resultat;
 }
+
+function print_debug($code)
+{
+	global $PARAMETRES;
+	global $ACTIONS;
+	
+	print("<pre style='background-color:white; margin-bottom:0px;'>$code</pre>\r\n");
+	print("<pre style='background-color:black; margin-top:0px; color:white;'>\r\n");
+	print_r(eval('return '.$code.';'));
+	print("</pre>\r\n");
+}
+
+include "configuration.php";
+initSession();
 
 ?>
