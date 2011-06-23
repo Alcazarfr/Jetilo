@@ -1,13 +1,9 @@
 <?php
 
-function initSession()
+function loadConfiguration()
 {	
 	global $__DEBUG_CONFIG_RECHARGEE;
 	$__DEBUG_CONFIG_RECHARGEE = false;
-		
-	$_SESSION = array();
-	
-	session_start();
 	
 	$files = scandir(ROOT_PATH.'configuration/');
 	

@@ -6,7 +6,7 @@
 // Inclusion des fonctions
 define('ROOT_PATH', '../../');
 include ROOT_PATH.'config.php';
-include ROOT_PATH.'includes/fonctions.php';
+include ROOT_PATH.'includes/init.php';
 
 
 // Connexion à la BDD
