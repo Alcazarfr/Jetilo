@@ -3,7 +3,7 @@
 define('ROOT_PATH', '');
 /* Inclusion des fichiers de configuration et de fonctions */
 include ROOT_PATH.'config.php';
-include ROOT_PATH.'includes/fonctions.php';
+include ROOT_PATH.'includes/init.php';
 
 /* Connexion à la Base de données */
 connectMaBase();

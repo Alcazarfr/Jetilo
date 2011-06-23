@@ -777,7 +777,5 @@ function print_debug($code)
 	print("</pre>\r\n");
 }
 
-include "configuration.php";
-initSession();
 
 ?>
