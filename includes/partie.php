@@ -336,11 +336,12 @@ $(window).load(function(){
 <div id="demo-modal">
     <a id="modal_2" href="#" class="modal">Ouvrir la modal 2</a>
     <a id="modal_test" href="#" class="modal">Ouvrir la modal test</a>
+    <a id="modal_5" href="#" class="modal">Ouvrir la modal 5</a>
 
    <div style="display: none;">
     <div id="titre_modal_1">Titre1</div>
     <div id="data_modal_1">Texte1</div>
-    <div id="titre_modal_2">TitreZ</div>
+    <div id="titre_modal_2">Titre2</div>
     <div id="data_modal_2">TT2</div>
     <div id="data_modal_3">TT3</div>
     <div id="titre_modal_test">tesst</div>

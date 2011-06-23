@@ -130,12 +130,6 @@ switch ( $mode )
 		}
 	break;
 	
-	case "Modal":
-		$Joueur 	= $_POST['Joueur'];
-		$Etat	 	= $_POST['Etat'];
-
-	break;
-	
 	case "territoireInformations":
 		$Joueur 	= $_POST['Joueur'];
 		$Territoire = $_POST['Territoire'];
@@ -262,6 +256,8 @@ switch ( $mode )
 					$message .= "<br /><a href=\"#\" onClick=\"ActionCreer('renforcer-defense', " . $TerritoireEtat . ", " . $TerritoireID . ")\">Créer un bonus défensif</a> : ";
 					
 					$message .= "<br /> <a href=\"#\" id=\"modal_1\" class=\"modal\">Ouvrir la modal 1</a>";
+					$message .= "<br /> <a href=\"#\" id=\"modal_5\" class=\"modal\">Ouvrir la modal 5 fonction</a>";
+					$message .= Modal("renforcer-defense", 5);
 					$message .= '<div style="display: none;">
     					<div id="titre_modal_4">Titre4</div>
     					<div id="data_modal_4">TT4</div></div>';
@@ -287,7 +283,7 @@ switch ( $mode )
 		$ActionSourceID = $_POST['SourceID'];
 		$ActionCibleID 	= $_POST['CibleID'];
 		
-		$ActionCibleType 		= strtoupper($ACTIONS->action[$ActionType]->type_cible);
+		$ActionCibleType 	= strtoupper($ACTIONS->action[$ActionType]->type_cible);
 		$ActionSourceType 	= strtoupper($ACTIONS->action[$ActionType]->type_source);
 
 

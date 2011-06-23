@@ -784,6 +784,29 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 }
 
 
+/* Modal : préparer les div pour une modal
+
+
+
+*/
+
+
+function Modal($ActionType, $ModalID)
+{
+	global $ACTIONS;
+	$Modal = "<div style='display: none;'><div id='titre_modal_" . $ModalID . "'>";
+	$ModalTitre = $ACTIONS->action[$ActionType]->nom;
+	$Modal .= $ModalTitre;
+	$Modal .= "</div>";
+	$Modal .= "<div id='data_modal_" . $ModalID . "'>";
+	$ModalContenu = "Texte";
+	$Modal .= $ModalContenu;
+	$Modal .= "</div></div>";
+	
+	return $Modal;
+}
+
+
 /* Supprimer permet de supprimer une ou plusieurs entrées de la BDD
 
 Table 		: Table dans laquelle on va supprimer la ou les entrées
