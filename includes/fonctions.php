@@ -239,6 +239,8 @@ function FormaterLien($Mode, $Tableau)
 	return $Lien;
 }
 
+/*
+
 function serialize_array(&$array, $root = '$root', $depth = 0)
 {
         $items = array();
@@ -269,7 +271,7 @@ function serialize_array(&$array, $root = '$root', $depth = 0)
                 $Tableau .= ')';
         }
     return $Tableau;
-}
+}*/
 
 /* Insérer un message
 
