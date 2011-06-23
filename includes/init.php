@@ -10,4 +10,6 @@ function init()
 	loadConfiguration();
 }
 
+init();
+
 ?>
