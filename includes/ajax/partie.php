@@ -130,6 +130,12 @@ switch ( $mode )
 		}
 	break;
 	
+	case "Modal":
+		$Joueur 	= $_POST['Joueur'];
+		$Etat	 	= $_POST['Etat'];
+
+	break;
+	
 	case "territoireInformations":
 		$Joueur 	= $_POST['Joueur'];
 		$Territoire = $_POST['Territoire'];
@@ -259,8 +265,11 @@ switch ( $mode )
 					$message .= '<div style="display: none;">
     					<div id="titre_modal_4">Titre4</div>
     					<div id="data_modal_4">TT4</div></div>';
-					$message .= "<br /> <a href=\"#\" id=\"modal_4\" class=\"modal\">Ouvrir la modal 4</a>";
-				break;
+					$message .= "<br /> <a href=\"#\" id=\"modal_lol\" class=\"modal\">Ouvrir la modal 4</a>";
+					$message .= '<div style="display: none;">
+    					<div id="titre_modal_lol">TitreLol</div>
+    					<div id="data_modal_lol">TTlol</div></div>';
+    			break;
 			}
 		}
 		else

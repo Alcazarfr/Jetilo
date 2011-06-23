@@ -305,6 +305,7 @@ $('a[title]').live('mouseover', function(event) {
 /* Chargement des fonctions automatiques au chargement de la page */
 $(window).load(function(){
 	Production(true);
+	EtatInformations(<?php echo $Etat ?>);
 	CarteChargement(true);
 	MessageLire(true);
 });
@@ -333,7 +334,8 @@ $(window).load(function(){
 
 
 <div id="demo-modal">
-    <a id="modal_2" href="#" class="modal" >Ouvrir la modal 2</a>
+    <a id="modal_2" href="#" class="modal">Ouvrir la modal 2</a>
+    <a id="modal_test" href="#" class="modal">Ouvrir la modal test</a>
 
    <div style="display: none;">
     <div id="titre_modal_1">Titre1</div>
@@ -341,6 +343,8 @@ $(window).load(function(){
     <div id="titre_modal_2">TitreZ</div>
     <div id="data_modal_2">TT2</div>
     <div id="data_modal_3">TT3</div>
+    <div id="titre_modal_test">tesst</div>
+    <div id="data_modal_test">Tsest</div>
    </div>
    
 </div>
