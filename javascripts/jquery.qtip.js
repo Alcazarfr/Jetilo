@@ -1822,13 +1822,13 @@ QTIP.defaults = {
 		}
 	},
 	position: {
-		my: 'top left',
-		at: 'bottom right',
+		my: 'bottom center',
+		at: 'top center',
 		target: FALSE,
 		container: FALSE,
 		viewport: FALSE,
 		adjust: {
-			x: 0, y: 0,
+			x: 0, y: -15,
 			mouse: TRUE,
 			resize: TRUE,
 			method: 'flip flip'

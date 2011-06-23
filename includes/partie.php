@@ -147,6 +147,25 @@ function AgentCreer(Bidon, Nom, Statut, Secret, Territoire, CapaciteFurtivite, C
 
 }
 
+/* Création d'un agent */
+function ActionCreer(ActionID, SourceID, CibleID)
+{
+	var PartieID 	= $('#Partie').val();
+	var JoueurID 	= $('#Joueur').val();
+	var EtatID 		= $('#Etat').val();
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=ActionCreer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&ActionID="+ActionID+"&SourceID="+SourceID+"&CibleID="+CibleID
+	}
+	);
+	setTimeout("CarteChargement(false)",200);
+	setTimeout("Population(false)",200);
+	setTimeout("MessageLire(false)",200);
+
+}
+
 /* Création d'un effet */
 function EffetCreer(Bidon, CibleType, CibleID, SourceType, SourceID, Nom, TimeDebut, TimeFin, Table, Variable, Type, Valeur, Cout)
 {
@@ -236,13 +255,59 @@ function Journal()
 	);
 }
 
+/* Modal dans les retours Ajax */
+
+$('.modal[id^="modal_"]').live('mouseover', function(event) {
+    $(this).qtip(
+   {
+      id: 'modaltooltip', // Since we're only creating one modal, give it an ID so we can style it
+      content: {
+         text: $('#data_' + $(this).attr('id')),
+         title: {
+            text: $('#titre_' + $(this).attr('id')),
+            button: true
+         }
+      },
+      position: {
+         my: 'center', // ...at the center of the viewport
+         at: 'center',
+         target: $(window)
+      },
+      show: {
+         event: 'click', // Show it on click...
+         solo: true, // ...and hide all other tooltips...
+         modal: true // ...and make it modal
+      },
+      hide: false,
+      style: 'ui-tooltip-light ui-tooltip-rounded'
+   }, event);
+});
+
+
+/* InfosBulle dans les retours Ajax */
+
+$('a[title]').live('mouseover', function(event) {
+   $(this).qtip({
+      overwrite: false,
+      show: {
+         event: event.type, 
+         ready: true 
+      }
+   }, event);
+})
+ 
+.each(function(i) {
+   $.attr(this, 'oldtitle', $.attr(this, 'title'));
+   this.removeAttribute('title');
+});
+
+
 /* Chargement des fonctions automatiques au chargement de la page */
 $(window).load(function(){
 	Production(true);
 	CarteChargement(true);
 	MessageLire(true);
 });
-
 
 
 </script>
@@ -266,45 +331,16 @@ $(window).load(function(){
 	</table>
 </div>
 
-<script type="text/javascript">
-
-$(document).ready(function()
-{
-   $('a[rel="modal"]:first').qtip(
-   {
-      id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
-      content: {
-         text: $('div:hidden'),
-         title: {
-            text: 'Modal qTip',
-            button: true
-         }
-      },
-      position: {
-         my: 'center', // ...at the center of the viewport
-         at: 'center',
-         target: $(window)
-      },
-      show: {
-         event: 'click', // Show it on click...
-         solo: true, // ...and hide all other tooltips...
-         modal: true // ...and make it modal
-      },
-      hide: false,
-      style: 'ui-tooltip-light ui-tooltip-rounded'
-   });
-});
-
-</script>
 
 <div id="demo-modal">
-   <a href="#" rel="modal">Click here</a> to see a qTp modal dialog.
- 
+    <a id="modal_2" href="#" class="modal" >Ouvrir la modal 2</a>
+
    <div style="display: none;">
-      Heres an example of a natural extension to qTip... use as a <b>modal dialogue</b>!
-      <br /><br />
-      Much like the <a href="http://onehackoranother.com/projects/jquery/boxy/">Boxy</a> plugin, but if you're already
-      using qTip on your page, why not utilise the same library for your dailogues too?
+    <div id="titre_modal_1">Titre1</div>
+    <div id="data_modal_1">Texte1</div>
+    <div id="titre_modal_2">TitreZ</div>
+    <div id="data_modal_2">TT2</div>
+    <div id="data_modal_3">TT3</div>
    </div>
    
 </div>

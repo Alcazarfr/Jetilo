@@ -1,52 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
-	<action id="révolte">
-		<nom>Attirer une révolte</nom>
+	<action id="renforcer-defense">
+		<nom>Renforcer la défense</nom>
+		<description>Cela fortifie votre territoire</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>60</delai>
+		<duree>120</duree>
+		<couts>
+			<EtatPointCivil>5</EtatPointCivil>
+			<EtatPointMilitaire>10</EtatPointMilitaire>
+			<EtatOr>15</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<nom>Ajouter + 10 en défense</nom>
+				<delai>30</delai>
+				<duree>60</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireDefense</variable_concernee>
+				<type_effet>Addition</type_effet>
+				<valeur>10</valeur>
+			</effet>
+			<effet>
+				<nom>Ajouter + 20 en défense</nom>
+				<delai>60</delai>
+				<duree>60</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireDefense</variable_concernee>
+				<type_effet>Addition</type_effet>
+				<valeur>20</valeur>
+			</effet>
+		</effets>
+	</action>
+	<action id="encourager-revolte">
+		<nom>Encourager à la révolte</nom>
 		<description>Votre agent réduit la satisfaction de la population dans un territoire précis, de façon à favoriser l'émergence d'une révolte dans ce territoire</description>
 		<type_cible>Territoire</type_cible>
 		<type_source>Agent</type_source>
-		<coût_or>10</coût_or>
-		<coût_points_civils>15</coût_points_civils>
+		<delai>60</delai>
+		<duree>120</duree>
+		<couts>
+			<EtatPointCivil>10</EtatPointCivil>
+			<EtatOr>15</EtatOr>
+		</couts>
 		<effets type="liste">
 			<effet>
-				<délai>30</délai>
-				<durée>60</durée>
-				<table_concernée>Territoire</table_concernée>
-				<variable_concernée>TerritoireSatisfaction</variable_concernée>
+				<nom>Réduit la satisfaction de 10 pendant 30 sec</nom>
+				<delai>30</delai>
+				<duree>60</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireSatisfaction</variable_concernee>
 				<type_effet>Soustraction</type_effet>
 				<valeur>10</valeur>
 			</effet>
 			<effet>
-				<délai>60</délai>
-				<durée>120</durée>
-				<table_concernée>Territoire</table_concernée>
-				<variable_concernée>TerritoireSatisfaction</variable_concernée>
+				<nom>Réduit la satisfaction de 5 pendant 60 sec</nom>
+				<delai>60</delai>
+				<duree>120</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireSatisfaction</variable_concernee>
 				<type_effet>Soustraction</type_effet>
 				<valeur>5</valeur>
 			</effet>
 		</effets>
 	</action>
-	<action id="saper_moral">
+	<action id="saper-moral">
 		<nom>Saper le moral d'une armée adverse</nom>
 		<description>Sappe le moral d'une armée adverse, afin d'en réduire l'efficacitée</description>
 		<type_cible>Armée</type_cible>
 		<type_source>Carte</type_source>
-		<coût_or>35</coût_or>
-		<coût_points_civils>5</coût_points_civils>
+		<delai>60</delai>
+		<duree>120</duree>
+		<couts>
+			<EtatPointCivil>35</EtatPointCivil>
+			<EtatOr>5</EtatOr>
+		</couts>
 		<effets type="liste">
 			<effet>
-				<délai>0</délai>
-				<durée>30</durée>
-				<table_concernée>Armee</table_concernée>
-				<variable_concernée>ArmeeDefense</variable_concernée>
+				<delai>0</delai>
+				<duree>30</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeDefense</variable_concernee>
 				<type_effet>Soustraction</type_effet>
 				<valeur>5</valeur>
 			</effet>
 			<effet>
-				<délai>0</délai>
-				<durée>120</durée>
-				<table_concernée>Armee</table_concernée>
-				<variable_concernée>ArmeeForce</variable_concernée>
+				<delai>0</delai>
+				<duree>120</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeForce</variable_concernee>
 				<type_effet>Division</type_effet>
 				<valeur>1.5</valeur>
 			</effet>

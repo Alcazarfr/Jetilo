@@ -39,7 +39,7 @@ switch ( $mode )
 		
 		// On charge les couleurs des joueurs
 		
-		$sql = "SELECT t.TerritoireID, e.EtatCouleur
+		$sql = "SELECT t.TerritoireID, t.TerritoireNom, e.EtatCouleur
 			FROM Territoire t, Etat e
 			WHERE t.TerritoirePartie = " . $Partie . "
 				AND e.EtatID = t.TerritoireEtat";
@@ -49,6 +49,7 @@ switch ( $mode )
 			$TerritoireID 	= $data['TerritoireID'];
 			$EtatCouleur 	= $data['EtatCouleur'];
 			$Couleur[$TerritoireID] = $EtatCouleur;
+			$Infobulle[$TerritoireID] = $data['TerritoireNom'];
 		}
 
 		// On charge, dans un tableau, toutes les régions existantes et leur territoire
@@ -62,9 +63,9 @@ switch ( $mode )
 		{
 			$CoordonneesX = $data['RegionCoordonneeX'];
 			$CoordonneesY = $data['RegionCoordonneeY'];
-			$Region['Territoire'][$CoordonneesX][$CoordonneesY] = $data['RegionTerritoire'];
-			$Region['ID'][$CoordonneesX][$CoordonneesY] 		= $data['RegionID'];
-			$Region['Terrain'][$CoordonneesX][$CoordonneesY] 	= $data['RegionTerrain'];
+			$Region['Territoire'][$CoordonneesX][$CoordonneesY] 	= $data['RegionTerritoire'];
+			$Region['ID'][$CoordonneesX][$CoordonneesY] 			= $data['RegionID'];
+			$Region['Terrain'][$CoordonneesX][$CoordonneesY] 		= $data['RegionTerrain'];
 		}
 		$sql = "SELECT MAX(RegionCoordonneeX) AS MaxX, MAX(RegionCoordonneeY) AS MaxY, MIN(RegionCoordonneeX) AS MinX, MIN(RegionCoordonneeY) AS MinY
 			FROM Region
@@ -99,9 +100,11 @@ switch ( $mode )
 					$Ouest 	= ( @$Region['Territoire'][$RegionOuest][$y] != $RegionTerritoireEnCours 	|| !$Region['Territoire'][$RegionOuest][$y] ) ? 1 : 0 ;
 	
 					$RegionImage = $Nord . "-" . $Sud . "-" . $Est . "-" . $Ouest;
+					$Infobulle[$RegionTerritoireEnCours] = @$Infobulle[$RegionTerritoireEnCours] ? @$Infobulle[$RegionTerritoireEnCours] : "Terra Incognita";
 				}
 				else
 				{
+					$Infobulle[$RegionTerritoireEnCours] = @$Infobulle[$RegionTerritoireEnCours] ? @$Infobulle[$RegionTerritoireEnCours] : "Mer";
 					$RegionImage = "poisson";
 				}
 				$Couleur[$RegionTerritoireEnCours] = @$Couleur[$RegionTerritoireEnCours] ? @$Couleur[$RegionTerritoireEnCours] : "blanche";
@@ -114,7 +117,7 @@ switch ( $mode )
 				}
 				else
 				{
-					echo '<a href="#' . $RegionTerritoireEnCours . '" onClick="TerritoireInformations(' . $RegionTerritoireEnCours . ');"><img src="./images/carte/'.$RegionImage.'.gif"></a>';
+					echo '<a href="#' . $RegionTerritoireEnCours . '" title="' . @$Infobulle[$RegionTerritoireEnCours] . '" onClick="TerritoireInformations(' . $RegionTerritoireEnCours . ');"><img src="./images/carte/'.$RegionImage.'.gif"></a>';
 				}
 
 				echo "</td>";

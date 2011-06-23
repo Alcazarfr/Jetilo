@@ -17,6 +17,8 @@
  CaptureTerritoire(): Capturer un territoire
  Transaction		: Réaliser une transaction
  Attribut()			: Retourner une ou plusieurs variables de la BDD
+ Supprimer()		: Supprime une entrée dans la BDD
+ print_debug()
  
 */
 
@@ -80,20 +82,35 @@ function Agent($AgentNom, $AgentEtat, $AgentStatut, $AgentSecret, $AgentTerritoi
 }
 
 
+/* Insérer une action
+
+ActionID 			: ID de l'effet, automatique
+ActionType	 		: l'ID dans actions.xml
+ActionSourceType	: Etat, territoire, agent...
+ActionSourceID		: ID de l'Etat, du territoire ou de l'agent
+ActionTimeDebut	: timestamp du début de l'action
+ActionTimeFin		: timestamp de la fin de l'action
+
+Return				: ID de l'action
+
+*/
+function Action($ActionType, $ActionSourceType, $ActionSourceID, $ActionTimeDebut, $ActionTimeFin)
+{
+	$sql = "INSERT INTO Action (ActionType, ActionSourceType, ActionSourceID, ActionTimeDebut, ActionTimeFin)
+		VALUES ('" . $ActionType . "', '" . $ActionSourceType . "', " . $ActionSourceID . ", " . $ActionTimeDebut . ", " . $ActionTimeFin . ")";
+	mysql_query($sql) or die('Erreur SQL #63 Message<br />'.$sql.'<br />'.mysql_error());	
+
+	return mysql_insert_id();
+}
 
 /* Insérer un effet : bonus ou malus sur un territoire, un Etat, un agent...
 
 EffetID 		: ID de l'effet, automatique
+EffetAction 	: Action qui provoque cet effet
 EffetCibleType 	: ETAT -> Effet national (ex: Révolte -5%)
 				  TERRITOIRE -> Effet local (ex : Croissance du territoire + 5%)
 				  AGENT -> Furtivité de l'agent +5pts, Rapidité+30%, etc.
 EffetCibleID	: ID de l'Etat, du territoire ou de l'agent
-EffetSourceType : A qui ou quoi doit-on cet effet ?
-				  AGENT -> Effet du à l'action d'un agent (à défaire lorsque l'agent part)
-				  TECHNOLOGIE ->
-				  CARTE -> Carte spéciale
-EffetSourceID	: ID de la source
-EffetNom		: Nom de l'effet (ex: "Productivité militaire + 5%)
 EffetTimeDebut	: timestamp du début de l'effet
 EffetTimeFin	: timestamp de la fin de l'effet
 EffetTable		: table surlaquelle il y a un effet
@@ -102,13 +119,13 @@ EffetType		: Que se passera t'il? SUBSTITUTION (remplacement), ADDITION, SOUSTRA
 EffetValeur		: Valeur (0.25 ; 16 ; -3.5)
 
 */
-function Effet($EffetCibleType, $EffetCibleID, $EffetSourceType, $EffetSourceID, $EffetNom, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur)
+function Effet($EffetAction, $EffetCibleType, $EffetCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur)
 {
-	$sql = "INSERT INTO Effet (EffetCibleType, EffetCibleID, EffetSourceType, EffetSourceID, EffetNom, EffetTimeDebut, EffetTimeFin, EffetTable, EffetVariable, EffetType, EffetValeur)
-		VALUES ('".$EffetCibleType."', " . $EffetCibleID . ", '" . $EffetSourceType . "', " . $EffetSourceID . ", '" . $EffetNom . "', " . $EffetTimeDebut . ", " . $EffetTimeFin . ", '" . $EffetTable . "', '" . $EffetVariable . "', '" . $EffetType . "', " . $EffetValeur . ")";
+	$sql = "INSERT INTO Effet (EffetAction, EffetCibleType, EffetCibleID, EffetTimeDebut, EffetTimeFin, EffetTable, EffetVariable, EffetType, EffetValeur)
+		VALUES (" . $EffetAction . ", '".$EffetCibleType."', " . $EffetCibleID . ", " . $EffetTimeDebut . ", " . $EffetTimeFin . ", '" . $EffetTable . "', '" . $EffetVariable . "', '" . $EffetType . "', " . $EffetValeur . ")";
 	mysql_query($sql) or die('Erreur SQL #56 Message<br />'.$sql.'<br />'.mysql_error());	
 
-	return true;
+	return mysql_insert_id();
 }
 
 
@@ -738,7 +755,7 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 			$Requete .= $Attribut[$i] . " AS " . $Attribut[$i];
 			$Requete .= ( $i < count($Attribut) - 1 ) ? ', ' : '';
 		}
-	}		
+	}
 	$sql = "SELECT " . $Requete . "
 		FROM " . $Table . "
 		WHERE " . $Reference . " = " . $ReferenceValeur;
@@ -764,6 +781,33 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 	}
 	mysql_free_result($req);
 	return $resultat;
+}
+
+
+/* Supprimer permet de supprimer une ou plusieurs entrées de la BDD
+
+Table 		: Table dans laquelle on va supprimer la ou les entrées
+Variable	: Variable de contrôle
+
+Exemple: Table = "Agent"
+		 Variable = "AgentID = 5"
+=> Suppression de l'entrée, dans la table Agent, à celle correspondant à un AgentID = 5
+
+Exemple : Table = Effet
+		  Variable = "EffetTimeFin < time()"
+=> Suppression de toutes les effets périmés
+
+Exemple : Table = Action
+		  Variable = "ActionSourceID = 3 AND ActionSourceType = 'Agent'"
+=> Suppression des toutes les actions de l'agent 3
+
+*/
+
+function Supprimer($Table, $Donnees)
+{
+	$sql = "DELETE FROM " . $Table . "
+		WHERE " . $Donnees;
+	$req = mysql_query($sql) or die('Erreur SQL #64<br />'.$sql.'<br />'.mysql_error());
 }
 
 function print_debug($code)
