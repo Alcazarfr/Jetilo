@@ -238,23 +238,8 @@ switch ( $mode )
 						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmees;
 					}
 					$time = time();
-					$ModelEffet	= Array(
-						"CibleType" 	=> "TERRITOIRE",
-						"CibleID" 		=> $TerritoireID,
-						"SourceType" 	=> "ETAT",
-						"SourceID"	 	=> $TerritoireEtat,
-						"Nom" 			=> "Bonus de défense + 10",
-						"TimeDebut" 	=> time(),
-						"TimeFin" 		=> time()+660,
-						"Table" 		=> "Territoire",
-						"Variable" 		=> "TerritoireDefense",
-						"Type" 			=> "ADDITION",
-						"Valeur" 		=> 10,
-//						"Cout"			=> Array("EtatPointMilitaire" => -10, "EtatOr" => -10)
-						"Cout"			=> ""
-					);
-					$LienEffet = FormaterLien("EffetCreer", $ModelEffet);
-					
+
+
 					$ModelAgent = Array(
 						"Nom" 			=> "Rondont",
 						"Statut"	 	=> 0,
@@ -268,7 +253,13 @@ switch ( $mode )
 					$LienGeneral = FormaterLien("AgentCreer", $ModelAgent);
 					
 					$message .= "<br /><a href=\"#\" onClick=\"".$LienGeneral."\">Créer un général</a> : ";
-					$message .= "<br /><a href=\"#\" onClick=\"".$LienEffet."\">Créer un bonus défensif</a> : ";
+					$message .= "<br /><a href=\"#\" onClick=\"ActionCreer('renforcer-defense', " . $TerritoireEtat . ", " . $TerritoireID . ")\">Créer un bonus défensif</a> : ";
+					
+					$message .= "<br /> <a href=\"#\" id=\"modal_1\" class=\"modal\">Ouvrir la modal 1</a>";
+					$message .= '<div style="display: none;">
+    					<div id="titre_modal_4">Titre4</div>
+    					<div id="data_modal_4">TT4</div></div>';
+					$message .= "<br /> <a href=\"#\" id=\"modal_4\" class=\"modal\">Ouvrir la modal 4</a>";
 				break;
 			}
 		}
@@ -278,6 +269,108 @@ switch ( $mode )
 		}
 	break;
 
+	case "ActionCreer":
+		$Partie 	= $_POST['Partie'];
+		$Etat 		= $_POST['Etat'];
+		$Joueur 	= $_POST['Joueur'];
+		$ActionType = $_POST['ActionID'];
+		
+		$ActionSourceID = $_POST['SourceID'];
+		$ActionCibleID 	= $_POST['CibleID'];
+		
+		$ActionCibleType 		= strtoupper($ACTIONS->action[$ActionType]->type_cible);
+		$ActionSourceType 	= strtoupper($ACTIONS->action[$ActionType]->type_source);
+
+
+		$TableauDesNomsDesCouts	= Array("EtatPointCivil", "EtatPointCommerce", "EtatPointMilitaire", "EtatPointReligion", "EtatOr"); 
+		$Cout = Array();
+		
+		for ( $i = 0; $i < count($TableauDesNomsDesCouts); $i++ )
+		{
+			$CoutPotentiel = $TableauDesNomsDesCouts[$i];
+			if ( $ACTIONS->action[$ActionType]->couts->$CoutPotentiel)
+			{
+				$Cout[$CoutPotentiel] = $ACTIONS->action[$ActionType]->couts->$CoutPotentiel;
+			}
+		}
+
+		// Cela coute t'il de l'argent ?
+		if ( is_array($Cout) )
+		{
+			// Si oui, On vérifie que le Joueur a les ressources suffisantes
+			if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+			{
+				Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
+				break;
+			}
+		}
+
+		// Création de l'action
+		$ActionNom			=	$ACTIONS->action[$ActionType]->nom;
+		$ActionTimeDebut	=	time() + $ACTIONS->action[$ActionType]->delai;
+		$ActionTimeFin		=	$ActionTimeDebut + $ACTIONS->action[$ActionType]->duree;
+
+		$ActionID	= Action($ActionType, $ActionSourceType, $ActionSourceID, $ActionTimeDebut, $ActionTimeFin);
+
+		// On verifie que l'actiona a bien été crée
+		if ( is_numeric($ActionID) == false )
+		{
+			// La création de l'action a échoué : on annule tout
+			Message($Partie, $Joueur, "Echec", "La création de laction a échoué"  . $CibleID, 0, "", "noire", 10);
+			break;
+		}
+	
+		// RECUPERER LA VALEUR DEPUIS UNE MODAL / UN CHAMP
+		// ANNULER LES EFFETS SI ILS BUGENT
+		$Erreur = false;
+		$SiErreur = "";
+		for ( $i = 0 ; $i < 10 ; $i ++ )
+		{
+			if ( isset($ACTIONS->action[$ActionType]->effets[$i]->nom) )
+			{
+				$EffetTimeDebut = $ACTIONS->action[$ActionType]->effets[$i]->delai + time();
+				$EffetTimeFin 	= $ACTIONS->action[$ActionType]->effets[$i]->duree + $EffetTimeDebut;
+				$EffetTable 	= $ACTIONS->action[$ActionType]->effets[$i]->table_concernee;
+				$EffetVariable 	= $ACTIONS->action[$ActionType]->effets[$i]->variable_concernee;
+				$EffetType 		= strtoupper($ACTIONS->action[$ActionType]->effets[$i]->type_effet);
+				$EffetValeur 	= $ACTIONS->action[$ActionType]->effets[$i]->valeur;
+				
+				$EffetID		= Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
+
+				$SiErreur		.= ( is_numeric($EffetID) == true ) ? ", " . $EffetID : "";
+				
+				if ( is_numeric($EffetID) == false )
+				{
+					$Erreur = true;
+					Supprimer("Action", "Action = " . $ActionID);
+					Supprimer("Effet", "EffetID IN(0" . $SiErreur . ")");
+					Supprimer("Effet", "EffetID IN(0" . $SiErreur . ")");
+					
+					// On annule les précédents effets et on supprime l'action
+					break;
+				}
+			}
+			else
+			{
+				break;
+			}
+		}
+		// On réalise l'effet
+		if ( !$Erreur )
+		{
+			if ( is_array($Cout) )
+			{
+				// On transmet les ressources au joueur
+				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+			}
+			Message($Partie, $Joueur, "Nouvelle Action", $ActionNom, 0, "", "noire", 10);
+		}
+		else
+		{
+			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
+		}
+	break;
+	
 	case "AgentCreer":
 		$Partie 			= $_POST['Partie'];
 		$Etat 				= $_POST['Etat'];
@@ -319,6 +412,8 @@ switch ( $mode )
 			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
 		}
 	break;
+	
+	
 	case "EffetCreer":
 		$Partie 	= $_POST['Partie'];
 		$Etat 		= $_POST['Etat'];
@@ -397,7 +492,8 @@ switch ( $mode )
 			$message .= "<td width='100' align='center'><b>Religion</b></td>";
 			$message .= "<td width='100' align='center'><b>Total</b></td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td width='100' align='center'><b><a class='pointille' id='InfoOrTitre'>Or</span></a></td>";
+			$TexteInfoBulle = "L'or est récupéré par une taxe perçue sur la somme totale des points générés. Le taux d'imposition est spécifiée à la ligne Répartition";
+			$message .= "<td width='100' align='center'><b><a class='pointille' title=\"".$TexteInfoBulle."\" id='InfoOrTitre'>Or</span></a></td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='30'>Répartition (%)</td>";
@@ -405,7 +501,8 @@ switch ( $mode )
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-EtatPopulationCommerce-".$Etat."\">". $data['EtatPopulationCommerce'] . "</span> %</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-EtatPopulationMilitaire-".$Etat."\">". $data['EtatPopulationMilitaire'] . "</span> %</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-EtatPopulationReligion-".$Etat."\">". $data['EtatPopulationReligion'] . "</span> %</td>";
-			$message .= "<td align='center'><a id='InfoTotalRep' class='pointille'>" . round($data['EtatPopulationCivil']+$data['EtatPopulationMilitaire']+$data['EtatPopulationCommerce']+$data['EtatPopulationReligion']) . " %</a></td>";
+			$TexteInfoBulle	= "Force de travail non utilisée: ". $Oisifs;
+			$message .= "<td align='center'><a id='InfoTotalRep' title=\"".$TexteInfoBulle."\"  class='pointille'>" . round($data['EtatPopulationCivil']+$data['EtatPopulationMilitaire']+$data['EtatPopulationCommerce']+$data['EtatPopulationReligion']) . " %</a></td>";
 			$message .= "<td width='1' align='center'></td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-EtatTaxe-".$Etat."\">". $data['EtatTaxe'] . "</span> %</td>";
 		$message .= "</tr>";
@@ -425,7 +522,8 @@ switch ( $mode )
 			$message .= "<td align='center'>" . round($data['EtatPopulationCommerce']*$data['EtatPopulation']/10000, 1) . " pts</td>";
 			$message .= "<td align='center'>" . round($data['EtatPopulationMilitaire']*$data['EtatPopulation']/10000, 1) . " pts</td>";
 			$message .= "<td align='center'>" . round($data['EtatPopulationReligion']*$data['EtatPopulation']/10000, 1) . " pts</td>";
-			$message .= "<td align='center'><a class='pointille' id='InfoTotalProd'>" . $EtatCroissance . " %</a></td>";
+			$TexteInfoBulle	= "Croissance de votre population. Par défaut, la croissance augmente de +0.05 point par territoire par minute. En cas de famine, la croissance perd 2 points par minute, dans les territoires en surpopulation.";
+			$message .= "<td align='center'><a class='pointille' id='InfoTotalProd' title=\"".$TexteInfoBulle."\">" . $EtatCroissance . " %</a></td>";
 			$message .= "<td width='1' align='center'></td>";
 			$message .= "<td align='center'>" . round($data['EtatTaxe']*$PIB/100, 1) . " pts</td>";
 		$message .= "</tr>";
@@ -457,37 +555,6 @@ switch ( $mode )
 					});
 $(document).ready(function() {
  			
-$("#InfoOrTitre").qtip({
-  	position: {
-      my: "bottom middle",
-      at: "top center",
-      target: $("#InfoOrTitre")},
-   content: {
-      text: "L\'or est récupéré par une taxe perçue sur la somme totale des points générés. Le taux d\'imposition est spécifiée à la ligne Répartition."
-   }
-});
-
-$("#InfoTotalProd").qtip({
-  	position: {
-      my: "bottom middle",
-      at: "top center",
-      target: $("#InfoTotalProd")},
-   content: {
-      text: "Croissance de votre population. Par défaut, la croissance augmente de +0.05 point par territoire par minute. En cas de famine, la croissance perd 2 points par minute, dans les territoires en surpopulation."
-   }
-});
-
-$("#InfoTotalRep").qtip({
-  	position: {
-      my: "bottom middle",
-      at: "top center",
-      target: $("#InfoTotalRep")},
-   content: {
-      text: "Force de travail non utilisée: '. $Oisifs .'"
-   }
-});
- 
-   
     			$(\'.edit\').editable(\'./includes/ajax/administration.php?mode=modifierChamp\', {
     				 style   : "display: inline",
     			     callback : function() {
