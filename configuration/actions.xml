@@ -7,6 +7,16 @@
 		<type_source>Etat</type_source>
 		<delai>60</delai>
 		<duree>120</duree>
+		<modal type="liste">
+			<champ>
+				<nom>DefenseSupplementaire</nom>
+				<type>text</type>
+			</champ>
+			<champ>
+				<nom>DefenseSupplementaire2</nom>
+				<type>text</type>
+			</champ>
+		</modal>
 		<couts>
 			<EtatPointCivil>5</EtatPointCivil>
 			<EtatPointMilitaire>10</EtatPointMilitaire>

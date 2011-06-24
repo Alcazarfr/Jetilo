@@ -796,12 +796,40 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 function Modal($ActionType, $ModalID)
 {
 	global $ACTIONS;
-	$Modal = "<div style='display: none;'><div id='titre_modal_" . $ModalID . "'>";
+	
 	$ModalTitre = $ACTIONS->action[$ActionType]->nom;
+	$ModalContenu = "";
+	
+	// Que doit on afficher ?
+	
+	for ( $i = 0; $i < 10 ; $i++ )
+	{
+		if ( isset($ACTIONS->action[$ActionType]->modal[$i]->nom) )
+		{
+			$Nom = $ACTIONS->action[$ActionType]->modal[$i]->nom;
+			$ModalContenu .= $Nom . " : ";
+			switch ($ACTIONS->action[$ActionType]->modal[$i]->type)
+			{
+				case "text" :
+					$ModalContenu .= '<input type="text" size="5" name="' . $Nom . '" id="' . $Nom . '">';
+			}
+			$ModalContenu .= "<br />";
+		}
+		else
+		{
+			break;
+		}
+	}
+//	$ModalContenu .= '<input type="submit" value="'.$ACTIONS->action[$ActionType]->nom.'" onClick="ActionCreer("'.$ActionType.'", 1, 127)">';
+	$ModalContenu .= '<a href="#" onClick="ActionCreer("renforcer-defense", 1, 127)">Test</a>';
+
+	
+	
+
+	$Modal = "<div style='display: none;'><div id='titre_modal_" . $ModalID . "'>";
 	$Modal .= $ModalTitre;
 	$Modal .= "</div>";
 	$Modal .= "<div id='data_modal_" . $ModalID . "'>";
-	$ModalContenu = "Texte";
 	$Modal .= $ModalContenu;
 	$Modal .= "</div></div>";
 	

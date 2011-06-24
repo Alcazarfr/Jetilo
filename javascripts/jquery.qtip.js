@@ -211,7 +211,7 @@ function QTip(target, options, id, attr)
 	{
 		var button = options.content.title.button,
 			isString = typeof button === 'string',
-			close = isString ? button : 'Close tooltip';
+			close = isString ? button : 'Fermer';
 
 		if(elements.button) { elements.button.remove(); }
 
