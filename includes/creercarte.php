@@ -116,7 +116,7 @@ $(window).load(function(){
 				<br />Selection : <input type="text" name="selection" id="selection" size="40" value="0" readonly><br /><br />
 				- <a href="#Fusionner" onClick="Changement('fusionner');">Fusionner la sélection</a> : la sélection est unifiée en un unique territoire. Les régions maritimes ne peuvent être fusionnées.<br /><br />
 				- <a href="#Separer" onClick="Changement('separer');">Séparer la sélection</a> : les territoires, dont une région a été selectionné, sont divisés en autant de régions possibles.<br /><br />
-				- <a href="#Inverser" onClick="Changement('terrain');">Inverser les terrains</a> : les terrains des territoires selectionnés sont inversés (mer->terre; terre->mer). Les territoires sont auparavant fragmentées / divisés.<br /><br />
+				- <a href="#Inverser" onClick="Changement('terrain');">Inverser les terrains</a> : les terrains des territoires selectionnés sont inversés (mer-&gt;terre; terre-&gt;mer). Les territoires sont auparavant fragmentées / divisés.<br /><br />
 				- <a href="#Vider" onClick="Vider();">Vider la sélection</a> : la sélection est annulée.
 			</table><br />
 

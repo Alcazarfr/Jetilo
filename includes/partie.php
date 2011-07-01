@@ -12,6 +12,10 @@
 	$EtatTerritoires= $Recherche['EtatTerritoires'];
 
 	$JoueurNom 		= Attribut($Joueur, "Joueur", "JoueurNom");
+	
+	/*DeclancherEvenement('famine', 88, $Partie, 0, 
+		array('occupant' => $Joueur + 1, 'test' => $Joueur + 1), 
+		array('TerritoireNom' => 'Boulgourville', 'PopulationMorte' => 42));*/
 
 ?>
 
