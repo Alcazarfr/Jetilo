@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<événements>
+	<événement id="famine">
+		<paramètres type="liste">
+			<paramètre>TerritoireNom</paramètre>
+			<paramètre>PopulationMorte</paramètre>
+		</paramètres>
+		<stratégie>civil</stratégie>
+		<destinataires>
+			<destinataire id="occupant">
+				<titre>Famine au %1$s</titre>
+				<description>%2$s morts</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+			<destinataire id="test">
+				<titre>TEST</titre>
+				<description>TEST</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+		</destinataires>
+		<autres type="liste">
+			<destinataire>
+				<niveau>4</niveau>
+				<titre>Rapport d'espionage</titre>
+				<description>Famine au %1$s.&lt;br/&gt;%2$s morts</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+			<destinataire>
+				<niveau>1</niveau>
+				<titre>Rapport d'espionage</titre>
+				<description>Famine au %1$s.</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+		</autres>
+	</événement>
+	<événement id="famine sans mort">
+		<paramètres type="liste">
+			<paramètre>TerritoireNom</paramètre>
+		</paramètres>
+		<stratégie>civil</stratégie>
+		<destinataires>
+			<destinataire id="occupant">
+				<titre>Famine au %1$s</titre>
+				<description>Pas de mort pour le moment...</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+		</destinataires>
+		<autres type="liste">
+			<destinataire>
+				<niveau>6</niveau>
+				<titre>Rapport d'espionage</titre>
+				<description>Pas de mort pour le moment...</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+			<destinataire>
+				<niveau>1</niveau>
+				<titre>Rapport d'espionage</titre>
+				<description>Famine au %1$s.</description>
+				<couleur>noir</couleur>
+				<temps>15</temps>
+			</destinataire>
+		</autres>
+	</événement>
+</événements>
