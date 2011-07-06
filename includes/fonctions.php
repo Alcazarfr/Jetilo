@@ -820,7 +820,8 @@ function Modal($ActionType, $ModalID)
 			break;
 		}
 	}
-//	$ModalContenu .= '<input type="submit" value="'.$ACTIONS->action[$ActionType]->nom.'" onClick="ActionCreer("'.$ActionType.'", 1, 127)">';
+	$ModalContenu .= '<button type="button" onClick="ActionCreer("'.$ActionType.'", 1, 127)">'.$ACTIONS->action[$ActionType]->nom.'</button>';
+  $ModalContenu .= '<input type="submit" value="'.$ACTIONS->action[$ActionType]->nom.'" onClick="ActionCreer("'.$ActionType.'", 1, 127)">';
 	$ModalContenu .= '<a href="#" onClick="ActionCreer("renforcer-defense", 1, 127)">Test</a>';
 
 	
