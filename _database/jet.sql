@@ -2435,3 +2435,37 @@ INSERT INTO `Territoire` VALUES(135, 0, 1, 0, '135', 500, 4, 1, 5);
 INSERT INTO `Territoire` VALUES(160, 0, 1, 0, '139', 500, 4, 0, 5);
 INSERT INTO `Territoire` VALUES(161, 0, 1, 0, '161', 500, 4, 0, 5);
 INSERT INTO `Territoire` VALUES(148, 0, 1, 0, '148', 500, 4, 1, 5);
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Agent`
+--
+
+CREATE TABLE Agent (
+AgentID mediumint(5) NOT NULL AUTO_INCREMENT,
+AgentNom varchar(25) NOT NULL,
+AgentEtat smallint(3) NOT NULL,
+AgentEtatOrigine smallint(3) NOT NULL,
+AgentStatut smallint(1) NOT NULL DEFAULT '1',
+AgentSecret tinyint(1) NOT NULL DEFAULT '1',
+AgentTerritoire smallint(4) NOT NULL,
+AgentCapaciteFurtivite smallint(3) NOT NULL,
+AgentCapaciteVitesse smallint(3) NOT NULL,
+AgentCapaciteReussite smallint(3) NOT NULL,
+AgentType varchar(20) NOT NULL,
+AgentTime int(11) NOT NULL,
+PRIMARY KEY (AgentID)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+INSERT INTO `Agent` VALUES (1, 'L. Wilson', 1, 1, 1, 1, 88, 0, 0, 3, 'diplomate', 0);
+INSERT INTO `Agent` VALUES (2, 'Garry Wild', 1, 1, 1, 1, 88, 0, 0, 10, 'colporteur', 0);
+INSERT INTO `Agent` VALUES (3, 'D. Vil', 1, 1, 1, 1, 88, 0, 0, 10, 'confesseur', 0);
+INSERT INTO `Agent` VALUES (4, 'Barry Wild', 1, 1, 1, 1, 88, 0, 0, 8, 'colporteur', 0);
+
+--
+-- Contenu de la table `Agent`
+--
+

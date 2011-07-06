@@ -60,15 +60,15 @@ function adjectif($nombre)
 
 AgentNom		: Nom de l'agent
 AgentEtat		: Etat propriétaire de l'Agent
-AgentEtatOrigine: Etat qui pense être propriétaire de l'agent, qui, pour sa part, a retourné sa veste...
+AgentEtatOrigine: Etat qui pense Ãªtre propriétaire de l'agent, qui, pour sa part, a retourné sa veste...
 AgentStatut		: 1 = l'agent est en opération ;
 				  0 = il attend ;
 				  -1 = il est compromis, en prison dans le lieu précisié par AgentTerritoire.
 AgentSecret		: L'agent est il secret (1) ou public (0) ?
-AgentTerritoire	: Lieu où l'agent opère, se repose ou est en prison
-AgentCapaciteFurtivite	: Capacité à être détecté par le contre-espionnage
+AgentTerritoire	: Lieu oÃ¹ l'agent opÃ¨re, se repose ou est en prison
+AgentCapaciteFurtivite	: Capacité à Ãªtre détecté par le contre-espionnage
 AgentCapaciteVitesse	: Capacité à se déplacer et à réaliser plus vite ses actions
-AgentCapaciteReussite	: Capacité à réussir une action ou à être plus efficace
+AgentCapaciteReussite	: Capacité à réussir une action ou à Ãªtre plus efficace
 AgentType		: Type d'agent ("Agitateur", "Pretre", "Emissaire") ...
 
 */
@@ -133,7 +133,7 @@ function Effet($EffetAction, $EffetCibleType, $EffetCibleID, $EffetTimeDebut, $E
 
 SourceType		: TERRITOIRE, ETAT, AGENT...
 SourceID		: ID de la source
-Variable		: Variable qui subit, peut être, un effet
+Variable		: Variable qui subit, peut Ãªtre, un effet
 Valeur			: Valeur originelle, sans effet, de la variable
 
 */
@@ -184,7 +184,7 @@ function ChercherEffet($SourceType, $SourceID, $SourceVariable, $SourceValeur)
 
 /* Créer le lien Ajax vers Partie.php, qui appellera la fonction Effet ou Agent
 
-Utilité : générer le lien pour créer un agent ou un effet est long. D'où cette fonction.
+Utilité : générer le lien pour créer un agent ou un effet est long. D'oÃ¹ cette fonction.
 1. On remplit le tableau ci-dessous
 2. On
 
@@ -212,7 +212,7 @@ $ModelEffet	= Array(
 2. Appel de la fonction
 $Lien = FormaterLien("Effet", $ModelEffet);
 
-3. On insère le lien
+3. On insÃ¨re le lien
 
 */
 function FormaterLien($Mode, $Tableau)
@@ -273,35 +273,13 @@ function serialize_array(&$array, $root = '$root', $depth = 0)
     return $Tableau;
 }*/
 
-/* Insérer un message
-
-Partie 			: ID de la Partie
-Destinataire 	: Joueur à qui le message est reservé; Laisser 0 si le message est visible par tous
-Source 			: Origine du message (ID du joueur)
-Exlus			: varchar, la liste des joueurs qui ne liront pas ce message
-				  Ex : un message public qui a déjà été envoyé à un joueur, de façon personnalisé
-Couleur			: La Couleur, noire et rouge (si important)
-Durée			: Durée d'affichage
-				  0 pour rester à vie, 5 pour un affichage court, 10 pour un normal, 15 pour un long
-
-*/
-
-function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Couleur, $Duree)
-{
-	$sql = "INSERT INTO Message (MessagePartie, MessageDestinataire, MessageExclus, MessageTitre, MessageTexte, MessageSource, MessageTime, MessageCouleur, MessageDuree)
-		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . $Titre . "', '" . htmlspecialchars(addslashes($Texte)) . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
-	mysql_query($sql) or die('Erreur SQL #29 Message<br />'.$sql.'<br />'.mysql_error());	
-}
-
-
-
 /* Trouver une route entre deux territoires ou les territoires voisins
 
 TerritoireOrigine 		: ID du territoire
-TerritoireDestination	: ID du territoire où l'on veut aller
+TerritoireDestination	: ID du territoire oÃ¹ l'on veut aller
 			  
 Return 	: 	Array(TerritoireVoisins1, TerritoireVoisinsN) si TerritoireDestination = fasle
-			Array(AccèsDirectPossible[TRUE;FALSE], TempsPourYAller)
+			Array(AccÃ¨sDirectPossible[TRUE;FALSE], TempsPourYAller)
 
 */
 
@@ -419,7 +397,7 @@ function Production($Partie, $Etat)
 				/* Formule
 				La population qui doit mourir maintenant, chaque minute, est égale à
 				(10 + X )% de la Population Mourrante (c'est à dire en surplus),
-				où X = le nombre de minute depuis lequel il y a une famine, au carré
+				oÃ¹ X = le nombre de minute depuis lequel il y a une famine, au carré
 				On divise par 360 car, pour avoir des minutes au carré, il faut diviser par 60 au carré
 
 				Premiere minute = 11% de la surpop décéde.
@@ -574,7 +552,7 @@ function CaptureTerritoire($Partie, $Placement, $Joueur, $Etat, $LieuID, $isTerr
 		// $NombreTerritoireAuDebut
 		if ( $EtatTerritoires >= $NombreTerritoireAuDebut )
 		{
-			// Le joueur possède plus de territoires qu'il ne peut en avoir au début : erreur
+			// Le joueur possÃ¨de plus de territoires qu'il ne peut en avoir au début : erreur
 			$texte = "La capture a échoué car vous avez déjà <u>" . $NombreTerritoireAuDebut . "</u> territoires";
 			Message($Partie, $Joueur, "Capture", $texte, 0, "", "noire", 15);
 			return FALSE;
@@ -588,7 +566,7 @@ function CaptureTerritoire($Partie, $Placement, $Joueur, $Etat, $LieuID, $isTerr
 	{
 		if ( $TerritoireJoueur == $Joueur )
 		{
-			// Message au Joueur qui possède déjà le territoire
+			// Message au Joueur qui possÃ¨de déjà le territoire
 			$Texte = "Le territoire " . $TerritoireNom . " vous appartient déjà";
 			Message($Partie, $Joueur, "Capture", $Texte, 0, "", "noire", 5);
 			return FALSE;
@@ -653,7 +631,7 @@ Donnees			: Array(
 				   );
 Verification	: TRUE On ne fait que vérifier que la transaction est possible
 					   et que le joueur a assez de ressources
-				  FALSE On procède à la transaction dans son ensemble
+				  FALSE On procÃ¨de à la transaction dans son ensemble
 				
 DestinataireEtat : ID de l'Etat destinataire, s'il y en a un
 
@@ -710,7 +688,7 @@ function Transaction($Partie, $Joueur, $Etat, $Donnees, $Verification, $Destinat
 ReferenceValeur : la valeur d'un champ primary key (ID) de la table. Ex: 5 = l'ID de la Partie, ou d'un Etat
 Type			: la table dont il faut extraire une donnée
 Attribut		: le ou les s champs dont il faut trouver la valeur
-				  Cela peut être un tableau ou un champ unique
+				  Cela peut Ãªtre un tableau ou un champ unique
 				  
 Exemple 		: Nom d'un joueur
 				  Attribut(ID_du_joueur, "Joueur", "JoueurNom");
@@ -864,14 +842,14 @@ function Supprimer($Table, $Donnees)
 	$req = mysql_query($sql) or die('Erreur SQL #64<br />'.$sql.'<br />'.mysql_error());
 }
 
-function print_debug($code)
+function print_debug_code($code)
 {
 	global $PARAMETRES;
 	global $ACTIONS;
 	
-	print("<pre style='background-color:white; margin-bottom:0px;'>$code</pre>\r\n");
-	print("<pre style='background-color:black; margin-top:0px; color:white;'>\r\n");
-	print_r(eval('return '.$code.';'));
+	print_debug($code, eval('return '.$code.';'));
+}function print_debug($description, $variable){		print("<pre style='background-color:white; margin-bottom:0px;'>$description</pre>\r\n");	print("<pre style='background-color:black; margin-top:0px; color:white;'>\r\n");
+	print_r($variable);
 	print("</pre>\r\n");
 }
 

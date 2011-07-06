@@ -36,80 +36,21 @@ switch ( $mode )
 {
 	// Affichage dynamiques des messages
 	case "messageLire":
+		$Joueur = $_POST['Joueur'];
 
-		$Joueur 	= $_POST['Joueur'];
-
-		$Time = time() - 120;
-		// On ne s'occupe que des msg de moins de 2 minutes (si coupure de connexion) pour ne pas surcharger la fonction
-		$sql = "SELECT *
-			FROM Message
-			WHERE MessagePartie = " . $Partie . "
-			AND MessageTime >= " . $Time . "
-			AND MessageDestinataire IN (0, " . $Joueur . ")
-			AND MessageLu = 0";
-		$req = mysql_query($sql) or die('Erreur SQL #033<br />'.$sql.'<br />'.mysql_error());
-		while ($data = mysql_fetch_array($req) )
+		$messages = LireMessages($Partie, $Joueur, time() - 120, false, false, true, false);
+		
+		foreach ($messages as $data) 
 		{
-			$afficher = TRUE;
-			
-			// Certains joueurs sont exclus des messages (s'ils sont à l'origine d'un message public
-			// Ex: X déclare la guerre à B. On crée un message public pour C, D et E, mais A et B ne le verront pas.
-			if ( $data['MessageExclus'] )
-			{
-				$explode = explode(", ", $data['MessageExclus']);
-				for ( $i = 0 ; $i <= count($data['MessageExclus']) ; $i++ )
+			$Duree = $data['MessageDuree'] * 1000;
+			$Duree = ( $Duree == 0 ) ? "sticky: true, " : "life: " . $Duree . ",";
+			$message .= "$.jGrowl('" . str_replace("'", "\\'", $data['MessageTexte']). "',
 				{
-					$JoueurExclu = $explode[$i];
-					if ( $Joueur == $JoueurExclu )
-					{
-						$afficher = FALSE;
-						break;
-					}
+					" . $Duree . "
+					header : '" . str_replace("'", "\\'", $data['MessageTitre']) . "'
 				}
-			}
-			if ( $data['MessageDestinataire'] == 0 )
-			{
-				// SI le message est public, on passe par une table annexe pour définir qui l'a lu
-				$sql = "SELECT *
-					FROM MessageLu
-					WHERE MessageLuID = " . $data['MessageID'] . "
-					AND MessageLuJoueur = " . $Joueur;
-				$req2 = mysql_query($sql) or die('Erreur SQL #034<br />'.$sql.'<br />'.mysql_error());
-				if ( $data2 = mysql_fetch_array($req2) )
-				{
-					// Si on est ici, c'est que le message a été lu
-					$afficher = FALSE;
-				}
-				else
-				{
-					// On met à jour les messages publics lu par le joueur
-					$sql = 'INSERT INTO MessageLu (MessageLuID, MessageLuJoueur)
-						VALUES(' . $data['MessageID']  . ', ' . $Joueur . ')';
-					mysql_query($sql) or die('Erreur SQL #035'.$sql.'<br />'.mysql_error());
-				}
-			}
-
-			if ( $afficher == TRUE )
-			{
-				$Duree = $data['MessageDuree'] * 1000;
-				$Duree = ( $Duree == 0 ) ? "sticky: true, " : "life: " . $Duree . ",";
-				$message .= "$.jGrowl('" . $data['MessageTexte']. "',
-					{
-						" . $Duree . "
-						header : '" . $data['MessageTitre'] . "'
-					}
-				);";
-			}	
+			);";
 		}
-		
-		// On met à jour les messages privés : ils sont désormais lu
-		$sql = "UPDATE Message
-			SET MessageLu = 1
-				WHERE MessagePartie = " . $Partie . "
-				AND MessageDestinataire = " . $Joueur . "
-				AND MessageLu = 0";
-		mysql_query($sql) or die('Erreur SQL #028<br />'.$sql.'<br />'.mysql_error());
-		
 	break;
 	
 	case "EtatInformations":
@@ -572,62 +513,37 @@ $(document).ready(function() {
 	break;
 	
 	case "Journal":
-		$Joueur 	= $_POST['Joueur'];
+		
+		$Joueur 	= $_POST['Joueur'];		
 		$TimeMin 	= $_POST['TimeMin'] ? $_POST['TimeMin'] : time() - 300 ;
 		$TimeMax 	= $_POST['TimeMax'] ? $_POST['TimeMax'] : time();
 		$Source 	= $_POST['Source'] ? "AND MessageSource = " . $_POST['Source'] : "";
 
-		$sql = "SELECT *
-			FROM Message
-			WHERE MessagePartie = " . $Partie . "
-			AND MessageTime >= " . $TimeMin . "
-			AND MessageTime <= " . $TimeMax . "
-			" . $Source . "
-			AND MessageDestinataire IN (0, " . $Joueur . ")
-			ORDER BY MessageTime DESC";
-		$req = mysql_query($sql) or die('Erreur SQL #052<br />'.$sql.'<br />'.mysql_error());
-		while ($data = mysql_fetch_array($req) )
+		$messages = LireMessages($Partie, $Joueur, $TimeMin, $TimeMax, $Source, false, true);
+		
+		foreach ($messages as $data) 
 		{
-			$afficher = TRUE;
+			$Destinataire 	= !$data['MessageDestinataire'] ? "tout le monde" : "vous-même";
+			$Source 		= !$data['MessageSource'] ? "l'administration" : Attribut( $data['MessageSource'], "Joueur", "JoueurNom");
 			
-			// Certains joueurs sont exclus des messages (s'ils sont à l'origine d'un message public
-			// Ex: X déclare la guerre à B. On crée un message public pour C, D et E, mais A et B ne le verront pas.
-			if ( $data['MessageExclus'] )
-			{
-				$explode = explode(", ", $data['MessageExclus']);
-				for ( $i = 0 ; $i <= count($data['MessageExclus']) ; $i++ )
-				{
-					$JoueurExclu = $explode[$i];
-					if ( $Joueur == $JoueurExclu )
-					{
-						$afficher = FALSE;
-						break;
-					}
-				}
-			}
-			if ( $afficher == TRUE )
-			{
-				$Destinataire 	= !$data['MessageDestinataire'] ? "tout le monde" : "vous-même";
-				$Source 		= !$data['MessageSource'] ? "l'administration" : Attribut( $data['MessageSource'], "Joueur", "JoueurNom");
-				
-				// Modulo ?				
-				$Time 			= time() - $data['MessageTime'];
-				$Minutes		= round($Time / 60);
+			// Modulo ?				
+			$Time 			= time() - $data['MessageTime'];
+			$Minutes		= round($Time / 60);
 
-				$Secondes		= $Time % 60;
-				$Time			= $Minutes . "' " . $Secondes . "''";
+			$Secondes		= $Time % 60;
+			$Time			= $Minutes . "' " . $Secondes . "''";
 
-				$message .= "
-				<tr>
-					<td width='30%'><b>" . $data['MessageTitre'] . "</b></td>
-					<td width='30%'>" . $Time ."</td>
-					<td width='40%'>De <i>" . $Source . "</i> à <i>" . $Destinataire . "</i></td>
-				</tr>
-				<tr>
-					<td width='100%' colspan='3'>" . $data['MessageTexte'] . "</td>
-				</tr>";
-			}	
+			$message .= "
+			<tr>
+				<td width='30%'><b>" . $data['MessageTitre'] . "</b></td>
+				<td width='30%'>" . $Time ."</td>
+				<td width='40%'>De <i>" . $Source . "</i> à <i>" . $Destinataire . "</i></td>
+			</tr>
+			<tr>
+				<td width='100%' colspan='3'>" . $data['MessageTexte'] . "</td>
+			</tr>";
 		}
+		
 		$message = "<table cellspacing='0' cellpadding='0'>" . $message . "</table>";
 	break;
 }

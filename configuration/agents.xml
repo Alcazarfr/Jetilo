@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agents>
+	<agent id="diplomate">
+		<stratégie>civil</stratégie>
+		<renseignement>1</renseignement>
+	</agent>
+	<agent id="espion">
+		<stratégie>militaire</stratégie>
+		<renseignement>1</renseignement>
+	</agent>
+	<agent id="colporteur">
+		<stratégie>économie</stratégie>
+		<renseignement>1</renseignement>
+	</agent>
+	<agent id="confesseur">
+		<stratégie>religion</stratégie>
+		<renseignement>1</renseignement>
+	</agent>
+	<agent id="agitateur">
+		<stratégie>civil</stratégie>
+		<renseignement>0</renseignement>
+	</agent>
+	<agent id="commando">
+		<stratégie>militaire</stratégie>
+		<renseignement>0</renseignement>
+	</agent>
+	<agent id="escroc">
+		<stratégie>économie</stratégie>
+		<renseignement>0</renseignement>
+	</agent>
+	<agent id="missionnaire">
+		<stratégie>religion</stratégie>
+		<renseignement>0</renseignement>
+	</agent>
+</agents>
