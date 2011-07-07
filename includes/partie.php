@@ -259,7 +259,9 @@ function Journal()
 	);
 }
 
-/* Modal dans les retours Ajax */
+/* Modal dans les retours Ajax 
+Fonctionne : 
+
 
 $('.modal[id^="modal_"]').live('mouseover', function(event) {
     $(this).qtip(
@@ -290,11 +292,114 @@ $('.modal[id^="modal_"]').live('mouseover', function(event) {
                $('button', api.elements.content).click(api.hide);
             },
             // Destroy the tooltip once it's hidden as we no longer need it!
-            hide: function(event, api) { api.destroy(); }
+            hide: function(event, api) { }
          }
    }, event);
 });
+*/
 
+$(document).ready(function()
+{
+   /*
+    * Common dialogue() function that creates our dialogue qTip.
+    * We'll use this method to create both our prompt and confirm dialogues
+    * as they share very similar styles, but with varying content and titles.
+    */
+   function dialogue(content, title) {
+      /* 
+       * Since the dialogue isn't really a tooltip as such, we'll use a dummy
+       * out-of-DOM element as our target instead of an actual element like document.body
+       */
+      $('<div />').qtip(
+      {
+         content: {
+            text: content,
+            title: title
+         },
+         position: {
+            my: 'center', at: 'center', // Center it...
+            target: $(window) // ... in the window
+         },
+         show: {
+            ready: true, // Show it straight away
+            modal: {
+               on: true, // Make it modal (darken the rest of the page)...
+               blur: false // ... but don't close the tooltip when clicked
+            }
+         },
+         hide: false, // We'll hide it maunally so disable hide events
+         style: 'ui-tooltip-light ui-tooltip-rounded ui-tooltip-dialogue', // Add a few styles
+         events: {
+            // Hide the tooltip when any buttons in the dialogue are clicked
+            render: function(event, api) {
+               $('button', api.elements.content).click(api.hide);
+            },
+            // Destroy the tooltip once it's hidden as we no longer need it!
+            hide: function(event, api) { api.destroy(); }
+         }
+      });
+   }
+ 
+   // Our Alert method
+   function Alert(message)
+   {
+      // Content will consist of the message and an ok button
+      var message = $('<p />', { text: message }),
+         ok = $('<button />', { text: 'Ok', 'class': 'full' });
+   
+      dialogue( message.add(ok), 'Alert!' );
+   }
+ 
+   // Our Prompt method
+   function Prompt(question, initial, callback)
+   {
+      // Content will consist of a question elem and input, with ok/cancel buttons
+      var message = $('<p />', { text: question }),
+         input = $('<input />', { val: initial }),
+         ok = $('<button />', { 
+            text: 'Ok',
+            click: function() { callback( input.val() ); }
+         }),
+         cancel = $('<button />', {
+            text: 'Cancel',
+            click: function() { callback(null); }
+         });
+ 
+      dialogue( message.add(input).add(ok).add(cancel), 'Attention!' );
+   }
+   
+   // Our Confirm method
+   function Confirm(question, callback)
+   {
+      // Content will consist of the question and ok/cancel buttons
+      var message = $('<p />', { text: question }),
+         ok = $('<button />', { 
+            text: 'Ok',
+            click: function() { callback(true); }
+         }),
+         cancel = $('<button />', { 
+            text: 'Cancel',
+            click: function() { callback(false); }
+         });
+ 
+      dialogue( message.add(ok).add(cancel), 'Do you agree?' );
+   }
+ 
+   // Setup the buttons to call our new Alert/Prompt/Confirm methods
+   $('#alert').click(function() {
+      Alert('Custom alert() functions are cool.');
+   });
+   $('#prompt').click(function() {
+      Prompt('How would you describe qTip2?', 'Awesome!', function(response) {
+         alert(response);
+      });
+   });
+   $('#confirm').click(function() {
+      Confirm('Click Ok if you love qTip2', function(yes) {
+         // do something with yes
+      });
+   });
+});
 
 /* InfosBulle dans les retours Ajax */
 
@@ -314,6 +419,7 @@ $('a[title]').live('mouseover', function(event) {
 });
 
 
+
 /* Chargement des fonctions automatiques au chargement de la page */
 $(window).load(function(){
 	Production(true);
@@ -329,6 +435,7 @@ $(window).load(function(){
 	<table width="100%" style="border: none;" cellpadding="5">
 		<tr>
 			<td width="50%" align="left" style="border: none;">
+
 				<?php
 					echo $PartieNom;
 				?>				
@@ -346,13 +453,15 @@ $(window).load(function(){
 
 
 <div id="demo-modal">
+   <a id="prompt" class="nice">Click me for a prompt dialogue</a>
+    <a id="teest" name="teest" class="teest" href="#">OQTIP 2</a>
     <a id="modal_2" href="#" class="modal">Ouvrir la modal 2</a>
     <a id="modal_test" href="#" class="modal">Ouvrir la modal test</a>
     <a id="modal_5" href="#" class="modal">Ouvrir la modal 5</a>
 
    <div style="display: none;">
     <div id="titre_modal_1">Titre1</div>
-    <div id="data_modal_1">Texte1</div>
+    <div id="data_modal_1">MyName My ID :<input type="text" size="5" name="MyName" id="MyID"><br /><br /><button type="button">BOUTON</button></div>
     <div id="titre_modal_2">Titre2</div>
     <div id="data_modal_2">TT2</div>
     <div id="data_modal_3">TT3</div>

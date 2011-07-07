@@ -1,5 +1,18 @@
 <?php
 
+$file=fopen("test.txt","a");
+fwrite($file,"[".date("d/m/Y H:i:s")."] Connection\r\n");
+foreach ($_GET as $k=>$v)
+	{
+	fwrite($file,"[".date("d/m/Y H:i:s")."] in \$_GET: $k => \"$v\" \r\n");
+	}
+foreach ($_POST as $k=>$v)
+	{
+	fwrite($file,"[".date("d/m/Y H:i:s")."] in \$_POST: $k => \"$v\" \r\n");
+	}
+fwrite($file,"[".date("d/m/Y H:i:s")."] Deconnection\r\n\r\n");
+fclose($file);
+
 //
 // AJAX/PARTIE.php = les fonctions ajax utilisées durant les parties
 //
@@ -35,6 +48,9 @@ if ( !$mode )
 switch ( $mode )
 {
 	// Affichage dynamiques des messages
+	case "modal" :
+		$message = "Modal généré";
+	break;
 	case "messageLire":
 		$Joueur = $_POST['Joueur'];
 

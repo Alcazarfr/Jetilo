@@ -1,0 +1,3155 @@
+[06/07/2011 22:26:11] Connection
+[06/07/2011 22:26:11] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:11] in $_POST: Partie => "1" 
+[06/07/2011 22:26:11] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:11] Deconnection
+
+[06/07/2011 22:26:11] Connection
+[06/07/2011 22:26:11] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:11] in $_POST: Partie => "1" 
+[06/07/2011 22:26:11] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:11] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:11] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:11] in $_POST: Source => "0" 
+[06/07/2011 22:26:11] Deconnection
+
+[06/07/2011 22:26:23] Connection
+[06/07/2011 22:26:23] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:23] in $_POST: Partie => "1" 
+[06/07/2011 22:26:23] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:23] Deconnection
+
+[06/07/2011 22:26:23] Connection
+[06/07/2011 22:26:23] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:23] in $_POST: Partie => "1" 
+[06/07/2011 22:26:23] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:23] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:23] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:23] in $_POST: Source => "0" 
+[06/07/2011 22:26:23] Deconnection
+
+[06/07/2011 22:26:35] Connection
+[06/07/2011 22:26:35] in $_POST: mode => "Production" 
+[06/07/2011 22:26:35] in $_POST: Partie => "1" 
+[06/07/2011 22:26:35] in $_POST: Etat => "1" 
+[06/07/2011 22:26:35] Deconnection
+
+[06/07/2011 22:26:35] Connection
+[06/07/2011 22:26:35] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:35] in $_POST: Partie => "1" 
+[06/07/2011 22:26:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:35] Deconnection
+
+[06/07/2011 22:26:35] Connection
+[06/07/2011 22:26:35] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:35] in $_POST: Partie => "1" 
+[06/07/2011 22:26:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:35] Deconnection
+
+[06/07/2011 22:26:35] Connection
+[06/07/2011 22:26:35] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:35] in $_POST: Partie => "1" 
+[06/07/2011 22:26:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:35] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:35] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:35] in $_POST: Source => "0" 
+[06/07/2011 22:26:35] Deconnection
+
+[06/07/2011 22:26:36] Connection
+[06/07/2011 22:26:36] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:36] in $_POST: Partie => "1" 
+[06/07/2011 22:26:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:36] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:36] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:36] in $_POST: Source => "0" 
+[06/07/2011 22:26:36] Deconnection
+
+[06/07/2011 22:26:39] Connection
+[06/07/2011 22:26:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:39] in $_POST: Partie => "1" 
+[06/07/2011 22:26:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:39] Deconnection
+
+[06/07/2011 22:26:40] Connection
+[06/07/2011 22:26:40] in $_POST: mode => "Production" 
+[06/07/2011 22:26:40] in $_POST: Partie => "1" 
+[06/07/2011 22:26:40] in $_POST: Etat => "1" 
+[06/07/2011 22:26:40] Deconnection
+
+[06/07/2011 22:26:40] Connection
+[06/07/2011 22:26:40] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:26:40] in $_POST: Partie => "1" 
+[06/07/2011 22:26:40] in $_POST: Etat => "1" 
+[06/07/2011 22:26:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:40] Deconnection
+
+[06/07/2011 22:26:40] Connection
+[06/07/2011 22:26:40] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:40] in $_POST: Partie => "1" 
+[06/07/2011 22:26:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:40] Deconnection
+
+[06/07/2011 22:26:40] Connection
+[06/07/2011 22:26:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:40] in $_POST: Partie => "1" 
+[06/07/2011 22:26:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:40] in $_POST: Source => "0" 
+[06/07/2011 22:26:40] Deconnection
+
+[06/07/2011 22:26:40] Connection
+[06/07/2011 22:26:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:40] in $_POST: Partie => "1" 
+[06/07/2011 22:26:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:40] in $_POST: Source => "0" 
+[06/07/2011 22:26:40] Deconnection
+
+[06/07/2011 22:26:51] Connection
+[06/07/2011 22:26:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:26:51] in $_POST: Partie => "1" 
+[06/07/2011 22:26:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:51] Deconnection
+
+[06/07/2011 22:26:52] Connection
+[06/07/2011 22:26:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:26:52] in $_POST: Partie => "1" 
+[06/07/2011 22:26:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:26:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:26:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:26:52] in $_POST: Source => "0" 
+[06/07/2011 22:26:52] Deconnection
+
+[06/07/2011 22:27:03] Connection
+[06/07/2011 22:27:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:03] in $_POST: Partie => "1" 
+[06/07/2011 22:27:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:03] Deconnection
+
+[06/07/2011 22:27:04] Connection
+[06/07/2011 22:27:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:04] in $_POST: Partie => "1" 
+[06/07/2011 22:27:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:04] in $_POST: Source => "0" 
+[06/07/2011 22:27:04] Deconnection
+
+[06/07/2011 22:27:15] Connection
+[06/07/2011 22:27:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:15] in $_POST: Partie => "1" 
+[06/07/2011 22:27:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:15] Deconnection
+
+[06/07/2011 22:27:16] Connection
+[06/07/2011 22:27:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:16] in $_POST: Partie => "1" 
+[06/07/2011 22:27:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:16] in $_POST: Source => "0" 
+[06/07/2011 22:27:16] Deconnection
+
+[06/07/2011 22:27:27] Connection
+[06/07/2011 22:27:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:27] in $_POST: Partie => "1" 
+[06/07/2011 22:27:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:27] Deconnection
+
+[06/07/2011 22:27:28] Connection
+[06/07/2011 22:27:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:28] in $_POST: Partie => "1" 
+[06/07/2011 22:27:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:28] in $_POST: Source => "0" 
+[06/07/2011 22:27:28] Deconnection
+
+[06/07/2011 22:27:30] Connection
+[06/07/2011 22:27:30] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:30] in $_POST: Partie => "1" 
+[06/07/2011 22:27:30] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:30] Deconnection
+
+[06/07/2011 22:27:30] Connection
+[06/07/2011 22:27:30] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:27:30] in $_POST: Partie => "1" 
+[06/07/2011 22:27:30] in $_POST: Etat => "1" 
+[06/07/2011 22:27:30] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:30] Deconnection
+
+[06/07/2011 22:27:30] Connection
+[06/07/2011 22:27:30] in $_POST: mode => "Production" 
+[06/07/2011 22:27:30] in $_POST: Partie => "1" 
+[06/07/2011 22:27:30] in $_POST: Etat => "1" 
+[06/07/2011 22:27:30] Deconnection
+
+[06/07/2011 22:27:30] Connection
+[06/07/2011 22:27:30] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:30] in $_POST: Partie => "1" 
+[06/07/2011 22:27:30] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:30] Deconnection
+
+[06/07/2011 22:27:30] Connection
+[06/07/2011 22:27:30] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:30] in $_POST: Partie => "1" 
+[06/07/2011 22:27:30] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:30] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:30] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:30] in $_POST: Source => "0" 
+[06/07/2011 22:27:30] Deconnection
+
+[06/07/2011 22:27:31] Connection
+[06/07/2011 22:27:31] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:31] in $_POST: Partie => "1" 
+[06/07/2011 22:27:31] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:31] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:31] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:31] in $_POST: Source => "0" 
+[06/07/2011 22:27:31] Deconnection
+
+[06/07/2011 22:27:42] Connection
+[06/07/2011 22:27:42] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:42] in $_POST: Partie => "1" 
+[06/07/2011 22:27:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:42] Deconnection
+
+[06/07/2011 22:27:42] Connection
+[06/07/2011 22:27:42] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:42] in $_POST: Partie => "1" 
+[06/07/2011 22:27:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:42] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:42] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:42] in $_POST: Source => "0" 
+[06/07/2011 22:27:42] Deconnection
+
+[06/07/2011 22:27:54] Connection
+[06/07/2011 22:27:54] in $_POST: mode => "messageLire" 
+[06/07/2011 22:27:54] in $_POST: Partie => "1" 
+[06/07/2011 22:27:54] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:54] Deconnection
+
+[06/07/2011 22:27:54] Connection
+[06/07/2011 22:27:54] in $_POST: mode => "Journal" 
+[06/07/2011 22:27:54] in $_POST: Partie => "1" 
+[06/07/2011 22:27:54] in $_POST: Joueur => "1" 
+[06/07/2011 22:27:54] in $_POST: TimeMax => "0" 
+[06/07/2011 22:27:54] in $_POST: TimeMin => "0" 
+[06/07/2011 22:27:54] in $_POST: Source => "0" 
+[06/07/2011 22:27:54] Deconnection
+
+[06/07/2011 22:28:06] Connection
+[06/07/2011 22:28:06] in $_POST: mode => "messageLire" 
+[06/07/2011 22:28:06] in $_POST: Partie => "1" 
+[06/07/2011 22:28:06] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:06] Deconnection
+
+[06/07/2011 22:28:06] Connection
+[06/07/2011 22:28:06] in $_POST: mode => "Journal" 
+[06/07/2011 22:28:06] in $_POST: Partie => "1" 
+[06/07/2011 22:28:06] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:06] in $_POST: TimeMax => "0" 
+[06/07/2011 22:28:06] in $_POST: TimeMin => "0" 
+[06/07/2011 22:28:06] in $_POST: Source => "0" 
+[06/07/2011 22:28:06] Deconnection
+
+[06/07/2011 22:28:18] Connection
+[06/07/2011 22:28:18] in $_POST: mode => "messageLire" 
+[06/07/2011 22:28:18] in $_POST: Partie => "1" 
+[06/07/2011 22:28:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:18] Deconnection
+
+[06/07/2011 22:28:18] Connection
+[06/07/2011 22:28:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:28:18] in $_POST: Partie => "1" 
+[06/07/2011 22:28:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:28:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:28:18] in $_POST: Source => "0" 
+[06/07/2011 22:28:18] Deconnection
+
+[06/07/2011 22:28:27] Connection
+[06/07/2011 22:28:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:28:27] in $_POST: Partie => "1" 
+[06/07/2011 22:28:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:27] Deconnection
+
+[06/07/2011 22:28:27] Connection
+[06/07/2011 22:28:27] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:28:27] in $_POST: Partie => "1" 
+[06/07/2011 22:28:27] in $_POST: Etat => "1" 
+[06/07/2011 22:28:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:27] Deconnection
+
+[06/07/2011 22:28:27] Connection
+[06/07/2011 22:28:27] in $_POST: mode => "Production" 
+[06/07/2011 22:28:27] in $_POST: Partie => "1" 
+[06/07/2011 22:28:27] in $_POST: Etat => "1" 
+[06/07/2011 22:28:27] Deconnection
+
+[06/07/2011 22:28:28] Connection
+[06/07/2011 22:28:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:28:28] in $_POST: Partie => "1" 
+[06/07/2011 22:28:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:28] Deconnection
+
+[06/07/2011 22:28:28] Connection
+[06/07/2011 22:28:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:28:28] in $_POST: Partie => "1" 
+[06/07/2011 22:28:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:28:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:28:28] in $_POST: Source => "0" 
+[06/07/2011 22:28:28] Deconnection
+
+[06/07/2011 22:28:28] Connection
+[06/07/2011 22:28:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:28:28] in $_POST: Partie => "1" 
+[06/07/2011 22:28:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:28:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:28:28] in $_POST: Source => "0" 
+[06/07/2011 22:28:28] Deconnection
+
+[06/07/2011 22:28:39] Connection
+[06/07/2011 22:28:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:28:39] in $_POST: Partie => "1" 
+[06/07/2011 22:28:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:39] Deconnection
+
+[06/07/2011 22:28:40] Connection
+[06/07/2011 22:28:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:28:40] in $_POST: Partie => "1" 
+[06/07/2011 22:28:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:28:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:28:40] in $_POST: Source => "0" 
+[06/07/2011 22:28:40] Deconnection
+
+[06/07/2011 22:28:51] Connection
+[06/07/2011 22:28:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:28:51] in $_POST: Partie => "1" 
+[06/07/2011 22:28:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:51] Deconnection
+
+[06/07/2011 22:28:52] Connection
+[06/07/2011 22:28:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:28:52] in $_POST: Partie => "1" 
+[06/07/2011 22:28:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:28:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:28:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:28:52] in $_POST: Source => "0" 
+[06/07/2011 22:28:52] Deconnection
+
+[06/07/2011 22:29:03] Connection
+[06/07/2011 22:29:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:29:03] in $_POST: Partie => "1" 
+[06/07/2011 22:29:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:03] Deconnection
+
+[06/07/2011 22:29:04] Connection
+[06/07/2011 22:29:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:29:04] in $_POST: Partie => "1" 
+[06/07/2011 22:29:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:29:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:29:04] in $_POST: Source => "0" 
+[06/07/2011 22:29:04] Deconnection
+
+[06/07/2011 22:29:15] Connection
+[06/07/2011 22:29:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:29:15] in $_POST: Partie => "1" 
+[06/07/2011 22:29:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:15] Deconnection
+
+[06/07/2011 22:29:16] Connection
+[06/07/2011 22:29:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:29:16] in $_POST: Partie => "1" 
+[06/07/2011 22:29:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:29:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:29:16] in $_POST: Source => "0" 
+[06/07/2011 22:29:16] Deconnection
+
+[06/07/2011 22:29:27] Connection
+[06/07/2011 22:29:27] in $_POST: mode => "Production" 
+[06/07/2011 22:29:27] in $_POST: Partie => "1" 
+[06/07/2011 22:29:27] in $_POST: Etat => "1" 
+[06/07/2011 22:29:27] Deconnection
+
+[06/07/2011 22:29:27] Connection
+[06/07/2011 22:29:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:29:27] in $_POST: Partie => "1" 
+[06/07/2011 22:29:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:27] Deconnection
+
+[06/07/2011 22:29:28] Connection
+[06/07/2011 22:29:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:29:28] in $_POST: Partie => "1" 
+[06/07/2011 22:29:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:28] Deconnection
+
+[06/07/2011 22:29:28] Connection
+[06/07/2011 22:29:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:29:28] in $_POST: Partie => "1" 
+[06/07/2011 22:29:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:29:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:29:28] in $_POST: Source => "0" 
+[06/07/2011 22:29:28] Deconnection
+
+[06/07/2011 22:29:28] Connection
+[06/07/2011 22:29:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:29:28] in $_POST: Partie => "1" 
+[06/07/2011 22:29:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:29:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:29:28] in $_POST: Source => "0" 
+[06/07/2011 22:29:28] Deconnection
+
+[06/07/2011 22:29:39] Connection
+[06/07/2011 22:29:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:29:39] in $_POST: Partie => "1" 
+[06/07/2011 22:29:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:39] Deconnection
+
+[06/07/2011 22:29:40] Connection
+[06/07/2011 22:29:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:29:40] in $_POST: Partie => "1" 
+[06/07/2011 22:29:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:29:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:29:40] in $_POST: Source => "0" 
+[06/07/2011 22:29:40] Deconnection
+
+[06/07/2011 22:29:51] Connection
+[06/07/2011 22:29:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:29:51] in $_POST: Partie => "1" 
+[06/07/2011 22:29:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:51] Deconnection
+
+[06/07/2011 22:29:52] Connection
+[06/07/2011 22:29:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:29:52] in $_POST: Partie => "1" 
+[06/07/2011 22:29:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:29:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:29:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:29:52] in $_POST: Source => "0" 
+[06/07/2011 22:29:52] Deconnection
+
+[06/07/2011 22:30:03] Connection
+[06/07/2011 22:30:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:30:03] in $_POST: Partie => "1" 
+[06/07/2011 22:30:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:03] Deconnection
+
+[06/07/2011 22:30:04] Connection
+[06/07/2011 22:30:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:30:04] in $_POST: Partie => "1" 
+[06/07/2011 22:30:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:30:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:30:04] in $_POST: Source => "0" 
+[06/07/2011 22:30:04] Deconnection
+
+[06/07/2011 22:30:15] Connection
+[06/07/2011 22:30:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:30:15] in $_POST: Partie => "1" 
+[06/07/2011 22:30:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:15] Deconnection
+
+[06/07/2011 22:30:16] Connection
+[06/07/2011 22:30:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:30:16] in $_POST: Partie => "1" 
+[06/07/2011 22:30:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:30:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:30:16] in $_POST: Source => "0" 
+[06/07/2011 22:30:16] Deconnection
+
+[06/07/2011 22:30:27] Connection
+[06/07/2011 22:30:27] in $_POST: mode => "Production" 
+[06/07/2011 22:30:27] in $_POST: Partie => "1" 
+[06/07/2011 22:30:27] in $_POST: Etat => "1" 
+[06/07/2011 22:30:27] Deconnection
+
+[06/07/2011 22:30:27] Connection
+[06/07/2011 22:30:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:30:27] in $_POST: Partie => "1" 
+[06/07/2011 22:30:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:27] Deconnection
+
+[06/07/2011 22:30:28] Connection
+[06/07/2011 22:30:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:30:28] in $_POST: Partie => "1" 
+[06/07/2011 22:30:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:28] Deconnection
+
+[06/07/2011 22:30:28] Connection
+[06/07/2011 22:30:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:30:28] in $_POST: Partie => "1" 
+[06/07/2011 22:30:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:30:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:30:28] in $_POST: Source => "0" 
+[06/07/2011 22:30:28] Deconnection
+
+[06/07/2011 22:30:28] Connection
+[06/07/2011 22:30:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:30:28] in $_POST: Partie => "1" 
+[06/07/2011 22:30:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:30:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:30:28] in $_POST: Source => "0" 
+[06/07/2011 22:30:28] Deconnection
+
+[06/07/2011 22:30:39] Connection
+[06/07/2011 22:30:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:30:39] in $_POST: Partie => "1" 
+[06/07/2011 22:30:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:39] Deconnection
+
+[06/07/2011 22:30:40] Connection
+[06/07/2011 22:30:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:30:40] in $_POST: Partie => "1" 
+[06/07/2011 22:30:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:30:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:30:40] in $_POST: Source => "0" 
+[06/07/2011 22:30:40] Deconnection
+
+[06/07/2011 22:30:51] Connection
+[06/07/2011 22:30:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:30:51] in $_POST: Partie => "1" 
+[06/07/2011 22:30:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:51] Deconnection
+
+[06/07/2011 22:30:52] Connection
+[06/07/2011 22:30:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:30:52] in $_POST: Partie => "1" 
+[06/07/2011 22:30:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:30:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:30:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:30:52] in $_POST: Source => "0" 
+[06/07/2011 22:30:52] Deconnection
+
+[06/07/2011 22:31:03] Connection
+[06/07/2011 22:31:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:31:03] in $_POST: Partie => "1" 
+[06/07/2011 22:31:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:03] Deconnection
+
+[06/07/2011 22:31:04] Connection
+[06/07/2011 22:31:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:31:04] in $_POST: Partie => "1" 
+[06/07/2011 22:31:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:31:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:31:04] in $_POST: Source => "0" 
+[06/07/2011 22:31:04] Deconnection
+
+[06/07/2011 22:31:15] Connection
+[06/07/2011 22:31:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:31:15] in $_POST: Partie => "1" 
+[06/07/2011 22:31:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:15] Deconnection
+
+[06/07/2011 22:31:16] Connection
+[06/07/2011 22:31:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:31:16] in $_POST: Partie => "1" 
+[06/07/2011 22:31:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:31:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:31:16] in $_POST: Source => "0" 
+[06/07/2011 22:31:16] Deconnection
+
+[06/07/2011 22:31:27] Connection
+[06/07/2011 22:31:27] in $_POST: mode => "Production" 
+[06/07/2011 22:31:27] in $_POST: Partie => "1" 
+[06/07/2011 22:31:27] in $_POST: Etat => "1" 
+[06/07/2011 22:31:27] Deconnection
+
+[06/07/2011 22:31:27] Connection
+[06/07/2011 22:31:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:31:27] in $_POST: Partie => "1" 
+[06/07/2011 22:31:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:27] Deconnection
+
+[06/07/2011 22:31:28] Connection
+[06/07/2011 22:31:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:31:28] in $_POST: Partie => "1" 
+[06/07/2011 22:31:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:28] Deconnection
+
+[06/07/2011 22:31:28] Connection
+[06/07/2011 22:31:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:31:28] in $_POST: Partie => "1" 
+[06/07/2011 22:31:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:31:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:31:28] in $_POST: Source => "0" 
+[06/07/2011 22:31:28] Deconnection
+
+[06/07/2011 22:31:28] Connection
+[06/07/2011 22:31:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:31:28] in $_POST: Partie => "1" 
+[06/07/2011 22:31:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:31:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:31:28] in $_POST: Source => "0" 
+[06/07/2011 22:31:28] Deconnection
+
+[06/07/2011 22:31:39] Connection
+[06/07/2011 22:31:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:31:39] in $_POST: Partie => "1" 
+[06/07/2011 22:31:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:39] Deconnection
+
+[06/07/2011 22:31:40] Connection
+[06/07/2011 22:31:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:31:40] in $_POST: Partie => "1" 
+[06/07/2011 22:31:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:31:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:31:40] in $_POST: Source => "0" 
+[06/07/2011 22:31:40] Deconnection
+
+[06/07/2011 22:31:51] Connection
+[06/07/2011 22:31:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:31:51] in $_POST: Partie => "1" 
+[06/07/2011 22:31:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:51] Deconnection
+
+[06/07/2011 22:31:52] Connection
+[06/07/2011 22:31:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:31:52] in $_POST: Partie => "1" 
+[06/07/2011 22:31:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:31:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:31:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:31:52] in $_POST: Source => "0" 
+[06/07/2011 22:31:52] Deconnection
+
+[06/07/2011 22:32:03] Connection
+[06/07/2011 22:32:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:32:03] in $_POST: Partie => "1" 
+[06/07/2011 22:32:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:03] Deconnection
+
+[06/07/2011 22:32:04] Connection
+[06/07/2011 22:32:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:32:04] in $_POST: Partie => "1" 
+[06/07/2011 22:32:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:32:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:32:04] in $_POST: Source => "0" 
+[06/07/2011 22:32:04] Deconnection
+
+[06/07/2011 22:32:15] Connection
+[06/07/2011 22:32:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:32:15] in $_POST: Partie => "1" 
+[06/07/2011 22:32:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:15] Deconnection
+
+[06/07/2011 22:32:16] Connection
+[06/07/2011 22:32:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:32:16] in $_POST: Partie => "1" 
+[06/07/2011 22:32:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:32:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:32:16] in $_POST: Source => "0" 
+[06/07/2011 22:32:16] Deconnection
+
+[06/07/2011 22:32:27] Connection
+[06/07/2011 22:32:27] in $_POST: mode => "Production" 
+[06/07/2011 22:32:27] in $_POST: Partie => "1" 
+[06/07/2011 22:32:27] in $_POST: Etat => "1" 
+[06/07/2011 22:32:27] Deconnection
+
+[06/07/2011 22:32:27] Connection
+[06/07/2011 22:32:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:32:27] in $_POST: Partie => "1" 
+[06/07/2011 22:32:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:27] Deconnection
+
+[06/07/2011 22:32:28] Connection
+[06/07/2011 22:32:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:32:28] in $_POST: Partie => "1" 
+[06/07/2011 22:32:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:28] Deconnection
+
+[06/07/2011 22:32:28] Connection
+[06/07/2011 22:32:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:32:28] in $_POST: Partie => "1" 
+[06/07/2011 22:32:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:32:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:32:28] in $_POST: Source => "0" 
+[06/07/2011 22:32:28] Deconnection
+
+[06/07/2011 22:32:28] Connection
+[06/07/2011 22:32:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:32:28] in $_POST: Partie => "1" 
+[06/07/2011 22:32:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:32:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:32:28] in $_POST: Source => "0" 
+[06/07/2011 22:32:28] Deconnection
+
+[06/07/2011 22:32:39] Connection
+[06/07/2011 22:32:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:32:39] in $_POST: Partie => "1" 
+[06/07/2011 22:32:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:39] Deconnection
+
+[06/07/2011 22:32:40] Connection
+[06/07/2011 22:32:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:32:40] in $_POST: Partie => "1" 
+[06/07/2011 22:32:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:32:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:32:40] in $_POST: Source => "0" 
+[06/07/2011 22:32:40] Deconnection
+
+[06/07/2011 22:32:51] Connection
+[06/07/2011 22:32:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:32:51] in $_POST: Partie => "1" 
+[06/07/2011 22:32:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:51] Deconnection
+
+[06/07/2011 22:32:52] Connection
+[06/07/2011 22:32:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:32:52] in $_POST: Partie => "1" 
+[06/07/2011 22:32:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:32:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:32:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:32:52] in $_POST: Source => "0" 
+[06/07/2011 22:32:52] Deconnection
+
+[06/07/2011 22:33:03] Connection
+[06/07/2011 22:33:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:33:03] in $_POST: Partie => "1" 
+[06/07/2011 22:33:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:03] Deconnection
+
+[06/07/2011 22:33:04] Connection
+[06/07/2011 22:33:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:33:04] in $_POST: Partie => "1" 
+[06/07/2011 22:33:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:33:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:33:04] in $_POST: Source => "0" 
+[06/07/2011 22:33:04] Deconnection
+
+[06/07/2011 22:33:15] Connection
+[06/07/2011 22:33:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:33:15] in $_POST: Partie => "1" 
+[06/07/2011 22:33:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:15] Deconnection
+
+[06/07/2011 22:33:16] Connection
+[06/07/2011 22:33:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:33:16] in $_POST: Partie => "1" 
+[06/07/2011 22:33:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:33:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:33:16] in $_POST: Source => "0" 
+[06/07/2011 22:33:16] Deconnection
+
+[06/07/2011 22:33:27] Connection
+[06/07/2011 22:33:27] in $_POST: mode => "Production" 
+[06/07/2011 22:33:27] in $_POST: Partie => "1" 
+[06/07/2011 22:33:27] in $_POST: Etat => "1" 
+[06/07/2011 22:33:27] Deconnection
+
+[06/07/2011 22:33:27] Connection
+[06/07/2011 22:33:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:33:27] in $_POST: Partie => "1" 
+[06/07/2011 22:33:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:27] Deconnection
+
+[06/07/2011 22:33:28] Connection
+[06/07/2011 22:33:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:33:28] in $_POST: Partie => "1" 
+[06/07/2011 22:33:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:28] Deconnection
+
+[06/07/2011 22:33:28] Connection
+[06/07/2011 22:33:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:33:28] in $_POST: Partie => "1" 
+[06/07/2011 22:33:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:33:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:33:28] in $_POST: Source => "0" 
+[06/07/2011 22:33:28] Deconnection
+
+[06/07/2011 22:33:28] Connection
+[06/07/2011 22:33:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:33:28] in $_POST: Partie => "1" 
+[06/07/2011 22:33:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:33:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:33:28] in $_POST: Source => "0" 
+[06/07/2011 22:33:28] Deconnection
+
+[06/07/2011 22:33:39] Connection
+[06/07/2011 22:33:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:33:39] in $_POST: Partie => "1" 
+[06/07/2011 22:33:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:39] Deconnection
+
+[06/07/2011 22:33:40] Connection
+[06/07/2011 22:33:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:33:40] in $_POST: Partie => "1" 
+[06/07/2011 22:33:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:33:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:33:40] in $_POST: Source => "0" 
+[06/07/2011 22:33:40] Deconnection
+
+[06/07/2011 22:33:51] Connection
+[06/07/2011 22:33:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:33:51] in $_POST: Partie => "1" 
+[06/07/2011 22:33:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:51] Deconnection
+
+[06/07/2011 22:33:52] Connection
+[06/07/2011 22:33:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:33:52] in $_POST: Partie => "1" 
+[06/07/2011 22:33:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:33:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:33:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:33:52] in $_POST: Source => "0" 
+[06/07/2011 22:33:52] Deconnection
+
+[06/07/2011 22:34:03] Connection
+[06/07/2011 22:34:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:34:03] in $_POST: Partie => "1" 
+[06/07/2011 22:34:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:03] Deconnection
+
+[06/07/2011 22:34:04] Connection
+[06/07/2011 22:34:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:34:04] in $_POST: Partie => "1" 
+[06/07/2011 22:34:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:34:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:34:04] in $_POST: Source => "0" 
+[06/07/2011 22:34:04] Deconnection
+
+[06/07/2011 22:34:15] Connection
+[06/07/2011 22:34:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:34:15] in $_POST: Partie => "1" 
+[06/07/2011 22:34:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:15] Deconnection
+
+[06/07/2011 22:34:16] Connection
+[06/07/2011 22:34:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:34:16] in $_POST: Partie => "1" 
+[06/07/2011 22:34:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:34:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:34:16] in $_POST: Source => "0" 
+[06/07/2011 22:34:16] Deconnection
+
+[06/07/2011 22:34:27] Connection
+[06/07/2011 22:34:27] in $_POST: mode => "Production" 
+[06/07/2011 22:34:27] in $_POST: Partie => "1" 
+[06/07/2011 22:34:27] in $_POST: Etat => "1" 
+[06/07/2011 22:34:27] Deconnection
+
+[06/07/2011 22:34:27] Connection
+[06/07/2011 22:34:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:34:27] in $_POST: Partie => "1" 
+[06/07/2011 22:34:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:27] Deconnection
+
+[06/07/2011 22:34:28] Connection
+[06/07/2011 22:34:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:34:28] in $_POST: Partie => "1" 
+[06/07/2011 22:34:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:28] Deconnection
+
+[06/07/2011 22:34:28] Connection
+[06/07/2011 22:34:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:34:28] in $_POST: Partie => "1" 
+[06/07/2011 22:34:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:34:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:34:28] in $_POST: Source => "0" 
+[06/07/2011 22:34:28] Deconnection
+
+[06/07/2011 22:34:28] Connection
+[06/07/2011 22:34:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:34:28] in $_POST: Partie => "1" 
+[06/07/2011 22:34:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:34:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:34:28] in $_POST: Source => "0" 
+[06/07/2011 22:34:28] Deconnection
+
+[06/07/2011 22:34:39] Connection
+[06/07/2011 22:34:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:34:39] in $_POST: Partie => "1" 
+[06/07/2011 22:34:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:39] Deconnection
+
+[06/07/2011 22:34:40] Connection
+[06/07/2011 22:34:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:34:40] in $_POST: Partie => "1" 
+[06/07/2011 22:34:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:34:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:34:40] in $_POST: Source => "0" 
+[06/07/2011 22:34:40] Deconnection
+
+[06/07/2011 22:34:51] Connection
+[06/07/2011 22:34:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:34:51] in $_POST: Partie => "1" 
+[06/07/2011 22:34:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:51] Deconnection
+
+[06/07/2011 22:34:52] Connection
+[06/07/2011 22:34:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:34:52] in $_POST: Partie => "1" 
+[06/07/2011 22:34:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:34:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:34:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:34:52] in $_POST: Source => "0" 
+[06/07/2011 22:34:52] Deconnection
+
+[06/07/2011 22:35:03] Connection
+[06/07/2011 22:35:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:35:03] in $_POST: Partie => "1" 
+[06/07/2011 22:35:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:03] Deconnection
+
+[06/07/2011 22:35:04] Connection
+[06/07/2011 22:35:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:35:04] in $_POST: Partie => "1" 
+[06/07/2011 22:35:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:35:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:35:04] in $_POST: Source => "0" 
+[06/07/2011 22:35:04] Deconnection
+
+[06/07/2011 22:35:15] Connection
+[06/07/2011 22:35:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:35:15] in $_POST: Partie => "1" 
+[06/07/2011 22:35:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:15] Deconnection
+
+[06/07/2011 22:35:16] Connection
+[06/07/2011 22:35:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:35:16] in $_POST: Partie => "1" 
+[06/07/2011 22:35:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:35:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:35:16] in $_POST: Source => "0" 
+[06/07/2011 22:35:16] Deconnection
+
+[06/07/2011 22:35:27] Connection
+[06/07/2011 22:35:27] in $_POST: mode => "Production" 
+[06/07/2011 22:35:27] in $_POST: Partie => "1" 
+[06/07/2011 22:35:27] in $_POST: Etat => "1" 
+[06/07/2011 22:35:27] Deconnection
+
+[06/07/2011 22:35:27] Connection
+[06/07/2011 22:35:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:35:27] in $_POST: Partie => "1" 
+[06/07/2011 22:35:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:27] Deconnection
+
+[06/07/2011 22:35:28] Connection
+[06/07/2011 22:35:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:35:28] in $_POST: Partie => "1" 
+[06/07/2011 22:35:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:28] Deconnection
+
+[06/07/2011 22:35:28] Connection
+[06/07/2011 22:35:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:35:28] in $_POST: Partie => "1" 
+[06/07/2011 22:35:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:35:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:35:28] in $_POST: Source => "0" 
+[06/07/2011 22:35:28] Deconnection
+
+[06/07/2011 22:35:28] Connection
+[06/07/2011 22:35:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:35:28] in $_POST: Partie => "1" 
+[06/07/2011 22:35:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:35:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:35:28] in $_POST: Source => "0" 
+[06/07/2011 22:35:28] Deconnection
+
+[06/07/2011 22:35:39] Connection
+[06/07/2011 22:35:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:35:39] in $_POST: Partie => "1" 
+[06/07/2011 22:35:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:39] Deconnection
+
+[06/07/2011 22:35:40] Connection
+[06/07/2011 22:35:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:35:40] in $_POST: Partie => "1" 
+[06/07/2011 22:35:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:35:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:35:40] in $_POST: Source => "0" 
+[06/07/2011 22:35:40] Deconnection
+
+[06/07/2011 22:35:51] Connection
+[06/07/2011 22:35:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:35:51] in $_POST: Partie => "1" 
+[06/07/2011 22:35:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:51] Deconnection
+
+[06/07/2011 22:35:52] Connection
+[06/07/2011 22:35:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:35:52] in $_POST: Partie => "1" 
+[06/07/2011 22:35:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:35:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:35:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:35:52] in $_POST: Source => "0" 
+[06/07/2011 22:35:52] Deconnection
+
+[06/07/2011 22:36:03] Connection
+[06/07/2011 22:36:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:36:03] in $_POST: Partie => "1" 
+[06/07/2011 22:36:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:03] Deconnection
+
+[06/07/2011 22:36:04] Connection
+[06/07/2011 22:36:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:36:04] in $_POST: Partie => "1" 
+[06/07/2011 22:36:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:36:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:36:04] in $_POST: Source => "0" 
+[06/07/2011 22:36:04] Deconnection
+
+[06/07/2011 22:36:15] Connection
+[06/07/2011 22:36:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:36:15] in $_POST: Partie => "1" 
+[06/07/2011 22:36:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:15] Deconnection
+
+[06/07/2011 22:36:16] Connection
+[06/07/2011 22:36:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:36:16] in $_POST: Partie => "1" 
+[06/07/2011 22:36:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:36:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:36:16] in $_POST: Source => "0" 
+[06/07/2011 22:36:16] Deconnection
+
+[06/07/2011 22:36:27] Connection
+[06/07/2011 22:36:27] in $_POST: mode => "Production" 
+[06/07/2011 22:36:27] in $_POST: Partie => "1" 
+[06/07/2011 22:36:27] in $_POST: Etat => "1" 
+[06/07/2011 22:36:27] Deconnection
+
+[06/07/2011 22:36:27] Connection
+[06/07/2011 22:36:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:36:27] in $_POST: Partie => "1" 
+[06/07/2011 22:36:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:27] Deconnection
+
+[06/07/2011 22:36:28] Connection
+[06/07/2011 22:36:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:36:28] in $_POST: Partie => "1" 
+[06/07/2011 22:36:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:28] Deconnection
+
+[06/07/2011 22:36:28] Connection
+[06/07/2011 22:36:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:36:28] in $_POST: Partie => "1" 
+[06/07/2011 22:36:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:36:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:36:28] in $_POST: Source => "0" 
+[06/07/2011 22:36:28] Deconnection
+
+[06/07/2011 22:36:28] Connection
+[06/07/2011 22:36:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:36:28] in $_POST: Partie => "1" 
+[06/07/2011 22:36:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:36:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:36:28] in $_POST: Source => "0" 
+[06/07/2011 22:36:28] Deconnection
+
+[06/07/2011 22:36:39] Connection
+[06/07/2011 22:36:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:36:39] in $_POST: Partie => "1" 
+[06/07/2011 22:36:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:39] Deconnection
+
+[06/07/2011 22:36:40] Connection
+[06/07/2011 22:36:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:36:40] in $_POST: Partie => "1" 
+[06/07/2011 22:36:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:36:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:36:40] in $_POST: Source => "0" 
+[06/07/2011 22:36:40] Deconnection
+
+[06/07/2011 22:36:51] Connection
+[06/07/2011 22:36:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:36:51] in $_POST: Partie => "1" 
+[06/07/2011 22:36:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:51] Deconnection
+
+[06/07/2011 22:36:52] Connection
+[06/07/2011 22:36:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:36:52] in $_POST: Partie => "1" 
+[06/07/2011 22:36:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:36:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:36:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:36:52] in $_POST: Source => "0" 
+[06/07/2011 22:36:52] Deconnection
+
+[06/07/2011 22:37:03] Connection
+[06/07/2011 22:37:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:37:03] in $_POST: Partie => "1" 
+[06/07/2011 22:37:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:03] Deconnection
+
+[06/07/2011 22:37:04] Connection
+[06/07/2011 22:37:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:37:04] in $_POST: Partie => "1" 
+[06/07/2011 22:37:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:37:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:37:04] in $_POST: Source => "0" 
+[06/07/2011 22:37:04] Deconnection
+
+[06/07/2011 22:37:15] Connection
+[06/07/2011 22:37:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:37:15] in $_POST: Partie => "1" 
+[06/07/2011 22:37:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:15] Deconnection
+
+[06/07/2011 22:37:16] Connection
+[06/07/2011 22:37:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:37:16] in $_POST: Partie => "1" 
+[06/07/2011 22:37:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:37:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:37:16] in $_POST: Source => "0" 
+[06/07/2011 22:37:16] Deconnection
+
+[06/07/2011 22:37:27] Connection
+[06/07/2011 22:37:27] in $_POST: mode => "Production" 
+[06/07/2011 22:37:27] in $_POST: Partie => "1" 
+[06/07/2011 22:37:27] in $_POST: Etat => "1" 
+[06/07/2011 22:37:27] Deconnection
+
+[06/07/2011 22:37:27] Connection
+[06/07/2011 22:37:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:37:27] in $_POST: Partie => "1" 
+[06/07/2011 22:37:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:27] Deconnection
+
+[06/07/2011 22:37:28] Connection
+[06/07/2011 22:37:28] in $_POST: mode => "messageLire" 
+[06/07/2011 22:37:28] in $_POST: Partie => "1" 
+[06/07/2011 22:37:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:28] Deconnection
+
+[06/07/2011 22:37:28] Connection
+[06/07/2011 22:37:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:37:28] in $_POST: Partie => "1" 
+[06/07/2011 22:37:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:37:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:37:28] in $_POST: Source => "0" 
+[06/07/2011 22:37:28] Deconnection
+
+[06/07/2011 22:37:28] Connection
+[06/07/2011 22:37:28] in $_POST: mode => "Journal" 
+[06/07/2011 22:37:28] in $_POST: Partie => "1" 
+[06/07/2011 22:37:28] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:28] in $_POST: TimeMax => "0" 
+[06/07/2011 22:37:28] in $_POST: TimeMin => "0" 
+[06/07/2011 22:37:28] in $_POST: Source => "0" 
+[06/07/2011 22:37:28] Deconnection
+
+[06/07/2011 22:37:39] Connection
+[06/07/2011 22:37:39] in $_POST: mode => "messageLire" 
+[06/07/2011 22:37:39] in $_POST: Partie => "1" 
+[06/07/2011 22:37:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:39] Deconnection
+
+[06/07/2011 22:37:40] Connection
+[06/07/2011 22:37:40] in $_POST: mode => "Journal" 
+[06/07/2011 22:37:40] in $_POST: Partie => "1" 
+[06/07/2011 22:37:40] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:40] in $_POST: TimeMax => "0" 
+[06/07/2011 22:37:40] in $_POST: TimeMin => "0" 
+[06/07/2011 22:37:40] in $_POST: Source => "0" 
+[06/07/2011 22:37:40] Deconnection
+
+[06/07/2011 22:37:51] Connection
+[06/07/2011 22:37:51] in $_POST: mode => "messageLire" 
+[06/07/2011 22:37:51] in $_POST: Partie => "1" 
+[06/07/2011 22:37:51] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:51] Deconnection
+
+[06/07/2011 22:37:52] Connection
+[06/07/2011 22:37:52] in $_POST: mode => "Journal" 
+[06/07/2011 22:37:52] in $_POST: Partie => "1" 
+[06/07/2011 22:37:52] in $_POST: Joueur => "1" 
+[06/07/2011 22:37:52] in $_POST: TimeMax => "0" 
+[06/07/2011 22:37:52] in $_POST: TimeMin => "0" 
+[06/07/2011 22:37:52] in $_POST: Source => "0" 
+[06/07/2011 22:37:52] Deconnection
+
+[06/07/2011 22:37:59] Connection
+[06/07/2011 22:37:59] in $_POST: mode => "territoireInformations" 
+[06/07/2011 22:37:59] in $_POST: Partie => "1" 
+[06/07/2011 22:37:59] in $_POST: Territoire => "135" 
+[06/07/2011 22:37:59] in $_POST: Joueur => "[object HTMLInputElement]" 
+[06/07/2011 22:37:59] in $_POST: SousMode => "Jeu" 
+[06/07/2011 22:37:59] Deconnection
+
+[06/07/2011 22:38:03] Connection
+[06/07/2011 22:38:03] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:03] in $_POST: Partie => "1" 
+[06/07/2011 22:38:03] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:03] Deconnection
+
+[06/07/2011 22:38:04] Connection
+[06/07/2011 22:38:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:04] in $_POST: Partie => "1" 
+[06/07/2011 22:38:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:04] in $_POST: Source => "0" 
+[06/07/2011 22:38:04] Deconnection
+
+[06/07/2011 22:38:15] Connection
+[06/07/2011 22:38:15] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:15] in $_POST: Partie => "1" 
+[06/07/2011 22:38:15] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:15] Deconnection
+
+[06/07/2011 22:38:16] Connection
+[06/07/2011 22:38:16] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:16] in $_POST: Partie => "1" 
+[06/07/2011 22:38:16] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:16] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:16] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:16] in $_POST: Source => "0" 
+[06/07/2011 22:38:16] Deconnection
+
+[06/07/2011 22:38:21] Connection
+[06/07/2011 22:38:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:21] in $_POST: Partie => "1" 
+[06/07/2011 22:38:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:21] Deconnection
+
+[06/07/2011 22:38:21] Connection
+[06/07/2011 22:38:21] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:38:21] Connection
+[06/07/2011 22:38:21] in $_POST: Partie => "1" 
+[06/07/2011 22:38:21] in $_POST: mode => "Production" 
+[06/07/2011 22:38:21] in $_POST: Etat => "1" 
+[06/07/2011 22:38:21] in $_POST: Partie => "1" 
+[06/07/2011 22:38:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:21] Deconnection
+
+[06/07/2011 22:38:21] in $_POST: Etat => "1" 
+[06/07/2011 22:38:21] Deconnection
+
+[06/07/2011 22:38:21] Connection
+[06/07/2011 22:38:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:21] in $_POST: Partie => "1" 
+[06/07/2011 22:38:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:21] Deconnection
+
+[06/07/2011 22:38:21] Connection
+[06/07/2011 22:38:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:21] in $_POST: Partie => "1" 
+[06/07/2011 22:38:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:21] in $_POST: Source => "0" 
+[06/07/2011 22:38:21] Deconnection
+
+[06/07/2011 22:38:22] Connection
+[06/07/2011 22:38:22] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:22] in $_POST: Partie => "1" 
+[06/07/2011 22:38:22] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:22] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:22] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:22] in $_POST: Source => "0" 
+[06/07/2011 22:38:22] Deconnection
+
+[06/07/2011 22:38:22] Connection
+[06/07/2011 22:38:22] in $_POST: mode => "territoireInformations" 
+[06/07/2011 22:38:22] in $_POST: Partie => "1" 
+[06/07/2011 22:38:22] in $_POST: Territoire => "135" 
+[06/07/2011 22:38:22] in $_POST: Joueur => "[object HTMLInputElement]" 
+[06/07/2011 22:38:22] in $_POST: SousMode => "Jeu" 
+[06/07/2011 22:38:22] Deconnection
+
+[06/07/2011 22:38:33] Connection
+[06/07/2011 22:38:33] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:33] in $_POST: Partie => "1" 
+[06/07/2011 22:38:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:33] Deconnection
+
+[06/07/2011 22:38:33] Connection
+[06/07/2011 22:38:33] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:33] in $_POST: Partie => "1" 
+[06/07/2011 22:38:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:33] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:33] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:33] in $_POST: Source => "0" 
+[06/07/2011 22:38:33] Deconnection
+
+[06/07/2011 22:38:45] Connection
+[06/07/2011 22:38:45] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:45] in $_POST: Partie => "1" 
+[06/07/2011 22:38:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:45] Deconnection
+
+[06/07/2011 22:38:45] Connection
+[06/07/2011 22:38:45] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:45] in $_POST: Partie => "1" 
+[06/07/2011 22:38:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:45] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:45] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:45] in $_POST: Source => "0" 
+[06/07/2011 22:38:45] Deconnection
+
+[06/07/2011 22:38:57] Connection
+[06/07/2011 22:38:57] in $_POST: mode => "messageLire" 
+[06/07/2011 22:38:57] in $_POST: Partie => "1" 
+[06/07/2011 22:38:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:57] Deconnection
+
+[06/07/2011 22:38:57] Connection
+[06/07/2011 22:38:57] in $_POST: mode => "Journal" 
+[06/07/2011 22:38:57] in $_POST: Partie => "1" 
+[06/07/2011 22:38:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:38:57] in $_POST: TimeMax => "0" 
+[06/07/2011 22:38:57] in $_POST: TimeMin => "0" 
+[06/07/2011 22:38:57] in $_POST: Source => "0" 
+[06/07/2011 22:38:57] Deconnection
+
+[06/07/2011 22:39:09] Connection
+[06/07/2011 22:39:09] in $_POST: mode => "messageLire" 
+[06/07/2011 22:39:09] in $_POST: Partie => "1" 
+[06/07/2011 22:39:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:09] Deconnection
+
+[06/07/2011 22:39:09] Connection
+[06/07/2011 22:39:09] in $_POST: mode => "Journal" 
+[06/07/2011 22:39:09] in $_POST: Partie => "1" 
+[06/07/2011 22:39:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:09] in $_POST: TimeMax => "0" 
+[06/07/2011 22:39:09] in $_POST: TimeMin => "0" 
+[06/07/2011 22:39:09] in $_POST: Source => "0" 
+[06/07/2011 22:39:09] Deconnection
+
+[06/07/2011 22:39:21] Connection
+[06/07/2011 22:39:21] in $_POST: mode => "Production" 
+[06/07/2011 22:39:21] in $_POST: Partie => "1" 
+[06/07/2011 22:39:21] in $_POST: Etat => "1" 
+[06/07/2011 22:39:21] Deconnection
+
+[06/07/2011 22:39:21] Connection
+[06/07/2011 22:39:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:39:21] in $_POST: Partie => "1" 
+[06/07/2011 22:39:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:21] Deconnection
+
+[06/07/2011 22:39:21] Connection
+[06/07/2011 22:39:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:39:21] in $_POST: Partie => "1" 
+[06/07/2011 22:39:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:21] Deconnection
+
+[06/07/2011 22:39:21] Connection
+[06/07/2011 22:39:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:39:21] in $_POST: Partie => "1" 
+[06/07/2011 22:39:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:39:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:39:21] in $_POST: Source => "0" 
+[06/07/2011 22:39:21] Deconnection
+
+[06/07/2011 22:39:22] Connection
+[06/07/2011 22:39:22] in $_POST: mode => "Journal" 
+[06/07/2011 22:39:22] in $_POST: Partie => "1" 
+[06/07/2011 22:39:22] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:22] in $_POST: TimeMax => "0" 
+[06/07/2011 22:39:22] in $_POST: TimeMin => "0" 
+[06/07/2011 22:39:22] in $_POST: Source => "0" 
+[06/07/2011 22:39:22] Deconnection
+
+[06/07/2011 22:39:33] Connection
+[06/07/2011 22:39:33] in $_POST: mode => "messageLire" 
+[06/07/2011 22:39:33] in $_POST: Partie => "1" 
+[06/07/2011 22:39:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:33] Deconnection
+
+[06/07/2011 22:39:33] Connection
+[06/07/2011 22:39:33] in $_POST: mode => "Journal" 
+[06/07/2011 22:39:33] in $_POST: Partie => "1" 
+[06/07/2011 22:39:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:33] in $_POST: TimeMax => "0" 
+[06/07/2011 22:39:33] in $_POST: TimeMin => "0" 
+[06/07/2011 22:39:33] in $_POST: Source => "0" 
+[06/07/2011 22:39:33] Deconnection
+
+[06/07/2011 22:39:45] Connection
+[06/07/2011 22:39:45] in $_POST: mode => "messageLire" 
+[06/07/2011 22:39:45] in $_POST: Partie => "1" 
+[06/07/2011 22:39:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:45] Deconnection
+
+[06/07/2011 22:39:45] Connection
+[06/07/2011 22:39:45] in $_POST: mode => "Journal" 
+[06/07/2011 22:39:45] in $_POST: Partie => "1" 
+[06/07/2011 22:39:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:45] in $_POST: TimeMax => "0" 
+[06/07/2011 22:39:45] in $_POST: TimeMin => "0" 
+[06/07/2011 22:39:45] in $_POST: Source => "0" 
+[06/07/2011 22:39:45] Deconnection
+
+[06/07/2011 22:39:57] Connection
+[06/07/2011 22:39:57] in $_POST: mode => "messageLire" 
+[06/07/2011 22:39:57] in $_POST: Partie => "1" 
+[06/07/2011 22:39:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:57] Deconnection
+
+[06/07/2011 22:39:57] Connection
+[06/07/2011 22:39:57] in $_POST: mode => "Journal" 
+[06/07/2011 22:39:57] in $_POST: Partie => "1" 
+[06/07/2011 22:39:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:39:57] in $_POST: TimeMax => "0" 
+[06/07/2011 22:39:57] in $_POST: TimeMin => "0" 
+[06/07/2011 22:39:57] in $_POST: Source => "0" 
+[06/07/2011 22:39:57] Deconnection
+
+[06/07/2011 22:40:09] Connection
+[06/07/2011 22:40:09] in $_POST: mode => "messageLire" 
+[06/07/2011 22:40:09] in $_POST: Partie => "1" 
+[06/07/2011 22:40:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:09] Deconnection
+
+[06/07/2011 22:40:09] Connection
+[06/07/2011 22:40:09] in $_POST: mode => "Journal" 
+[06/07/2011 22:40:09] in $_POST: Partie => "1" 
+[06/07/2011 22:40:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:09] in $_POST: TimeMax => "0" 
+[06/07/2011 22:40:09] in $_POST: TimeMin => "0" 
+[06/07/2011 22:40:09] in $_POST: Source => "0" 
+[06/07/2011 22:40:09] Deconnection
+
+[06/07/2011 22:40:21] Connection
+[06/07/2011 22:40:21] in $_POST: mode => "Production" 
+[06/07/2011 22:40:21] in $_POST: Partie => "1" 
+[06/07/2011 22:40:21] in $_POST: Etat => "1" 
+[06/07/2011 22:40:21] Deconnection
+
+[06/07/2011 22:40:21] Connection
+[06/07/2011 22:40:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:40:21] in $_POST: Partie => "1" 
+[06/07/2011 22:40:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:21] Deconnection
+
+[06/07/2011 22:40:21] Connection
+[06/07/2011 22:40:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:40:21] in $_POST: Partie => "1" 
+[06/07/2011 22:40:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:21] Deconnection
+
+[06/07/2011 22:40:21] Connection
+[06/07/2011 22:40:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:40:21] in $_POST: Partie => "1" 
+[06/07/2011 22:40:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:40:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:40:21] in $_POST: Source => "0" 
+[06/07/2011 22:40:21] Deconnection
+
+[06/07/2011 22:40:22] Connection
+[06/07/2011 22:40:22] in $_POST: mode => "Journal" 
+[06/07/2011 22:40:22] in $_POST: Partie => "1" 
+[06/07/2011 22:40:22] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:22] in $_POST: TimeMax => "0" 
+[06/07/2011 22:40:22] in $_POST: TimeMin => "0" 
+[06/07/2011 22:40:22] in $_POST: Source => "0" 
+[06/07/2011 22:40:22] Deconnection
+
+[06/07/2011 22:40:33] Connection
+[06/07/2011 22:40:33] in $_POST: mode => "messageLire" 
+[06/07/2011 22:40:33] in $_POST: Partie => "1" 
+[06/07/2011 22:40:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:33] Deconnection
+
+[06/07/2011 22:40:33] Connection
+[06/07/2011 22:40:33] in $_POST: mode => "Journal" 
+[06/07/2011 22:40:33] in $_POST: Partie => "1" 
+[06/07/2011 22:40:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:33] in $_POST: TimeMax => "0" 
+[06/07/2011 22:40:33] in $_POST: TimeMin => "0" 
+[06/07/2011 22:40:33] in $_POST: Source => "0" 
+[06/07/2011 22:40:33] Deconnection
+
+[06/07/2011 22:40:45] Connection
+[06/07/2011 22:40:45] in $_POST: mode => "messageLire" 
+[06/07/2011 22:40:45] in $_POST: Partie => "1" 
+[06/07/2011 22:40:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:45] Deconnection
+
+[06/07/2011 22:40:45] Connection
+[06/07/2011 22:40:45] in $_POST: mode => "Journal" 
+[06/07/2011 22:40:45] in $_POST: Partie => "1" 
+[06/07/2011 22:40:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:45] in $_POST: TimeMax => "0" 
+[06/07/2011 22:40:45] in $_POST: TimeMin => "0" 
+[06/07/2011 22:40:45] in $_POST: Source => "0" 
+[06/07/2011 22:40:45] Deconnection
+
+[06/07/2011 22:40:57] Connection
+[06/07/2011 22:40:57] in $_POST: mode => "messageLire" 
+[06/07/2011 22:40:57] in $_POST: Partie => "1" 
+[06/07/2011 22:40:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:57] Deconnection
+
+[06/07/2011 22:40:57] Connection
+[06/07/2011 22:40:57] in $_POST: mode => "Journal" 
+[06/07/2011 22:40:57] in $_POST: Partie => "1" 
+[06/07/2011 22:40:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:40:57] in $_POST: TimeMax => "0" 
+[06/07/2011 22:40:57] in $_POST: TimeMin => "0" 
+[06/07/2011 22:40:57] in $_POST: Source => "0" 
+[06/07/2011 22:40:57] Deconnection
+
+[06/07/2011 22:41:09] Connection
+[06/07/2011 22:41:09] in $_POST: mode => "messageLire" 
+[06/07/2011 22:41:09] in $_POST: Partie => "1" 
+[06/07/2011 22:41:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:09] Deconnection
+
+[06/07/2011 22:41:09] Connection
+[06/07/2011 22:41:09] in $_POST: mode => "Journal" 
+[06/07/2011 22:41:09] in $_POST: Partie => "1" 
+[06/07/2011 22:41:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:09] in $_POST: TimeMax => "0" 
+[06/07/2011 22:41:09] in $_POST: TimeMin => "0" 
+[06/07/2011 22:41:09] in $_POST: Source => "0" 
+[06/07/2011 22:41:09] Deconnection
+
+[06/07/2011 22:41:20] Connection
+[06/07/2011 22:41:20] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:41:20] in $_POST: Partie => "1" 
+[06/07/2011 22:41:20] in $_POST: Etat => "1" 
+[06/07/2011 22:41:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:20] Deconnection
+
+[06/07/2011 22:41:20] Connection
+[06/07/2011 22:41:20] in $_POST: mode => "Production" 
+[06/07/2011 22:41:20] in $_POST: Partie => "1" 
+[06/07/2011 22:41:20] in $_POST: Etat => "1" 
+[06/07/2011 22:41:20] Deconnection
+
+[06/07/2011 22:41:20] Connection
+[06/07/2011 22:41:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:41:20] in $_POST: Partie => "1" 
+[06/07/2011 22:41:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:20] Deconnection
+
+[06/07/2011 22:41:20] Connection
+[06/07/2011 22:41:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:41:20] in $_POST: Partie => "1" 
+[06/07/2011 22:41:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:20] Deconnection
+
+[06/07/2011 22:41:20] Connection
+[06/07/2011 22:41:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:41:20] in $_POST: Partie => "1" 
+[06/07/2011 22:41:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:41:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:41:20] in $_POST: Source => "0" 
+[06/07/2011 22:41:20] Deconnection
+
+[06/07/2011 22:41:21] Connection
+[06/07/2011 22:41:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:41:21] in $_POST: Partie => "1" 
+[06/07/2011 22:41:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:41:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:41:21] in $_POST: Source => "0" 
+[06/07/2011 22:41:21] Deconnection
+
+[06/07/2011 22:41:22] Connection
+[06/07/2011 22:41:22] in $_POST: mode => "territoireInformations" 
+[06/07/2011 22:41:22] in $_POST: Partie => "1" 
+[06/07/2011 22:41:22] in $_POST: Territoire => "135" 
+[06/07/2011 22:41:22] in $_POST: Joueur => "[object HTMLInputElement]" 
+[06/07/2011 22:41:22] in $_POST: SousMode => "Jeu" 
+[06/07/2011 22:41:22] Deconnection
+
+[06/07/2011 22:41:32] Connection
+[06/07/2011 22:41:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:41:32] in $_POST: Partie => "1" 
+[06/07/2011 22:41:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:32] Deconnection
+
+[06/07/2011 22:41:32] Connection
+[06/07/2011 22:41:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:41:32] in $_POST: Partie => "1" 
+[06/07/2011 22:41:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:41:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:41:32] in $_POST: Source => "0" 
+[06/07/2011 22:41:32] Deconnection
+
+[06/07/2011 22:41:44] Connection
+[06/07/2011 22:41:44] in $_POST: mode => "messageLire" 
+[06/07/2011 22:41:44] in $_POST: Partie => "1" 
+[06/07/2011 22:41:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:44] Deconnection
+
+[06/07/2011 22:41:44] Connection
+[06/07/2011 22:41:44] in $_POST: mode => "Journal" 
+[06/07/2011 22:41:44] in $_POST: Partie => "1" 
+[06/07/2011 22:41:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:44] in $_POST: TimeMax => "0" 
+[06/07/2011 22:41:44] in $_POST: TimeMin => "0" 
+[06/07/2011 22:41:44] in $_POST: Source => "0" 
+[06/07/2011 22:41:44] Deconnection
+
+[06/07/2011 22:41:56] Connection
+[06/07/2011 22:41:56] in $_POST: mode => "messageLire" 
+[06/07/2011 22:41:56] in $_POST: Partie => "1" 
+[06/07/2011 22:41:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:56] Deconnection
+
+[06/07/2011 22:41:56] Connection
+[06/07/2011 22:41:56] in $_POST: mode => "Journal" 
+[06/07/2011 22:41:56] in $_POST: Partie => "1" 
+[06/07/2011 22:41:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:41:56] in $_POST: TimeMax => "0" 
+[06/07/2011 22:41:56] in $_POST: TimeMin => "0" 
+[06/07/2011 22:41:56] in $_POST: Source => "0" 
+[06/07/2011 22:41:56] Deconnection
+
+[06/07/2011 22:42:08] Connection
+[06/07/2011 22:42:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:42:08] in $_POST: Partie => "1" 
+[06/07/2011 22:42:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:08] Deconnection
+
+[06/07/2011 22:42:08] Connection
+[06/07/2011 22:42:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:42:08] in $_POST: Partie => "1" 
+[06/07/2011 22:42:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:42:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:42:08] in $_POST: Source => "0" 
+[06/07/2011 22:42:08] Deconnection
+
+[06/07/2011 22:42:20] Connection
+[06/07/2011 22:42:20] in $_POST: mode => "Production" 
+[06/07/2011 22:42:20] in $_POST: Partie => "1" 
+[06/07/2011 22:42:20] in $_POST: Etat => "1" 
+[06/07/2011 22:42:20] Deconnection
+
+[06/07/2011 22:42:20] Connection
+[06/07/2011 22:42:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:42:20] in $_POST: Partie => "1" 
+[06/07/2011 22:42:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:20] Deconnection
+
+[06/07/2011 22:42:20] Connection
+[06/07/2011 22:42:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:42:20] in $_POST: Partie => "1" 
+[06/07/2011 22:42:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:20] Deconnection
+
+[06/07/2011 22:42:20] Connection
+[06/07/2011 22:42:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:42:20] in $_POST: Partie => "1" 
+[06/07/2011 22:42:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:42:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:42:20] in $_POST: Source => "0" 
+[06/07/2011 22:42:20] Deconnection
+
+[06/07/2011 22:42:21] Connection
+[06/07/2011 22:42:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:42:21] in $_POST: Partie => "1" 
+[06/07/2011 22:42:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:42:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:42:21] in $_POST: Source => "0" 
+[06/07/2011 22:42:21] Deconnection
+
+[06/07/2011 22:42:32] Connection
+[06/07/2011 22:42:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:42:32] in $_POST: Partie => "1" 
+[06/07/2011 22:42:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:32] Deconnection
+
+[06/07/2011 22:42:32] Connection
+[06/07/2011 22:42:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:42:32] in $_POST: Partie => "1" 
+[06/07/2011 22:42:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:42:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:42:32] in $_POST: Source => "0" 
+[06/07/2011 22:42:32] Deconnection
+
+[06/07/2011 22:42:44] Connection
+[06/07/2011 22:42:44] in $_POST: mode => "messageLire" 
+[06/07/2011 22:42:44] in $_POST: Partie => "1" 
+[06/07/2011 22:42:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:44] Deconnection
+
+[06/07/2011 22:42:44] Connection
+[06/07/2011 22:42:44] in $_POST: mode => "Journal" 
+[06/07/2011 22:42:44] in $_POST: Partie => "1" 
+[06/07/2011 22:42:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:44] in $_POST: TimeMax => "0" 
+[06/07/2011 22:42:44] in $_POST: TimeMin => "0" 
+[06/07/2011 22:42:44] in $_POST: Source => "0" 
+[06/07/2011 22:42:44] Deconnection
+
+[06/07/2011 22:42:56] Connection
+[06/07/2011 22:42:56] in $_POST: mode => "messageLire" 
+[06/07/2011 22:42:56] in $_POST: Partie => "1" 
+[06/07/2011 22:42:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:56] Deconnection
+
+[06/07/2011 22:42:56] Connection
+[06/07/2011 22:42:56] in $_POST: mode => "Journal" 
+[06/07/2011 22:42:56] in $_POST: Partie => "1" 
+[06/07/2011 22:42:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:42:56] in $_POST: TimeMax => "0" 
+[06/07/2011 22:42:56] in $_POST: TimeMin => "0" 
+[06/07/2011 22:42:56] in $_POST: Source => "0" 
+[06/07/2011 22:42:56] Deconnection
+
+[06/07/2011 22:43:08] Connection
+[06/07/2011 22:43:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:43:08] in $_POST: Partie => "1" 
+[06/07/2011 22:43:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:08] Deconnection
+
+[06/07/2011 22:43:08] Connection
+[06/07/2011 22:43:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:43:08] in $_POST: Partie => "1" 
+[06/07/2011 22:43:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:43:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:43:08] in $_POST: Source => "0" 
+[06/07/2011 22:43:08] Deconnection
+
+[06/07/2011 22:43:20] Connection
+[06/07/2011 22:43:20] in $_POST: mode => "Production" 
+[06/07/2011 22:43:20] in $_POST: Partie => "1" 
+[06/07/2011 22:43:20] in $_POST: Etat => "1" 
+[06/07/2011 22:43:20] Deconnection
+
+[06/07/2011 22:43:20] Connection
+[06/07/2011 22:43:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:43:20] in $_POST: Partie => "1" 
+[06/07/2011 22:43:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:20] Deconnection
+
+[06/07/2011 22:43:20] Connection
+[06/07/2011 22:43:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:43:20] in $_POST: Partie => "1" 
+[06/07/2011 22:43:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:20] Deconnection
+
+[06/07/2011 22:43:20] Connection
+[06/07/2011 22:43:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:43:20] in $_POST: Partie => "1" 
+[06/07/2011 22:43:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:43:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:43:20] in $_POST: Source => "0" 
+[06/07/2011 22:43:20] Deconnection
+
+[06/07/2011 22:43:21] Connection
+[06/07/2011 22:43:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:43:21] in $_POST: Partie => "1" 
+[06/07/2011 22:43:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:43:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:43:21] in $_POST: Source => "0" 
+[06/07/2011 22:43:21] Deconnection
+
+[06/07/2011 22:43:32] Connection
+[06/07/2011 22:43:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:43:32] in $_POST: Partie => "1" 
+[06/07/2011 22:43:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:32] Deconnection
+
+[06/07/2011 22:43:32] Connection
+[06/07/2011 22:43:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:43:32] in $_POST: Partie => "1" 
+[06/07/2011 22:43:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:43:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:43:32] in $_POST: Source => "0" 
+[06/07/2011 22:43:32] Deconnection
+
+[06/07/2011 22:43:44] Connection
+[06/07/2011 22:43:44] in $_POST: mode => "messageLire" 
+[06/07/2011 22:43:44] in $_POST: Partie => "1" 
+[06/07/2011 22:43:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:44] Deconnection
+
+[06/07/2011 22:43:44] Connection
+[06/07/2011 22:43:44] in $_POST: mode => "Journal" 
+[06/07/2011 22:43:44] in $_POST: Partie => "1" 
+[06/07/2011 22:43:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:44] in $_POST: TimeMax => "0" 
+[06/07/2011 22:43:44] in $_POST: TimeMin => "0" 
+[06/07/2011 22:43:44] in $_POST: Source => "0" 
+[06/07/2011 22:43:44] Deconnection
+
+[06/07/2011 22:43:56] Connection
+[06/07/2011 22:43:56] in $_POST: mode => "messageLire" 
+[06/07/2011 22:43:56] in $_POST: Partie => "1" 
+[06/07/2011 22:43:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:56] Deconnection
+
+[06/07/2011 22:43:56] Connection
+[06/07/2011 22:43:56] in $_POST: mode => "Journal" 
+[06/07/2011 22:43:56] in $_POST: Partie => "1" 
+[06/07/2011 22:43:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:43:56] in $_POST: TimeMax => "0" 
+[06/07/2011 22:43:56] in $_POST: TimeMin => "0" 
+[06/07/2011 22:43:56] in $_POST: Source => "0" 
+[06/07/2011 22:43:56] Deconnection
+
+[06/07/2011 22:44:08] Connection
+[06/07/2011 22:44:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:44:08] in $_POST: Partie => "1" 
+[06/07/2011 22:44:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:08] Deconnection
+
+[06/07/2011 22:44:08] Connection
+[06/07/2011 22:44:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:44:08] in $_POST: Partie => "1" 
+[06/07/2011 22:44:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:44:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:44:08] in $_POST: Source => "0" 
+[06/07/2011 22:44:08] Deconnection
+
+[06/07/2011 22:44:20] Connection
+[06/07/2011 22:44:20] in $_POST: mode => "Production" 
+[06/07/2011 22:44:20] in $_POST: Partie => "1" 
+[06/07/2011 22:44:20] in $_POST: Etat => "1" 
+[06/07/2011 22:44:20] Deconnection
+
+[06/07/2011 22:44:20] Connection
+[06/07/2011 22:44:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:44:20] in $_POST: Partie => "1" 
+[06/07/2011 22:44:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:20] Deconnection
+
+[06/07/2011 22:44:20] Connection
+[06/07/2011 22:44:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:44:20] in $_POST: Partie => "1" 
+[06/07/2011 22:44:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:20] Deconnection
+
+[06/07/2011 22:44:20] Connection
+[06/07/2011 22:44:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:44:20] in $_POST: Partie => "1" 
+[06/07/2011 22:44:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:44:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:44:20] in $_POST: Source => "0" 
+[06/07/2011 22:44:20] Deconnection
+
+[06/07/2011 22:44:21] Connection
+[06/07/2011 22:44:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:44:21] in $_POST: Partie => "1" 
+[06/07/2011 22:44:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:44:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:44:21] in $_POST: Source => "0" 
+[06/07/2011 22:44:21] Deconnection
+
+[06/07/2011 22:44:32] Connection
+[06/07/2011 22:44:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:44:32] in $_POST: Partie => "1" 
+[06/07/2011 22:44:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:32] Deconnection
+
+[06/07/2011 22:44:32] Connection
+[06/07/2011 22:44:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:44:32] in $_POST: Partie => "1" 
+[06/07/2011 22:44:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:44:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:44:32] in $_POST: Source => "0" 
+[06/07/2011 22:44:32] Deconnection
+
+[06/07/2011 22:44:44] Connection
+[06/07/2011 22:44:44] in $_POST: mode => "messageLire" 
+[06/07/2011 22:44:44] in $_POST: Partie => "1" 
+[06/07/2011 22:44:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:44] Deconnection
+
+[06/07/2011 22:44:44] Connection
+[06/07/2011 22:44:44] in $_POST: mode => "Journal" 
+[06/07/2011 22:44:44] in $_POST: Partie => "1" 
+[06/07/2011 22:44:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:44] in $_POST: TimeMax => "0" 
+[06/07/2011 22:44:44] in $_POST: TimeMin => "0" 
+[06/07/2011 22:44:44] in $_POST: Source => "0" 
+[06/07/2011 22:44:44] Deconnection
+
+[06/07/2011 22:44:56] Connection
+[06/07/2011 22:44:56] in $_POST: mode => "messageLire" 
+[06/07/2011 22:44:56] in $_POST: Partie => "1" 
+[06/07/2011 22:44:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:56] Deconnection
+
+[06/07/2011 22:44:56] Connection
+[06/07/2011 22:44:56] in $_POST: mode => "Journal" 
+[06/07/2011 22:44:56] in $_POST: Partie => "1" 
+[06/07/2011 22:44:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:44:56] in $_POST: TimeMax => "0" 
+[06/07/2011 22:44:56] in $_POST: TimeMin => "0" 
+[06/07/2011 22:44:56] in $_POST: Source => "0" 
+[06/07/2011 22:44:56] Deconnection
+
+[06/07/2011 22:45:08] Connection
+[06/07/2011 22:45:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:45:08] in $_POST: Partie => "1" 
+[06/07/2011 22:45:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:08] Deconnection
+
+[06/07/2011 22:45:08] Connection
+[06/07/2011 22:45:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:45:08] in $_POST: Partie => "1" 
+[06/07/2011 22:45:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:45:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:45:08] in $_POST: Source => "0" 
+[06/07/2011 22:45:08] Deconnection
+
+[06/07/2011 22:45:20] Connection
+[06/07/2011 22:45:20] in $_POST: mode => "Production" 
+[06/07/2011 22:45:20] in $_POST: Partie => "1" 
+[06/07/2011 22:45:20] in $_POST: Etat => "1" 
+[06/07/2011 22:45:20] Deconnection
+
+[06/07/2011 22:45:20] Connection
+[06/07/2011 22:45:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:45:20] in $_POST: Partie => "1" 
+[06/07/2011 22:45:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:20] Deconnection
+
+[06/07/2011 22:45:20] Connection
+[06/07/2011 22:45:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:45:20] in $_POST: Partie => "1" 
+[06/07/2011 22:45:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:20] Deconnection
+
+[06/07/2011 22:45:20] Connection
+[06/07/2011 22:45:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:45:20] in $_POST: Partie => "1" 
+[06/07/2011 22:45:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:45:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:45:20] in $_POST: Source => "0" 
+[06/07/2011 22:45:20] Deconnection
+
+[06/07/2011 22:45:21] Connection
+[06/07/2011 22:45:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:45:21] in $_POST: Partie => "1" 
+[06/07/2011 22:45:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:45:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:45:21] in $_POST: Source => "0" 
+[06/07/2011 22:45:21] Deconnection
+
+[06/07/2011 22:45:32] Connection
+[06/07/2011 22:45:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:45:32] in $_POST: Partie => "1" 
+[06/07/2011 22:45:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:32] Deconnection
+
+[06/07/2011 22:45:32] Connection
+[06/07/2011 22:45:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:45:32] in $_POST: Partie => "1" 
+[06/07/2011 22:45:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:45:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:45:32] in $_POST: Source => "0" 
+[06/07/2011 22:45:32] Deconnection
+
+[06/07/2011 22:45:44] Connection
+[06/07/2011 22:45:44] in $_POST: mode => "messageLire" 
+[06/07/2011 22:45:44] in $_POST: Partie => "1" 
+[06/07/2011 22:45:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:44] Deconnection
+
+[06/07/2011 22:45:44] Connection
+[06/07/2011 22:45:44] in $_POST: mode => "Journal" 
+[06/07/2011 22:45:44] in $_POST: Partie => "1" 
+[06/07/2011 22:45:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:44] in $_POST: TimeMax => "0" 
+[06/07/2011 22:45:44] in $_POST: TimeMin => "0" 
+[06/07/2011 22:45:44] in $_POST: Source => "0" 
+[06/07/2011 22:45:44] Deconnection
+
+[06/07/2011 22:45:56] Connection
+[06/07/2011 22:45:56] in $_POST: mode => "messageLire" 
+[06/07/2011 22:45:56] in $_POST: Partie => "1" 
+[06/07/2011 22:45:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:56] Deconnection
+
+[06/07/2011 22:45:56] Connection
+[06/07/2011 22:45:56] in $_POST: mode => "Journal" 
+[06/07/2011 22:45:56] in $_POST: Partie => "1" 
+[06/07/2011 22:45:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:45:56] in $_POST: TimeMax => "0" 
+[06/07/2011 22:45:56] in $_POST: TimeMin => "0" 
+[06/07/2011 22:45:56] in $_POST: Source => "0" 
+[06/07/2011 22:45:56] Deconnection
+
+[06/07/2011 22:46:08] Connection
+[06/07/2011 22:46:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:46:08] in $_POST: Partie => "1" 
+[06/07/2011 22:46:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:08] Deconnection
+
+[06/07/2011 22:46:08] Connection
+[06/07/2011 22:46:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:46:08] in $_POST: Partie => "1" 
+[06/07/2011 22:46:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:46:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:46:08] in $_POST: Source => "0" 
+[06/07/2011 22:46:08] Deconnection
+
+[06/07/2011 22:46:20] Connection
+[06/07/2011 22:46:20] in $_POST: mode => "Production" 
+[06/07/2011 22:46:20] in $_POST: Partie => "1" 
+[06/07/2011 22:46:20] in $_POST: Etat => "1" 
+[06/07/2011 22:46:20] Deconnection
+
+[06/07/2011 22:46:20] Connection
+[06/07/2011 22:46:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:46:20] in $_POST: Partie => "1" 
+[06/07/2011 22:46:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:20] Deconnection
+
+[06/07/2011 22:46:20] Connection
+[06/07/2011 22:46:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:46:20] in $_POST: Partie => "1" 
+[06/07/2011 22:46:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:20] Deconnection
+
+[06/07/2011 22:46:20] Connection
+[06/07/2011 22:46:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:46:20] in $_POST: Partie => "1" 
+[06/07/2011 22:46:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:46:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:46:20] in $_POST: Source => "0" 
+[06/07/2011 22:46:20] Deconnection
+
+[06/07/2011 22:46:21] Connection
+[06/07/2011 22:46:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:46:21] in $_POST: Partie => "1" 
+[06/07/2011 22:46:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:46:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:46:21] in $_POST: Source => "0" 
+[06/07/2011 22:46:21] Deconnection
+
+[06/07/2011 22:46:32] Connection
+[06/07/2011 22:46:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:46:32] in $_POST: Partie => "1" 
+[06/07/2011 22:46:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:32] Deconnection
+
+[06/07/2011 22:46:32] Connection
+[06/07/2011 22:46:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:46:32] in $_POST: Partie => "1" 
+[06/07/2011 22:46:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:46:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:46:32] in $_POST: Source => "0" 
+[06/07/2011 22:46:32] Deconnection
+
+[06/07/2011 22:46:44] Connection
+[06/07/2011 22:46:44] in $_POST: mode => "messageLire" 
+[06/07/2011 22:46:44] in $_POST: Partie => "1" 
+[06/07/2011 22:46:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:44] Deconnection
+
+[06/07/2011 22:46:44] Connection
+[06/07/2011 22:46:44] in $_POST: mode => "Journal" 
+[06/07/2011 22:46:44] in $_POST: Partie => "1" 
+[06/07/2011 22:46:44] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:44] in $_POST: TimeMax => "0" 
+[06/07/2011 22:46:44] in $_POST: TimeMin => "0" 
+[06/07/2011 22:46:44] in $_POST: Source => "0" 
+[06/07/2011 22:46:44] Deconnection
+
+[06/07/2011 22:46:56] Connection
+[06/07/2011 22:46:56] in $_POST: mode => "messageLire" 
+[06/07/2011 22:46:56] in $_POST: Partie => "1" 
+[06/07/2011 22:46:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:56] Deconnection
+
+[06/07/2011 22:46:56] Connection
+[06/07/2011 22:46:56] in $_POST: mode => "Journal" 
+[06/07/2011 22:46:56] in $_POST: Partie => "1" 
+[06/07/2011 22:46:56] in $_POST: Joueur => "1" 
+[06/07/2011 22:46:56] in $_POST: TimeMax => "0" 
+[06/07/2011 22:46:56] in $_POST: TimeMin => "0" 
+[06/07/2011 22:46:56] in $_POST: Source => "0" 
+[06/07/2011 22:46:56] Deconnection
+
+[06/07/2011 22:47:08] Connection
+[06/07/2011 22:47:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:08] in $_POST: Partie => "1" 
+[06/07/2011 22:47:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:08] Deconnection
+
+[06/07/2011 22:47:08] Connection
+[06/07/2011 22:47:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:08] in $_POST: Partie => "1" 
+[06/07/2011 22:47:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:08] in $_POST: Source => "0" 
+[06/07/2011 22:47:08] Deconnection
+
+[06/07/2011 22:47:20] Connection
+[06/07/2011 22:47:20] in $_POST: mode => "Production" 
+[06/07/2011 22:47:20] in $_POST: Partie => "1" 
+[06/07/2011 22:47:20] in $_POST: Etat => "1" 
+[06/07/2011 22:47:20] Deconnection
+
+[06/07/2011 22:47:20] Connection
+[06/07/2011 22:47:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:20] in $_POST: Partie => "1" 
+[06/07/2011 22:47:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:20] Deconnection
+
+[06/07/2011 22:47:20] Connection
+[06/07/2011 22:47:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:20] in $_POST: Partie => "1" 
+[06/07/2011 22:47:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:20] Deconnection
+
+[06/07/2011 22:47:20] Connection
+[06/07/2011 22:47:20] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:20] in $_POST: Partie => "1" 
+[06/07/2011 22:47:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:20] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:20] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:20] in $_POST: Source => "0" 
+[06/07/2011 22:47:20] Deconnection
+
+[06/07/2011 22:47:21] Connection
+[06/07/2011 22:47:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:21] in $_POST: Partie => "1" 
+[06/07/2011 22:47:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:21] in $_POST: Source => "0" 
+[06/07/2011 22:47:21] Deconnection
+
+[06/07/2011 22:47:32] Connection
+[06/07/2011 22:47:32] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:32] in $_POST: Partie => "1" 
+[06/07/2011 22:47:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:32] Deconnection
+
+[06/07/2011 22:47:32] Connection
+[06/07/2011 22:47:32] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:32] in $_POST: Partie => "1" 
+[06/07/2011 22:47:32] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:32] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:32] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:32] in $_POST: Source => "0" 
+[06/07/2011 22:47:32] Deconnection
+
+[06/07/2011 22:47:42] Connection
+[06/07/2011 22:47:42] in $_POST: mode => "Production" 
+[06/07/2011 22:47:42] in $_POST: Partie => "1" 
+[06/07/2011 22:47:42] in $_POST: Etat => "1" 
+[06/07/2011 22:47:42] Deconnection
+
+[06/07/2011 22:47:42] Connection
+[06/07/2011 22:47:42] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:42] in $_POST: Partie => "1" 
+[06/07/2011 22:47:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:42] Deconnection
+
+[06/07/2011 22:47:42] Connection
+[06/07/2011 22:47:42] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:47:42] in $_POST: Partie => "1" 
+[06/07/2011 22:47:42] in $_POST: Etat => "1" 
+[06/07/2011 22:47:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:42] Deconnection
+
+[06/07/2011 22:47:42] Connection
+[06/07/2011 22:47:42] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:42] in $_POST: Partie => "1" 
+[06/07/2011 22:47:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:42] Deconnection
+
+[06/07/2011 22:47:42] Connection
+[06/07/2011 22:47:42] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:42] in $_POST: Partie => "1" 
+[06/07/2011 22:47:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:42] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:42] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:42] in $_POST: Source => "0" 
+[06/07/2011 22:47:42] Deconnection
+
+[06/07/2011 22:47:43] Connection
+[06/07/2011 22:47:43] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:43] in $_POST: Partie => "1" 
+[06/07/2011 22:47:43] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:43] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:43] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:43] in $_POST: Source => "0" 
+[06/07/2011 22:47:43] Deconnection
+
+[06/07/2011 22:47:47] Connection
+[06/07/2011 22:47:47] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:47] in $_POST: Partie => "1" 
+[06/07/2011 22:47:47] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:47] Deconnection
+
+[06/07/2011 22:47:48] Connection
+[06/07/2011 22:47:48] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:47:48] in $_POST: Partie => "1" 
+[06/07/2011 22:47:48] in $_POST: Etat => "1" 
+[06/07/2011 22:47:48] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:48] Deconnection
+
+[06/07/2011 22:47:48] Connection
+[06/07/2011 22:47:48] in $_POST: mode => "Production" 
+[06/07/2011 22:47:48] in $_POST: Partie => "1" 
+[06/07/2011 22:47:48] in $_POST: Etat => "1" 
+[06/07/2011 22:47:48] Deconnection
+
+[06/07/2011 22:47:48] Connection
+[06/07/2011 22:47:48] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:48] in $_POST: Partie => "1" 
+[06/07/2011 22:47:48] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:48] Deconnection
+
+[06/07/2011 22:47:48] Connection
+[06/07/2011 22:47:48] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:48] in $_POST: Partie => "1" 
+[06/07/2011 22:47:48] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:48] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:48] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:48] in $_POST: Source => "0" 
+[06/07/2011 22:47:48] Deconnection
+
+[06/07/2011 22:47:48] Connection
+[06/07/2011 22:47:48] in $_POST: mode => "Journal" 
+[06/07/2011 22:47:48] in $_POST: Partie => "1" 
+[06/07/2011 22:47:48] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:48] in $_POST: TimeMax => "0" 
+[06/07/2011 22:47:48] in $_POST: TimeMin => "0" 
+[06/07/2011 22:47:48] in $_POST: Source => "0" 
+[06/07/2011 22:47:48] Deconnection
+
+[06/07/2011 22:47:59] Connection
+[06/07/2011 22:47:59] in $_POST: mode => "messageLire" 
+[06/07/2011 22:47:59] in $_POST: Partie => "1" 
+[06/07/2011 22:47:59] in $_POST: Joueur => "1" 
+[06/07/2011 22:47:59] Deconnection
+
+[06/07/2011 22:48:00] Connection
+[06/07/2011 22:48:00] in $_POST: mode => "Journal" 
+[06/07/2011 22:48:00] in $_POST: Partie => "1" 
+[06/07/2011 22:48:00] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:00] in $_POST: TimeMax => "0" 
+[06/07/2011 22:48:00] in $_POST: TimeMin => "0" 
+[06/07/2011 22:48:00] in $_POST: Source => "0" 
+[06/07/2011 22:48:00] Deconnection
+
+[06/07/2011 22:48:11] Connection
+[06/07/2011 22:48:11] in $_POST: mode => "messageLire" 
+[06/07/2011 22:48:11] in $_POST: Partie => "1" 
+[06/07/2011 22:48:11] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:11] Deconnection
+
+[06/07/2011 22:48:12] Connection
+[06/07/2011 22:48:12] in $_POST: mode => "Journal" 
+[06/07/2011 22:48:12] in $_POST: Partie => "1" 
+[06/07/2011 22:48:12] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:12] in $_POST: TimeMax => "0" 
+[06/07/2011 22:48:12] in $_POST: TimeMin => "0" 
+[06/07/2011 22:48:12] in $_POST: Source => "0" 
+[06/07/2011 22:48:12] Deconnection
+
+[06/07/2011 22:48:23] Connection
+[06/07/2011 22:48:23] in $_POST: mode => "messageLire" 
+[06/07/2011 22:48:23] in $_POST: Partie => "1" 
+[06/07/2011 22:48:23] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:23] Deconnection
+
+[06/07/2011 22:48:24] Connection
+[06/07/2011 22:48:24] in $_POST: mode => "Journal" 
+[06/07/2011 22:48:24] in $_POST: Partie => "1" 
+[06/07/2011 22:48:24] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:24] in $_POST: TimeMax => "0" 
+[06/07/2011 22:48:24] in $_POST: TimeMin => "0" 
+[06/07/2011 22:48:24] in $_POST: Source => "0" 
+[06/07/2011 22:48:24] Deconnection
+
+[06/07/2011 22:48:35] Connection
+[06/07/2011 22:48:35] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:48:35] in $_POST: Partie => "1" 
+[06/07/2011 22:48:35] in $_POST: Etat => "1" 
+[06/07/2011 22:48:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:35] Deconnection
+
+[06/07/2011 22:48:35] Connection
+[06/07/2011 22:48:35] in $_POST: mode => "Production" 
+[06/07/2011 22:48:35] in $_POST: Partie => "1" 
+[06/07/2011 22:48:35] in $_POST: Etat => "1" 
+[06/07/2011 22:48:35] Deconnection
+
+[06/07/2011 22:48:35] Connection
+[06/07/2011 22:48:35] in $_POST: mode => "messageLire" 
+[06/07/2011 22:48:35] in $_POST: Partie => "1" 
+[06/07/2011 22:48:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:35] Deconnection
+
+[06/07/2011 22:48:36] Connection
+[06/07/2011 22:48:36] in $_POST: mode => "messageLire" 
+[06/07/2011 22:48:36] in $_POST: Partie => "1" 
+[06/07/2011 22:48:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:36] Deconnection
+
+[06/07/2011 22:48:36] Connection
+[06/07/2011 22:48:36] in $_POST: mode => "Journal" 
+[06/07/2011 22:48:36] in $_POST: Partie => "1" 
+[06/07/2011 22:48:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:36] in $_POST: TimeMax => "0" 
+[06/07/2011 22:48:36] in $_POST: TimeMin => "0" 
+[06/07/2011 22:48:36] in $_POST: Source => "0" 
+[06/07/2011 22:48:36] Deconnection
+
+[06/07/2011 22:48:36] Connection
+[06/07/2011 22:48:36] in $_POST: mode => "Journal" 
+[06/07/2011 22:48:36] in $_POST: Partie => "1" 
+[06/07/2011 22:48:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:36] in $_POST: TimeMax => "0" 
+[06/07/2011 22:48:36] in $_POST: TimeMin => "0" 
+[06/07/2011 22:48:36] in $_POST: Source => "0" 
+[06/07/2011 22:48:36] Deconnection
+
+[06/07/2011 22:48:47] Connection
+[06/07/2011 22:48:47] in $_POST: mode => "messageLire" 
+[06/07/2011 22:48:47] in $_POST: Partie => "1" 
+[06/07/2011 22:48:47] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:47] Deconnection
+
+[06/07/2011 22:48:48] Connection
+[06/07/2011 22:48:48] in $_POST: mode => "Journal" 
+[06/07/2011 22:48:48] in $_POST: Partie => "1" 
+[06/07/2011 22:48:48] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:48] in $_POST: TimeMax => "0" 
+[06/07/2011 22:48:48] in $_POST: TimeMin => "0" 
+[06/07/2011 22:48:48] in $_POST: Source => "0" 
+[06/07/2011 22:48:48] Deconnection
+
+[06/07/2011 22:48:59] Connection
+[06/07/2011 22:48:59] in $_POST: mode => "messageLire" 
+[06/07/2011 22:48:59] in $_POST: Partie => "1" 
+[06/07/2011 22:48:59] in $_POST: Joueur => "1" 
+[06/07/2011 22:48:59] Deconnection
+
+[06/07/2011 22:49:00] Connection
+[06/07/2011 22:49:00] in $_POST: mode => "Journal" 
+[06/07/2011 22:49:00] in $_POST: Partie => "1" 
+[06/07/2011 22:49:00] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:00] in $_POST: TimeMax => "0" 
+[06/07/2011 22:49:00] in $_POST: TimeMin => "0" 
+[06/07/2011 22:49:00] in $_POST: Source => "0" 
+[06/07/2011 22:49:00] Deconnection
+
+[06/07/2011 22:49:11] Connection
+[06/07/2011 22:49:11] in $_POST: mode => "messageLire" 
+[06/07/2011 22:49:11] in $_POST: Partie => "1" 
+[06/07/2011 22:49:11] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:11] Deconnection
+
+[06/07/2011 22:49:12] Connection
+[06/07/2011 22:49:12] in $_POST: mode => "Journal" 
+[06/07/2011 22:49:12] in $_POST: Partie => "1" 
+[06/07/2011 22:49:12] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:12] in $_POST: TimeMax => "0" 
+[06/07/2011 22:49:12] in $_POST: TimeMin => "0" 
+[06/07/2011 22:49:12] in $_POST: Source => "0" 
+[06/07/2011 22:49:12] Deconnection
+
+[06/07/2011 22:49:23] Connection
+[06/07/2011 22:49:23] in $_POST: mode => "messageLire" 
+[06/07/2011 22:49:23] in $_POST: Partie => "1" 
+[06/07/2011 22:49:23] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:23] Deconnection
+
+[06/07/2011 22:49:24] Connection
+[06/07/2011 22:49:24] in $_POST: mode => "Journal" 
+[06/07/2011 22:49:24] in $_POST: Partie => "1" 
+[06/07/2011 22:49:24] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:24] in $_POST: TimeMax => "0" 
+[06/07/2011 22:49:24] in $_POST: TimeMin => "0" 
+[06/07/2011 22:49:24] in $_POST: Source => "0" 
+[06/07/2011 22:49:24] Deconnection
+
+[06/07/2011 22:49:35] Connection
+[06/07/2011 22:49:35] in $_POST: mode => "Production" 
+[06/07/2011 22:49:35] in $_POST: Partie => "1" 
+[06/07/2011 22:49:35] in $_POST: Etat => "1" 
+[06/07/2011 22:49:35] Deconnection
+
+[06/07/2011 22:49:35] Connection
+[06/07/2011 22:49:35] in $_POST: mode => "messageLire" 
+[06/07/2011 22:49:35] in $_POST: Partie => "1" 
+[06/07/2011 22:49:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:35] Deconnection
+
+[06/07/2011 22:49:36] Connection
+[06/07/2011 22:49:36] in $_POST: mode => "messageLire" 
+[06/07/2011 22:49:36] in $_POST: Partie => "1" 
+[06/07/2011 22:49:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:36] Deconnection
+
+[06/07/2011 22:49:36] Connection
+[06/07/2011 22:49:36] in $_POST: mode => "Journal" 
+[06/07/2011 22:49:36] in $_POST: Partie => "1" 
+[06/07/2011 22:49:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:36] in $_POST: TimeMax => "0" 
+[06/07/2011 22:49:36] in $_POST: TimeMin => "0" 
+[06/07/2011 22:49:36] in $_POST: Source => "0" 
+[06/07/2011 22:49:36] Deconnection
+
+[06/07/2011 22:49:36] Connection
+[06/07/2011 22:49:36] in $_POST: mode => "Journal" 
+[06/07/2011 22:49:36] in $_POST: Partie => "1" 
+[06/07/2011 22:49:36] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:36] in $_POST: TimeMax => "0" 
+[06/07/2011 22:49:36] in $_POST: TimeMin => "0" 
+[06/07/2011 22:49:36] in $_POST: Source => "0" 
+[06/07/2011 22:49:36] Deconnection
+
+[06/07/2011 22:49:47] Connection
+[06/07/2011 22:49:47] in $_POST: mode => "messageLire" 
+[06/07/2011 22:49:47] in $_POST: Partie => "1" 
+[06/07/2011 22:49:47] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:47] Deconnection
+
+[06/07/2011 22:49:48] Connection
+[06/07/2011 22:49:48] in $_POST: mode => "Journal" 
+[06/07/2011 22:49:48] in $_POST: Partie => "1" 
+[06/07/2011 22:49:48] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:48] in $_POST: TimeMax => "0" 
+[06/07/2011 22:49:48] in $_POST: TimeMin => "0" 
+[06/07/2011 22:49:48] in $_POST: Source => "0" 
+[06/07/2011 22:49:48] Deconnection
+
+[06/07/2011 22:49:59] Connection
+[06/07/2011 22:49:59] in $_POST: mode => "messageLire" 
+[06/07/2011 22:49:59] in $_POST: Partie => "1" 
+[06/07/2011 22:49:59] in $_POST: Joueur => "1" 
+[06/07/2011 22:49:59] Deconnection
+
+[06/07/2011 22:50:00] Connection
+[06/07/2011 22:50:00] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:00] in $_POST: Partie => "1" 
+[06/07/2011 22:50:00] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:00] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:00] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:00] in $_POST: Source => "0" 
+[06/07/2011 22:50:00] Deconnection
+
+[06/07/2011 22:50:07] Connection
+[06/07/2011 22:50:07] in $_POST: mode => "Production" 
+[06/07/2011 22:50:07] in $_POST: Partie => "1" 
+[06/07/2011 22:50:07] in $_POST: Etat => "1" 
+[06/07/2011 22:50:07] Deconnection
+
+[06/07/2011 22:50:08] Connection
+[06/07/2011 22:50:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:08] in $_POST: Partie => "1" 
+[06/07/2011 22:50:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:08] Deconnection
+
+[06/07/2011 22:50:08] Connection
+[06/07/2011 22:50:08] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:50:08] in $_POST: Partie => "1" 
+[06/07/2011 22:50:08] in $_POST: Etat => "1" 
+[06/07/2011 22:50:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:08] Deconnection
+
+[06/07/2011 22:50:08] Connection
+[06/07/2011 22:50:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:08] in $_POST: Partie => "1" 
+[06/07/2011 22:50:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:08] in $_POST: Source => "0" 
+[06/07/2011 22:50:08] Deconnection
+
+[06/07/2011 22:50:08] Connection
+[06/07/2011 22:50:08] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:08] in $_POST: Partie => "1" 
+[06/07/2011 22:50:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:08] Deconnection
+
+[06/07/2011 22:50:08] Connection
+[06/07/2011 22:50:08] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:08] in $_POST: Partie => "1" 
+[06/07/2011 22:50:08] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:08] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:08] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:08] in $_POST: Source => "0" 
+[06/07/2011 22:50:08] Deconnection
+
+[06/07/2011 22:50:10] Connection
+[06/07/2011 22:50:10] in $_POST: mode => "territoireInformations" 
+[06/07/2011 22:50:10] in $_POST: Partie => "1" 
+[06/07/2011 22:50:10] in $_POST: Territoire => "114" 
+[06/07/2011 22:50:10] in $_POST: Joueur => "[object HTMLInputElement]" 
+[06/07/2011 22:50:10] in $_POST: SousMode => "Jeu" 
+[06/07/2011 22:50:10] Deconnection
+
+[06/07/2011 22:50:17] Connection
+[06/07/2011 22:50:17] in $_POST: mode => "Production" 
+[06/07/2011 22:50:17] in $_POST: Partie => "1" 
+[06/07/2011 22:50:17] in $_POST: Etat => "1" 
+[06/07/2011 22:50:17] Deconnection
+
+[06/07/2011 22:50:17] Connection
+[06/07/2011 22:50:17] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:17] in $_POST: Partie => "1" 
+[06/07/2011 22:50:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:17] Deconnection
+
+[06/07/2011 22:50:17] Connection
+[06/07/2011 22:50:17] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:50:17] in $_POST: Partie => "1" 
+[06/07/2011 22:50:17] in $_POST: Etat => "1" 
+[06/07/2011 22:50:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:17] Deconnection
+
+[06/07/2011 22:50:17] Connection
+[06/07/2011 22:50:17] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:17] in $_POST: Partie => "1" 
+[06/07/2011 22:50:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:17] Deconnection
+
+[06/07/2011 22:50:18] Connection
+[06/07/2011 22:50:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:18] in $_POST: Partie => "1" 
+[06/07/2011 22:50:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:18] in $_POST: Source => "0" 
+[06/07/2011 22:50:18] Deconnection
+
+[06/07/2011 22:50:18] Connection
+[06/07/2011 22:50:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:18] in $_POST: Partie => "1" 
+[06/07/2011 22:50:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:18] in $_POST: Source => "0" 
+[06/07/2011 22:50:18] Deconnection
+
+[06/07/2011 22:50:29] Connection
+[06/07/2011 22:50:29] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:29] in $_POST: Partie => "1" 
+[06/07/2011 22:50:29] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:29] Deconnection
+
+[06/07/2011 22:50:29] Connection
+[06/07/2011 22:50:29] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:29] in $_POST: Partie => "1" 
+[06/07/2011 22:50:29] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:29] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:29] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:29] in $_POST: Source => "0" 
+[06/07/2011 22:50:29] Deconnection
+
+[06/07/2011 22:50:41] Connection
+[06/07/2011 22:50:41] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:41] in $_POST: Partie => "1" 
+[06/07/2011 22:50:41] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:41] Deconnection
+
+[06/07/2011 22:50:42] Connection
+[06/07/2011 22:50:42] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:42] in $_POST: Partie => "1" 
+[06/07/2011 22:50:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:42] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:42] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:42] in $_POST: Source => "0" 
+[06/07/2011 22:50:42] Deconnection
+
+[06/07/2011 22:50:53] Connection
+[06/07/2011 22:50:53] in $_POST: mode => "messageLire" 
+[06/07/2011 22:50:53] in $_POST: Partie => "1" 
+[06/07/2011 22:50:53] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:53] Deconnection
+
+[06/07/2011 22:50:54] Connection
+[06/07/2011 22:50:54] in $_POST: mode => "Journal" 
+[06/07/2011 22:50:54] in $_POST: Partie => "1" 
+[06/07/2011 22:50:54] in $_POST: Joueur => "1" 
+[06/07/2011 22:50:54] in $_POST: TimeMax => "0" 
+[06/07/2011 22:50:54] in $_POST: TimeMin => "0" 
+[06/07/2011 22:50:54] in $_POST: Source => "0" 
+[06/07/2011 22:50:54] Deconnection
+
+[06/07/2011 22:51:05] Connection
+[06/07/2011 22:51:05] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:05] in $_POST: Partie => "1" 
+[06/07/2011 22:51:05] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:05] Deconnection
+
+[06/07/2011 22:51:06] Connection
+[06/07/2011 22:51:06] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:06] in $_POST: Partie => "1" 
+[06/07/2011 22:51:06] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:06] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:06] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:06] in $_POST: Source => "0" 
+[06/07/2011 22:51:06] Deconnection
+
+[06/07/2011 22:51:17] Connection
+[06/07/2011 22:51:17] in $_POST: mode => "Production" 
+[06/07/2011 22:51:17] in $_POST: Partie => "1" 
+[06/07/2011 22:51:17] in $_POST: Etat => "1" 
+[06/07/2011 22:51:17] Deconnection
+
+[06/07/2011 22:51:17] Connection
+[06/07/2011 22:51:17] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:17] in $_POST: Partie => "1" 
+[06/07/2011 22:51:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:17] Deconnection
+
+[06/07/2011 22:51:17] Connection
+[06/07/2011 22:51:17] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:17] in $_POST: Partie => "1" 
+[06/07/2011 22:51:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:17] Deconnection
+
+[06/07/2011 22:51:18] Connection
+[06/07/2011 22:51:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:18] in $_POST: Partie => "1" 
+[06/07/2011 22:51:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:18] in $_POST: Source => "0" 
+[06/07/2011 22:51:18] Deconnection
+
+[06/07/2011 22:51:18] Connection
+[06/07/2011 22:51:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:18] in $_POST: Partie => "1" 
+[06/07/2011 22:51:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:18] in $_POST: Source => "0" 
+[06/07/2011 22:51:18] Deconnection
+
+[06/07/2011 22:51:20] Connection
+[06/07/2011 22:51:20] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:51:20] in $_POST: Partie => "1" 
+[06/07/2011 22:51:20] in $_POST: Etat => "1" 
+[06/07/2011 22:51:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:20] Deconnection
+
+[06/07/2011 22:51:20] Connection
+[06/07/2011 22:51:20] in $_POST: mode => "Production" 
+[06/07/2011 22:51:20] in $_POST: Partie => "1" 
+[06/07/2011 22:51:20] in $_POST: Etat => "1" 
+[06/07/2011 22:51:20] Deconnection
+
+[06/07/2011 22:51:20] Connection
+[06/07/2011 22:51:20] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:20] in $_POST: Partie => "1" 
+[06/07/2011 22:51:20] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:20] Deconnection
+
+[06/07/2011 22:51:21] Connection
+[06/07/2011 22:51:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:21] in $_POST: Partie => "1" 
+[06/07/2011 22:51:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:21] Deconnection
+
+[06/07/2011 22:51:21] Connection
+[06/07/2011 22:51:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:21] in $_POST: Partie => "1" 
+[06/07/2011 22:51:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:21] in $_POST: Source => "0" 
+[06/07/2011 22:51:21] Deconnection
+
+[06/07/2011 22:51:21] Connection
+[06/07/2011 22:51:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:21] in $_POST: Partie => "1" 
+[06/07/2011 22:51:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:21] in $_POST: Source => "0" 
+[06/07/2011 22:51:21] Deconnection
+
+[06/07/2011 22:51:22] Connection
+[06/07/2011 22:51:22] in $_POST: mode => "territoireInformations" 
+[06/07/2011 22:51:22] in $_POST: Partie => "1" 
+[06/07/2011 22:51:22] in $_POST: Territoire => "161" 
+[06/07/2011 22:51:22] in $_POST: Joueur => "[object HTMLInputElement]" 
+[06/07/2011 22:51:22] in $_POST: SousMode => "Jeu" 
+[06/07/2011 22:51:22] Deconnection
+
+[06/07/2011 22:51:26] Connection
+[06/07/2011 22:51:26] in $_POST: mode => "Production" 
+[06/07/2011 22:51:26] in $_POST: Partie => "1" 
+[06/07/2011 22:51:26] in $_POST: Etat => "1" 
+[06/07/2011 22:51:26] Deconnection
+
+[06/07/2011 22:51:26] Connection
+[06/07/2011 22:51:26] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:51:26] in $_POST: Partie => "1" 
+[06/07/2011 22:51:26] in $_POST: Etat => "1" 
+[06/07/2011 22:51:26] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:26] Deconnection
+
+[06/07/2011 22:51:26] Connection
+[06/07/2011 22:51:26] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:26] in $_POST: Partie => "1" 
+[06/07/2011 22:51:26] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:26] Deconnection
+
+[06/07/2011 22:51:27] Connection
+[06/07/2011 22:51:27] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:27] in $_POST: Partie => "1" 
+[06/07/2011 22:51:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:27] Deconnection
+
+[06/07/2011 22:51:27] Connection
+[06/07/2011 22:51:27] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:27] in $_POST: Partie => "1" 
+[06/07/2011 22:51:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:27] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:27] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:27] in $_POST: Source => "0" 
+[06/07/2011 22:51:27] Deconnection
+
+[06/07/2011 22:51:27] Connection
+[06/07/2011 22:51:27] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:27] in $_POST: Partie => "1" 
+[06/07/2011 22:51:27] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:27] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:27] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:27] in $_POST: Source => "0" 
+[06/07/2011 22:51:27] Deconnection
+
+[06/07/2011 22:51:38] Connection
+[06/07/2011 22:51:38] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:38] in $_POST: Partie => "1" 
+[06/07/2011 22:51:38] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:38] Deconnection
+
+[06/07/2011 22:51:39] Connection
+[06/07/2011 22:51:39] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:39] in $_POST: Partie => "1" 
+[06/07/2011 22:51:39] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:39] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:39] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:39] in $_POST: Source => "0" 
+[06/07/2011 22:51:39] Deconnection
+
+[06/07/2011 22:51:41] Connection
+[06/07/2011 22:51:41] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:41] in $_POST: Partie => "1" 
+[06/07/2011 22:51:41] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:41] Deconnection
+
+[06/07/2011 22:51:41] Connection
+[06/07/2011 22:51:41] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:51:41] in $_POST: Partie => "1" 
+[06/07/2011 22:51:41] in $_POST: Etat => "1" 
+[06/07/2011 22:51:41] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:41] Deconnection
+
+[06/07/2011 22:51:41] Connection
+[06/07/2011 22:51:41] in $_POST: mode => "Production" 
+[06/07/2011 22:51:41] in $_POST: Partie => "1" 
+[06/07/2011 22:51:41] in $_POST: Etat => "1" 
+[06/07/2011 22:51:41] Deconnection
+
+[06/07/2011 22:51:42] Connection
+[06/07/2011 22:51:42] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:42] in $_POST: Partie => "1" 
+[06/07/2011 22:51:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:42] Deconnection
+
+[06/07/2011 22:51:42] Connection
+[06/07/2011 22:51:42] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:42] in $_POST: Partie => "1" 
+[06/07/2011 22:51:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:42] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:42] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:42] in $_POST: Source => "0" 
+[06/07/2011 22:51:42] Deconnection
+
+[06/07/2011 22:51:42] Connection
+[06/07/2011 22:51:42] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:42] in $_POST: Partie => "1" 
+[06/07/2011 22:51:42] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:42] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:42] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:42] in $_POST: Source => "0" 
+[06/07/2011 22:51:42] Deconnection
+
+[06/07/2011 22:51:53] Connection
+[06/07/2011 22:51:53] in $_POST: mode => "messageLire" 
+[06/07/2011 22:51:53] in $_POST: Partie => "1" 
+[06/07/2011 22:51:53] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:53] Deconnection
+
+[06/07/2011 22:51:54] Connection
+[06/07/2011 22:51:54] in $_POST: mode => "Journal" 
+[06/07/2011 22:51:54] in $_POST: Partie => "1" 
+[06/07/2011 22:51:54] in $_POST: Joueur => "1" 
+[06/07/2011 22:51:54] in $_POST: TimeMax => "0" 
+[06/07/2011 22:51:54] in $_POST: TimeMin => "0" 
+[06/07/2011 22:51:54] in $_POST: Source => "0" 
+[06/07/2011 22:51:54] Deconnection
+
+[06/07/2011 22:52:04] Connection
+[06/07/2011 22:52:04] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:52:04] in $_POST: Partie => "1" 
+[06/07/2011 22:52:04] in $_POST: Etat => "1" 
+[06/07/2011 22:52:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:04] Deconnection
+
+[06/07/2011 22:52:04] Connection
+[06/07/2011 22:52:04] in $_POST: mode => "Production" 
+[06/07/2011 22:52:04] in $_POST: Partie => "1" 
+[06/07/2011 22:52:04] in $_POST: Etat => "1" 
+[06/07/2011 22:52:04] Deconnection
+
+[06/07/2011 22:52:04] Connection
+[06/07/2011 22:52:04] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:04] in $_POST: Partie => "1" 
+[06/07/2011 22:52:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:04] Deconnection
+
+[06/07/2011 22:52:04] Connection
+[06/07/2011 22:52:04] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:04] in $_POST: Partie => "1" 
+[06/07/2011 22:52:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:04] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:04] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:04] in $_POST: Source => "0" 
+[06/07/2011 22:52:04] Deconnection
+
+[06/07/2011 22:52:04] Connection
+[06/07/2011 22:52:04] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:04] in $_POST: Partie => "1" 
+[06/07/2011 22:52:04] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:04] Deconnection
+
+[06/07/2011 22:52:05] Connection
+[06/07/2011 22:52:05] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:05] in $_POST: Partie => "1" 
+[06/07/2011 22:52:05] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:05] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:05] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:05] in $_POST: Source => "0" 
+[06/07/2011 22:52:05] Deconnection
+
+[06/07/2011 22:52:17] Connection
+[06/07/2011 22:52:17] in $_POST: mode => "Production" 
+[06/07/2011 22:52:17] in $_POST: Partie => "1" 
+[06/07/2011 22:52:17] in $_POST: Etat => "1" 
+[06/07/2011 22:52:17] Deconnection
+
+[06/07/2011 22:52:17] Connection
+[06/07/2011 22:52:17] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:52:17] in $_POST: Partie => "1" 
+[06/07/2011 22:52:17] in $_POST: Etat => "1" 
+[06/07/2011 22:52:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:17] Deconnection
+
+[06/07/2011 22:52:17] Connection
+[06/07/2011 22:52:17] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:17] in $_POST: Partie => "1" 
+[06/07/2011 22:52:17] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:17] Deconnection
+
+[06/07/2011 22:52:18] Connection
+[06/07/2011 22:52:18] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:18] in $_POST: Partie => "1" 
+[06/07/2011 22:52:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:18] Deconnection
+
+[06/07/2011 22:52:18] Connection
+[06/07/2011 22:52:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:18] in $_POST: Partie => "1" 
+[06/07/2011 22:52:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:18] in $_POST: Source => "0" 
+[06/07/2011 22:52:18] Deconnection
+
+[06/07/2011 22:52:18] Connection
+[06/07/2011 22:52:18] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:18] in $_POST: Partie => "1" 
+[06/07/2011 22:52:18] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:18] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:18] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:18] in $_POST: Source => "0" 
+[06/07/2011 22:52:18] Deconnection
+
+[06/07/2011 22:52:33] Connection
+[06/07/2011 22:52:33] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:33] in $_POST: Partie => "1" 
+[06/07/2011 22:52:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:33] Deconnection
+
+[06/07/2011 22:52:33] Connection
+[06/07/2011 22:52:33] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:33] in $_POST: Partie => "1" 
+[06/07/2011 22:52:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:33] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:33] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:33] in $_POST: Source => "0" 
+[06/07/2011 22:52:33] Deconnection
+
+[06/07/2011 22:52:45] Connection
+[06/07/2011 22:52:45] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:45] in $_POST: Partie => "1" 
+[06/07/2011 22:52:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:45] Deconnection
+
+[06/07/2011 22:52:45] Connection
+[06/07/2011 22:52:45] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:45] in $_POST: Partie => "1" 
+[06/07/2011 22:52:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:45] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:45] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:45] in $_POST: Source => "0" 
+[06/07/2011 22:52:45] Deconnection
+
+[06/07/2011 22:52:57] Connection
+[06/07/2011 22:52:57] in $_POST: mode => "messageLire" 
+[06/07/2011 22:52:57] in $_POST: Partie => "1" 
+[06/07/2011 22:52:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:57] Deconnection
+
+[06/07/2011 22:52:57] Connection
+[06/07/2011 22:52:57] in $_POST: mode => "Journal" 
+[06/07/2011 22:52:57] in $_POST: Partie => "1" 
+[06/07/2011 22:52:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:52:57] in $_POST: TimeMax => "0" 
+[06/07/2011 22:52:57] in $_POST: TimeMin => "0" 
+[06/07/2011 22:52:57] in $_POST: Source => "0" 
+[06/07/2011 22:52:57] Deconnection
+
+[06/07/2011 22:53:09] Connection
+[06/07/2011 22:53:09] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:09] in $_POST: Partie => "1" 
+[06/07/2011 22:53:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:09] Deconnection
+
+[06/07/2011 22:53:09] Connection
+[06/07/2011 22:53:09] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:09] in $_POST: Partie => "1" 
+[06/07/2011 22:53:09] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:09] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:09] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:09] in $_POST: Source => "0" 
+[06/07/2011 22:53:09] Deconnection
+
+[06/07/2011 22:53:21] Connection
+[06/07/2011 22:53:21] in $_POST: mode => "Production" 
+[06/07/2011 22:53:21] in $_POST: Partie => "1" 
+[06/07/2011 22:53:21] in $_POST: Etat => "1" 
+[06/07/2011 22:53:21] Deconnection
+
+[06/07/2011 22:53:21] Connection
+[06/07/2011 22:53:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:21] in $_POST: Partie => "1" 
+[06/07/2011 22:53:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:21] Deconnection
+
+[06/07/2011 22:53:21] Connection
+[06/07/2011 22:53:21] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:21] in $_POST: Partie => "1" 
+[06/07/2011 22:53:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:21] Deconnection
+
+[06/07/2011 22:53:21] Connection
+[06/07/2011 22:53:21] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:21] in $_POST: Partie => "1" 
+[06/07/2011 22:53:21] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:21] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:21] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:21] in $_POST: Source => "0" 
+[06/07/2011 22:53:21] Deconnection
+
+[06/07/2011 22:53:22] Connection
+[06/07/2011 22:53:22] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:22] in $_POST: Partie => "1" 
+[06/07/2011 22:53:22] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:22] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:22] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:22] in $_POST: Source => "0" 
+[06/07/2011 22:53:22] Deconnection
+
+[06/07/2011 22:53:33] Connection
+[06/07/2011 22:53:33] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:33] in $_POST: Partie => "1" 
+[06/07/2011 22:53:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:33] Deconnection
+
+[06/07/2011 22:53:33] Connection
+[06/07/2011 22:53:33] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:33] in $_POST: Partie => "1" 
+[06/07/2011 22:53:33] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:33] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:33] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:33] in $_POST: Source => "0" 
+[06/07/2011 22:53:33] Deconnection
+
+[06/07/2011 22:53:45] Connection
+[06/07/2011 22:53:45] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:45] in $_POST: Partie => "1" 
+[06/07/2011 22:53:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:45] Deconnection
+
+[06/07/2011 22:53:45] Connection
+[06/07/2011 22:53:45] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:45] in $_POST: Partie => "1" 
+[06/07/2011 22:53:45] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:45] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:45] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:45] in $_POST: Source => "0" 
+[06/07/2011 22:53:45] Deconnection
+
+[06/07/2011 22:53:57] Connection
+[06/07/2011 22:53:57] in $_POST: mode => "Production" 
+[06/07/2011 22:53:57] in $_POST: Partie => "1" 
+[06/07/2011 22:53:57] in $_POST: Etat => "1" 
+[06/07/2011 22:53:57] Deconnection
+
+[06/07/2011 22:53:57] Connection
+[06/07/2011 22:53:57] in $_POST: mode => "EtatInformations" 
+[06/07/2011 22:53:57] in $_POST: Partie => "1" 
+[06/07/2011 22:53:57] in $_POST: Etat => "1" 
+[06/07/2011 22:53:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:57] Deconnection
+
+[06/07/2011 22:53:57] Connection
+[06/07/2011 22:53:57] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:57] in $_POST: Partie => "1" 
+[06/07/2011 22:53:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:57] Deconnection
+
+[06/07/2011 22:53:57] Connection
+[06/07/2011 22:53:57] in $_POST: mode => "messageLire" 
+[06/07/2011 22:53:57] in $_POST: Partie => "1" 
+[06/07/2011 22:53:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:57] Deconnection
+
+[06/07/2011 22:53:57] Connection
+[06/07/2011 22:53:57] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:57] in $_POST: Partie => "1" 
+[06/07/2011 22:53:57] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:57] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:57] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:57] in $_POST: Source => "0" 
+[06/07/2011 22:53:57] Deconnection
+
+[06/07/2011 22:53:58] Connection
+[06/07/2011 22:53:58] in $_POST: mode => "Journal" 
+[06/07/2011 22:53:58] in $_POST: Partie => "1" 
+[06/07/2011 22:53:58] in $_POST: Joueur => "1" 
+[06/07/2011 22:53:58] in $_POST: TimeMax => "0" 
+[06/07/2011 22:53:58] in $_POST: TimeMin => "0" 
+[06/07/2011 22:53:58] in $_POST: Source => "0" 
+[06/07/2011 22:53:58] Deconnection
+
+[06/07/2011 22:54:11] Connection
+[06/07/2011 22:54:11] in $_POST: mode => "messageLire" 
+[06/07/2011 22:54:11] in $_POST: Partie => "1" 
+[06/07/2011 22:54:11] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:11] Deconnection
+
+[06/07/2011 22:54:11] Connection
+[06/07/2011 22:54:11] in $_POST: mode => "Journal" 
+[06/07/2011 22:54:11] in $_POST: Partie => "1" 
+[06/07/2011 22:54:11] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:11] in $_POST: TimeMax => "0" 
+[06/07/2011 22:54:11] in $_POST: TimeMin => "0" 
+[06/07/2011 22:54:11] in $_POST: Source => "0" 
+[06/07/2011 22:54:11] Deconnection
+
+[06/07/2011 22:54:23] Connection
+[06/07/2011 22:54:23] in $_POST: mode => "messageLire" 
+[06/07/2011 22:54:23] in $_POST: Partie => "1" 
+[06/07/2011 22:54:23] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:23] Deconnection
+
+[06/07/2011 22:54:23] Connection
+[06/07/2011 22:54:23] in $_POST: mode => "Journal" 
+[06/07/2011 22:54:23] in $_POST: Partie => "1" 
+[06/07/2011 22:54:23] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:23] in $_POST: TimeMax => "0" 
+[06/07/2011 22:54:23] in $_POST: TimeMin => "0" 
+[06/07/2011 22:54:23] in $_POST: Source => "0" 
+[06/07/2011 22:54:23] Deconnection
+
+[06/07/2011 22:54:35] Connection
+[06/07/2011 22:54:35] in $_POST: mode => "messageLire" 
+[06/07/2011 22:54:35] in $_POST: Partie => "1" 
+[06/07/2011 22:54:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:35] Deconnection
+
+[06/07/2011 22:54:35] Connection
+[06/07/2011 22:54:35] in $_POST: mode => "Journal" 
+[06/07/2011 22:54:35] in $_POST: Partie => "1" 
+[06/07/2011 22:54:35] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:35] in $_POST: TimeMax => "0" 
+[06/07/2011 22:54:35] in $_POST: TimeMin => "0" 
+[06/07/2011 22:54:35] in $_POST: Source => "0" 
+[06/07/2011 22:54:35] Deconnection
+
+[06/07/2011 22:54:47] Connection
+[06/07/2011 22:54:47] in $_POST: mode => "messageLire" 
+[06/07/2011 22:54:47] in $_POST: Partie => "1" 
+[06/07/2011 22:54:47] in $_POST: Joueur => "1" 
+[06/07/2011 22:54:47] Deconnection
+
