@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Déclanche l'émission d'un événement
+ * Déclenche l'émission d'un événement
  * 
  * @param string $EvenementID			Identifiant de l'événement
  * @param int $TeritoireID				ID du territoire où se passe l'événement
@@ -10,7 +10,7 @@
  * @param [string=>int|[int]] $Joueurs		Liste des joueurs concernés par l'événement, groupés par "rôles"
  * @param [string=>string] $Parametres	Liste des paramètres à inclure dans les messages générés
  */
-function DeclancherEvenement($EvenementID, $TeritoireID, $Partie, $Source, $Joueurs, $Parametres)
+function DeclencherEvenement($EvenementID, $TeritoireID, $Partie, $Source, $Joueurs, $Parametres)
 {
 	global $EVENEMENTS;
 	

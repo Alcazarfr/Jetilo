@@ -1,5 +1,5 @@
 <?php
-
+/*
 $file=fopen("test.txt","a");
 fwrite($file,"[".date("d/m/Y H:i:s")."] Connection\r\n");
 foreach ($_GET as $k=>$v)
@@ -12,6 +12,7 @@ foreach ($_POST as $k=>$v)
 	}
 fwrite($file,"[".date("d/m/Y H:i:s")."] Deconnection\r\n\r\n");
 fclose($file);
+*/
 
 //
 // AJAX/PARTIE.php = les fonctions ajax utilisées durant les parties
@@ -26,7 +27,7 @@ include ROOT_PATH.'includes/init.php';
 connectMaBase();
 
 // On récupère l'ID de la partie
-$Partie 		= $_POST['Partie'];
+$Partie = isset($_POST['Partie']) ? $_POST['Partie'] : ( $_GET['Partie'] ? $_GET['Partie'] : 0);
 
 $PartieStatut 	= Attribut($Partie, "Partie", "PartieStatut");
 if ( $PartieStatut != 1 )
@@ -36,7 +37,7 @@ if ( $PartieStatut != 1 )
 	exit;
 }
 // On récupère le mode = l'action à effeectuer
-$mode = $_POST['mode'] ? $_POST['mode'] : ( $_GET['mode'] ? $_GET['mode'] : 'aucun');
+$mode = isset($_POST['mode']) ? $_POST['mode'] : ( $_GET['mode'] ? $_GET['mode'] : 'aucun');
 
 $message = "";
 if ( !$mode )
@@ -48,9 +49,6 @@ if ( !$mode )
 switch ( $mode )
 {
 	// Affichage dynamiques des messages
-	case "modal" :
-		$message = "Modal généré";
-	break;
 	case "messageLire":
 		$Joueur = $_POST['Joueur'];
 
@@ -130,7 +128,7 @@ switch ( $mode )
 						$message .= "<br />";
 						$message .= $TerritoireEtat ? "<a href='#Etat' class='pointille' onClick='EtatInformations(".$TerritoireEtat.")'>" . Attribut($TerritoireEtat, "Etat", "EtatNom") . "</a>" : "Terra Incognita";
 					}
-					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants (".round($data['TerritoireCroissance'],1)."%)<br /><br />";
+					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants (".round(ChercherEffet('TERRITOIRE', $TerritoireID, "TerritoireCroissance", $data['TerritoireCroissance']),1)."%) <a href='#ActionPopulation' id='ActionPopulation=".$TerritoireID."' class='infobullefixe'>Actions</a><br /><br />";
 					$message .= "<br /><br />" . TerritoireAcces($TerritoireID);
 					
 					$TerritoireDefense 	= ChercherEffet("TERRITOIRE", $Territoire, "TerritoireDefense", $data['TerritoireDefense']);
@@ -209,19 +207,7 @@ switch ( $mode )
 					);
 					$LienGeneral = FormaterLien("AgentCreer", $ModelAgent);
 					
-					$message .= "<br /><a href=\"#\" onClick=\"".$LienGeneral."\">Créer un général</a> : ";
-					$message .= "<br /><a href=\"#\" onClick=\"ActionCreer('renforcer-defense', " . $TerritoireEtat . ", " . $TerritoireID . ")\">Créer un bonus défensif</a> : ";
-					
-					$message .= "<br /> <a href=\"#\" id=\"modal_1\" class=\"modal\">Ouvrir la modal 1</a>";
-					$message .= "<br /> <a href=\"#\" id=\"modal_5\" class=\"modal\">Ouvrir la modal 5 fonction</a>";
-					$message .= Modal("renforcer-defense", 5);
-					$message .= '<div style="display: none;">
-    					<div id="titre_modal_4">Titre4</div>
-    					<div id="data_modal_4">TT4</div></div>';
-					$message .= "<br /> <a href=\"#\" id=\"modal_lol\" class=\"modal\">Ouvrir la modal 4</a>";
-					$message .= '<div style="display: none;">
-    					<div id="titre_modal_lol">TitreLol</div>
-    					<div id="data_modal_lol">TTlol</div></div>';
+					$message .= "<br /><a href='#ActionMilitaire' id='ActionMilitaire=".$TerritoireID."' class='infobullefixe'>Actions</a>";
     			break;
 			}
 		}
@@ -231,6 +217,45 @@ switch ( $mode )
 		}
 	break;
 
+	case "InfobulleFixe" :		
+		$InfobulleID = isset($_POST['InfobulleID']) ? $_POST['InfobulleID'] : ( isset($_GET['InfobulleID']) ? $_GET['InfobulleID'] : 0);
+		$explode 	= explode("=", $InfobulleID);
+		$Type		= $explode[0];
+		$ID			= isset($explode[1]) ? $explode[1] : 0;
+		
+		switch ( $Type )
+		{
+			case "ActionMilitaire":
+				$message .= "&bull; <a href=\"#\" id=\"renforcer-defense=" . $ID . "\" class=\"modal\">Renforcer les défenses</a><br />";
+				$message .= "&bull; <a href=\"#\" id=\"affaiblir-defense=" . $ID . "\" class=\"modal\">Affaiblir les défenses</a><br />";
+			break;
+			
+			case "ActionPopulation":
+				$message .= "Agir sur la population<br /><br />";
+				$message .= "&bull; <a href=\"#\" id=\"arreter-croissance-population=" . $ID . "\" class=\"modal\">Arreter la croissance de la population</a><br />";
+				$message .= "&bull; <a href=\"#\" id=\"augmenter-croissance-population=" . $ID . "\" class=\"modal\">Augmenter la croissance de la population</a><br />";
+				$message .= "&bull; <a href=\"#\" id=\"reduire-croissance-population=" . $ID . "\" class=\"modal\">Réduire la croissance de la population</a><br />";
+			break;
+			
+			case "BonusDefensif":
+			break;
+			
+			default:
+				$message .= "ID de bulle inconnu";
+			break;
+		}
+	break;
+	
+	case "Modal" :
+	
+		$ModalID = isset($_POST['ModalID']) ? $_POST['ModalID'] : ( isset($_GET['ModalID']) ? $_GET['ModalID'] : 0);
+		$explode 	= explode("=", $ModalID);
+		$Type		= $explode[0];
+		$ID			= isset($explode[1]) ? $explode[1] : 0;
+
+		$message = Modal($Type, $ID);
+	break;
+	
 	case "ActionCreer":
 		$Partie 	= $_POST['Partie'];
 		$Etat 		= $_POST['Etat'];

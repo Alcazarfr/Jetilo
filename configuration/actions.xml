@@ -1,5 +1,206 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <actions>
+
+	<!-- ******** Général ******** -->
+
+	<action id="annexion">
+		<nom>Annexion</nom>
+		<description>Le territoire est annexé</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>0</duree>
+		<effets type="liste">
+			<effet>
+				<nom>Annexion</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireEtat</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>ETAT_ID</valeur>
+			</effet>
+			<effet>
+				<nom>Annexion</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireJoueur</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>JOUEUR_ID</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	<action id="independance">
+		<nom>Indépendance</nom>
+		<description>Le territoire devient indépendant</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>0</duree>
+		<effets type="liste">
+			<effet>
+				<nom>Indépendance</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireEtat</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>0</valeur>
+			</effet>
+			<effet>
+				<nom>Indépendance</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireJoueur</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>0</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	
+	<!-- ******** Civil ******** -->
+	
+	<action id="encourager-revolte">
+		<nom>Encourager à la révolte</nom>
+		<description>Votre agent réduit la satisfaction de la population dans un territoire précis, de façon à favoriser l'émergence d'une révolte dans ce territoire</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Agent</type_source>
+		<delai>60</delai>
+		<duree>120</duree>
+		<couts>
+			<EtatPointCivil>10</EtatPointCivil>
+			<EtatOr>15</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<nom>Réduit la satisfaction de 10 pendant 30 sec</nom>
+				<delai>30</delai>
+				<duree>60</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireSatisfaction</variable_concernee>
+				<type_effet>Soustraction</type_effet>
+				<valeur>10</valeur>
+			</effet>
+			<effet>
+				<nom>Réduit la satisfaction de 5 pendant 60 sec</nom>
+				<delai>60</delai>
+				<duree>120</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireSatisfaction</variable_concernee>
+				<type_effet>Soustraction</type_effet>
+				<valeur>5</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	<action id="declancher-revolte">
+		<nom>Déclancher une révolte</nom>
+		<description>La population du territoire se soulève</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>0</duree>
+		<modal type="liste">
+			<champ>
+				<nom>DefenseSupplementaire</nom>
+				<type>text</type>
+			</champ>
+			<champ>
+				<nom>DefenseSupplementaire2</nom>
+				<type>text</type>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<nom>Révolte</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireRevolte</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>1</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	<action id="arreter-croissance-population">
+		<nom>Arréter la croissance de la population</nom>
+		<description>La croissance de la population d'un territoire est annulée</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>600</duree>
+		<couts>
+			<EtatPointCivil>10</EtatPointCivil>
+			<EtatOr>5</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<nom>Croissance = 0</nom>
+				<delai>0</delai>
+				<duree>600</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireCroissance</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>0</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	<action id="reduire-croissance-population">
+		<nom>Réduire la croissance de la population</nom>
+		<description>La croissance de la population d'un territoire est réduite</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>30</delai>
+		<duree>600</duree>
+		<couts>
+			<EtatPointCivil>20</EtatPointCivil>
+			<EtatOr>5</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<nom>Croissance - 2 </nom>
+				<delai>30</delai>
+				<duree>600</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireCroissance</variable_concernee>
+				<type_effet>SOUSTRACTION</type_effet>
+				<valeur>2</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	<action id="augmenter-croissance-population">
+		<nom>Augmenter la croissance de la population</nom>
+		<description>La croissance de la population d'un territoire est augmenté</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<delai>30</delai>
+		<duree>600</duree>
+		<couts>
+			<EtatPointCivil>20</EtatPointCivil>
+			<EtatOr>5</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<nom>Croissance + 1 </nom>
+				<delai>30</delai>
+				<duree>600</duree>
+				<table_concernee>Territoire</table_concernee>
+				<variable_concernee>TerritoireCroissance</variable_concernee>
+				<type_effet>ADDITION</type_effet>
+				<valeur>1</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+	<!-- ******** Militaire ******** -->
+
 	<action id="renforcer-defense">
 		<nom>Renforcer la défense</nom>
 		<description>Cela fortifie votre territoire</description>
@@ -43,38 +244,31 @@
 			</effet>
 		</effets>
 	</action>
-	<action id="encourager-revolte">
-		<nom>Encourager à la révolte</nom>
-		<description>Votre agent réduit la satisfaction de la population dans un territoire précis, de façon à favoriser l'émergence d'une révolte dans ce territoire</description>
+
+	<action id="affaiblir-defense">
+		<nom>Affaiblir la défense</nom>
+		<description>Les défenses du territoires sont réduites</description>
 		<type_cible>Territoire</type_cible>
-		<type_source>Agent</type_source>
-		<delai>60</delai>
-		<duree>120</duree>
+		<type_source>Etat</type_source>
+		<delai>30</delai>
+		<duree>300</duree>
 		<couts>
-			<EtatPointCivil>10</EtatPointCivil>
-			<EtatOr>15</EtatOr>
+			<EtatPointMilitaire>50</EtatPointMilitaire>
+			<EtatOr>20</EtatOr>
 		</couts>
 		<effets type="liste">
 			<effet>
-				<nom>Réduit la satisfaction de 10 pendant 30 sec</nom>
+				<nom>Moins 10 en défense</nom>
 				<delai>30</delai>
-				<duree>60</duree>
+				<duree>300</duree>
 				<table_concernee>Territoire</table_concernee>
-				<variable_concernee>TerritoireSatisfaction</variable_concernee>
+				<variable_concernee>TerritoireDefense</variable_concernee>
 				<type_effet>Soustraction</type_effet>
 				<valeur>10</valeur>
 			</effet>
-			<effet>
-				<nom>Réduit la satisfaction de 5 pendant 60 sec</nom>
-				<delai>60</delai>
-				<duree>120</duree>
-				<table_concernee>Territoire</table_concernee>
-				<variable_concernee>TerritoireSatisfaction</variable_concernee>
-				<type_effet>Soustraction</type_effet>
-				<valeur>5</valeur>
-			</effet>
 		</effets>
 	</action>
+	
 	<action id="saper-moral">
 		<nom>Saper le moral d'une armée adverse</nom>
 		<description>Sappe le moral d'une armée adverse, afin d'en réduire l'efficacitée</description>

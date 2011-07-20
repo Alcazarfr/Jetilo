@@ -13,7 +13,7 @@
 
 	$JoueurNom 		= Attribut($Joueur, "Joueur", "JoueurNom");
 	
-	/*DeclancherEvenement('famine', 88, $Partie, 0, 
+	/*DeclencherEvenement('famine', 88, $Partie, 0, 
 		array('occupant' => $Joueur + 1, 'test' => $Joueur + 1), 
 		array('TerritoireNom' => 'Boulgourville', 'PopulationMorte' => 42));*/
 
@@ -80,34 +80,6 @@ function TerritoireInformations(TerritoireID)
 	);
 }
 
-/* Affichage des infos sur un territoire */
-function Modal()
-{	
-   $('a[rel="modal"]:first').qtip(
-   {
-      id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
-      content: {
-         text: $('div:hidden'),
-         title: {
-            text: 'Modal qTip',
-            button: true
-         }
-      },
-      position: {
-         my: 'center', // ...at the center of the viewport
-         at: 'center',
-         target: $(window)
-      },
-      show: {
-         event: 'click', // Show it on click...
-         solo: true, // ...and hide all other tooltips...
-         modal: true // ...and make it modal
-      },
-      hide: false,
-      style: 'ui-tooltip-light ui-tooltip-rounded'
-   });
-}
-
 /* Production */
 function Production(Boucle)
 {
@@ -157,13 +129,15 @@ function ActionCreer(ActionID, SourceID, CibleID)
 	var PartieID 	= $('#Partie').val();
 	var JoueurID 	= $('#Joueur').val();
 	var EtatID 		= $('#Etat').val();
+
+
 	$.ajax(
 	{
 		type: "POST",
 		url: "./includes/ajax/partie.php",
 		data: "mode=ActionCreer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&ActionID="+ActionID+"&SourceID="+SourceID+"&CibleID="+CibleID
-	}
-	);
+	});
+
 	setTimeout("CarteChargement(false)",200);
 	setTimeout("Population(false)",200);
 	setTimeout("MessageLire(false)",200);
@@ -186,7 +160,6 @@ function EffetCreer(Bidon, CibleType, CibleID, SourceType, SourceID, Nom, TimeDe
 	setTimeout("CarteChargement(false)",200);
 	setTimeout("Population(false)",200);
 	setTimeout("MessageLire(false)",200);
-
 }
 
 /* Lecture et affichage des messages, en haut à droite */
@@ -259,151 +232,9 @@ function Journal()
 	);
 }
 
-/* Modal dans les retours Ajax 
-Fonctionne : 
-
-
-$('.modal[id^="modal_"]').live('mouseover', function(event) {
-    $(this).qtip(
-   {
-      id: 'modaltooltip', // Since we're only creating one modal, give it an ID so we can style it
-      content: {
-         text: $('#data_' + $(this).attr('id')),
-         title: {
-            text: $('#titre_' + $(this).attr('id')),
-            button: true
-         }
-      },
-      position: {
-         my: 'center', // ...at the center of the viewport
-         at: 'center',
-         target: $(window)
-      },
-      show: {
-         event: 'click', // Show it on click...
-         solo: true, // ...and hide all other tooltips...
-         modal: true // ...and make it modal
-      },
-      hide: false,
-      style: 'ui-tooltip-light ui-tooltip-rounded',
-         events: {
-            // Hide the tooltip when any buttons in the dialogue are clicked
-            render: function(event, api) {
-               $('button', api.elements.content).click(api.hide);
-            },
-            // Destroy the tooltip once it's hidden as we no longer need it!
-            hide: function(event, api) { }
-         }
-   }, event);
-});
-*/
-
-$(document).ready(function()
-{
-   /*
-    * Common dialogue() function that creates our dialogue qTip.
-    * We'll use this method to create both our prompt and confirm dialogues
-    * as they share very similar styles, but with varying content and titles.
-    */
-   function dialogue(content, title) {
-      /* 
-       * Since the dialogue isn't really a tooltip as such, we'll use a dummy
-       * out-of-DOM element as our target instead of an actual element like document.body
-       */
-      $('<div />').qtip(
-      {
-         content: {
-            text: content,
-            title: title
-         },
-         position: {
-            my: 'center', at: 'center', // Center it...
-            target: $(window) // ... in the window
-         },
-         show: {
-            ready: true, // Show it straight away
-            modal: {
-               on: true, // Make it modal (darken the rest of the page)...
-               blur: false // ... but don't close the tooltip when clicked
-            }
-         },
-         hide: false, // We'll hide it maunally so disable hide events
-         style: 'ui-tooltip-light ui-tooltip-rounded ui-tooltip-dialogue', // Add a few styles
-         events: {
-            // Hide the tooltip when any buttons in the dialogue are clicked
-            render: function(event, api) {
-               $('button', api.elements.content).click(api.hide);
-            },
-            // Destroy the tooltip once it's hidden as we no longer need it!
-            hide: function(event, api) { api.destroy(); }
-         }
-      });
-   }
- 
-   // Our Alert method
-   function Alert(message)
-   {
-      // Content will consist of the message and an ok button
-      var message = $('<p />', { text: message }),
-         ok = $('<button />', { text: 'Ok', 'class': 'full' });
-   
-      dialogue( message.add(ok), 'Alert!' );
-   }
- 
-   // Our Prompt method
-   function Prompt(question, initial, callback)
-   {
-      // Content will consist of a question elem and input, with ok/cancel buttons
-      var message = $('<p />', { text: question }),
-         input = $('<input />', { val: initial }),
-         ok = $('<button />', { 
-            text: 'Ok',
-            click: function() { callback( input.val() ); }
-         }),
-         cancel = $('<button />', {
-            text: 'Cancel',
-            click: function() { callback(null); }
-         });
- 
-      dialogue( message.add(input).add(ok).add(cancel), 'Attention!' );
-   }
-   
-   // Our Confirm method
-   function Confirm(question, callback)
-   {
-      // Content will consist of the question and ok/cancel buttons
-      var message = $('<p />', { text: question }),
-         ok = $('<button />', { 
-            text: 'Ok',
-            click: function() { callback(true); }
-         }),
-         cancel = $('<button />', { 
-            text: 'Cancel',
-            click: function() { callback(false); }
-         });
- 
-      dialogue( message.add(ok).add(cancel), 'Do you agree?' );
-   }
- 
-   // Setup the buttons to call our new Alert/Prompt/Confirm methods
-   $('#alert').click(function() {
-      Alert('Custom alert() functions are cool.');
-   });
-   $('#prompt').click(function() {
-      Prompt('How would you describe qTip2?', 'Awesome!', function(response) {
-         alert(response);
-      });
-   });
-   $('#confirm').click(function() {
-      Confirm('Click Ok if you love qTip2', function(yes) {
-         // do something with yes
-      });
-   });
-});
-
 /* InfosBulle dans les retours Ajax */
 
-$('a[title]').live('mouseover', function(event) {
+$('a[title]').live('click', function(event) {
    $(this).qtip({
       overwrite: false,
       show: {
@@ -419,8 +250,119 @@ $('a[title]').live('mouseover', function(event) {
 });
 
 
+$('button').live('click', function()
+{
+	$(this).each(function()
+	{
+   		$(this).qtip('api').hide();
+   		this = null;
+   	});
+});
+
+
+
+$('.infobullefixe').live('click', function(event)
+{
+	var PartieID 	= $('#Partie').val();
+	$(this).each(function()
+	{
+		$(this).qtip(
+   		{
+			content:
+			{
+				text: 'Loading...',
+				ajax:
+               	{
+               		url: "./includes/ajax/partie.php",
+                  	data: { mode: 'InfobulleFixe', Partie: PartieID, InfobulleID: $.attr(this, 'id')},
+                  	method: 'post',
+                  	success: function(data,status)
+                  	{
+                  		// data holds the html with the button for close the tooltip
+                     	this.set('content.text', data); // set ajax content to show
+                  	}
+                },
+				title: 
+				{
+					text: 'Actions',
+           			button: true
+         		}
+      		},
+      		position:
+      		{
+         		my: 'bottom center', // ...at the center of the viewport
+         		at: 'top center'
+         	},
+      		show:
+      		{
+         		event: 'mouseover', // Show it on click...
+         		ready: true
+       		},
+       		hide: false,
+       		style: 'ui-tooltip-light ui-tooltip-rounded',
+        	events: 
+        	{
+         	}
+    	}, event);
+   	});
+});
+
+$('.modal').live('mouseover', function(event)
+{
+	var PartieID 	= $('#Partie').val();
+	$(this).each(function()
+	{
+		$(this).qtip(
+   		{
+			content:
+			{
+				text: 'Loading...',
+				ajax:
+               	{
+               		url: "./includes/ajax/partie.php",
+                  	data: { mode: 'Modal', Partie: PartieID, ModalID: $.attr(this, 'id') },
+                  	method: 'post',
+                  	success: function(data,status)
+                  	{
+                  		// data holds the html with the button for close the tooltip
+                     	this.set('content.text', data); // set ajax content to show
+                  	},
+                },
+				title: 
+				{
+					text: $(this).attr('id'),
+           			button: true
+         		}
+      		},
+      		position:
+      		{
+         		my: 'center', // ...at the center of the viewport
+         		at: 'center',
+        		target: $(window)
+     		},
+      		show:
+      		{
+         		event: 'click', // Show it on click...
+         		solo: true, // ...and hide all other tooltips...
+         		modal: true // ...and make it modal
+       		},
+       		hide: false,
+       		style: 'ui-tooltip-light ui-tooltip-rounded',
+        	events: 
+        	{
+  				render: function(event, api)
+  				{
+               		$('button', api.elements.content).click(api.hide);
+   				},
+            	hide: function(event, api) { api.destroy(); }
+         	}
+    	}, event);
+   	});
+});
+
 
 /* Chargement des fonctions automatiques au chargement de la page */
+
 $(window).load(function(){
 	Production(true);
 	EtatInformations(<?php echo $Etat ?>);
@@ -451,25 +393,6 @@ $(window).load(function(){
 	</table>
 </div>
 
-
-<div id="demo-modal">
-   <a id="prompt" class="nice">Click me for a prompt dialogue</a>
-    <a id="teest" name="teest" class="teest" href="#">OQTIP 2</a>
-    <a id="modal_2" href="#" class="modal">Ouvrir la modal 2</a>
-    <a id="modal_test" href="#" class="modal">Ouvrir la modal test</a>
-    <a id="modal_5" href="#" class="modal">Ouvrir la modal 5</a>
-
-   <div style="display: none;">
-    <div id="titre_modal_1">Titre1</div>
-    <div id="data_modal_1">MyName My ID :<input type="text" size="5" name="MyName" id="MyID"><br /><br /><button type="button">BOUTON</button></div>
-    <div id="titre_modal_2">Titre2</div>
-    <div id="data_modal_2">TT2</div>
-    <div id="data_modal_3">TT3</div>
-    <div id="titre_modal_test">tesst</div>
-    <div id="data_modal_test">Tsest</div>
-   </div>
-   
-</div>
 <div class="postgrand">
 	<div class="entry">
 		<table style="border: none;" border="0" cellspacing="0" cellpadding="0">

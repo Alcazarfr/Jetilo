@@ -16,6 +16,7 @@
  Production()		: Produire des points, faire évoluer la population
  CaptureTerritoire(): Capturer un territoire
  Transaction		: Réaliser une transaction
+ Modal()			: Affichage des modales pour les actions
  Attribut()			: Retourner une ou plusieurs variables de la BDD
  Supprimer()		: Supprime une entrée dans la BDD
  print_debug()
@@ -239,40 +240,6 @@ function FormaterLien($Mode, $Tableau)
 	return $Lien;
 }
 
-/*
-
-function serialize_array(&$array, $root = '$root', $depth = 0)
-{
-        $items = array();
-		$Tableau = "";
-        foreach($array as $key => &$value)
-        {
-                if(is_array($value))
-                {
-                        serialize_array($value, $root . '[\'' . $key . '\']', $depth + 1);
-                }
-                else
-                {
-                        $items[$key] = $value;
-                }
-        }
-
-        if(count($items) > 0)
-        {
-                $Tableau .= 'array(';
-
-                $prefix = '';
-                foreach($items as $key => &$value)
-                {
-                    $Tableau .= ( is_numeric(&$value) ) ? $prefix . '\'' . $key . '\' => ' . $value  : $prefix . '\'' . $key . '\' => \'' . addslashes($value) . '\'';
-                    $prefix = ', ';
-                }
-
-                $Tableau .= ')';
-        }
-    return $Tableau;
-}*/
-
 /* Trouver une route entre deux territoires ou les territoires voisins
 
 TerritoireOrigine 		: ID du territoire
@@ -340,7 +307,7 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 	return $Resultat;
 }
 
-
+/* Gestion de la production et de la croissance des territoires, par Etat */
 
 function Production($Partie, $Etat)
 {
@@ -391,7 +358,8 @@ function Production($Partie, $Etat)
 				
 				$DureeCarre			= ( $EtatFamineLocale * $EtatFamineLocale ) / 3600;
 				$PopulationMorte	= round( $Coefficient * ( ( $PopulationMourrante / 100) * ( 10 + $DureeCarre ) ) );
-				$CroissanceLocale 	= ( $data['TerritoireCroissance'] > 0 ) ? $data['TerritoireCroissance'] - (2*$Coefficient) : 0 ;
+				$CroissanceLocale	= ChercherEffet("TERRITOIRE", $data['TerritoireID'], "TerritoireCroissance", $data['TerritoireCroissance']);
+				$CroissanceLocale 	= ( $CroissanceLocale > 0 ) ? $CroissanceLocale - (2*$Coefficient) : 0 ;
 				$CroissanceLocale	= $CroissanceLocale < -0.2 ? -0.2 : $CroissanceLocale;
 				
 				/* Formule
@@ -409,7 +377,7 @@ function Production($Partie, $Etat)
 
 				*/
 		//		$Test = "<br />Coeff: " . $Coefficient . "<br />Mourrante: " . $PopulationMourrante . "<br />Sec: " . $EtatFamineLocale . "<br />Min2: " . $DureeCarre;
-				$PopulationNouvelle = $data['TerritoirePopulation'] * ( $data['TerritoireCroissance'] / 100 );
+				$PopulationNouvelle = $data['TerritoirePopulation'] * ( $CroissanceLocale / 100 );
 				
 				$PopulationDuTerritoire = $data['TerritoirePopulation'] - $PopulationMorte + $PopulationNouvelle;
 				$sql = "UPDATE Territoire 
@@ -764,54 +732,82 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 }
 
 
-/* Modal : préparer les div pour une modal
+/* Modal crée les infobulles modales pour les actions
 
-
+ActionType	: ID de l'action tel que référencé dans actions.xml
+Information	: ID du territoire ou de l'Etat ou du Joueur utilisée par ajax/partie.php -> CréerAction
 
 */
 
 
-function Modal($ActionType, $ModalID)
+function Modal($ActionType, $Information)
 {
 	global $ACTIONS;
 	
-	$ModalTitre = $ACTIONS->action[$ActionType]->nom;
-	$ModalContenu = "";
+	$Modal = "<b>" . $ACTIONS->action[$ActionType]->nom . "</b>";
+	$Modal .= "<br />";
+	$Modal .= "<i>" . $ACTIONS->action[$ActionType]->description . "</i>";
+	$Modal .= "<br /><br />";
+
+	// Affichage des couts
+	$Modal .= "<b>Couts</b> :<br />";
+	$CoutsPossible = Array("EtatPointCivil", "EtatPointMilitaire", "EtatPointCommerce", "EtatPointReligion", "EtatOr");
+	$CoutsNom = Array("Point Civil", "Point Militaire", "Point de Commerce", "Point de Religion", "Or");
+	for ( $i = 0; $i < 5; $i++)
+	{
+		$CoutTeste = $CoutsPossible[$i];
+		if ( isset($ACTIONS->action[$ActionType]->couts->$CoutTeste) )
+		{
+			$Modal .= "- " . $CoutsNom[$i] . ": " . $ACTIONS->action[$ActionType]->couts->$CoutTeste . "<br />";
+		}
+	}
 	
-	// Que doit on afficher ?
+	// Affichage des effets
+	$Modal .= "<br /><b>Effets</b> :<br />";
+	$Condition = TRUE;
+	$i = 0;
+	do
+	{
+		if ( isset($ACTIONS->action[$ActionType]->effets[$i]->nom) )
+		{
+			// Il y a un effet
+			$EffetNumero = $i + 1;
+			$Modal .= $EffetNumero . ". " . $ACTIONS->action[$ActionType]->effets[$i]->nom . "<br />";
+			$Modal .= "--- Délai : " . $ACTIONS->action[$ActionType]->effets[$i]->delai . " sec<br />";
+			$Modal .= "--- Durée : " . $ACTIONS->action[$ActionType]->effets[$i]->duree . " sec<br />";
+			
+			$i++;
+		}
+		else
+		{
+			// Il n'y a plus d'effet
+			$Condition = FALSE;
+		}
+	} while ( $Condition == TRUE );
 	
+	// Affichage des champs = A RECODER
 	for ( $i = 0; $i < 10 ; $i++ )
 	{
 		if ( isset($ACTIONS->action[$ActionType]->modal[$i]->nom) )
 		{
 			$Nom = $ACTIONS->action[$ActionType]->modal[$i]->nom;
-			$ModalContenu .= $Nom . " : ";
+			$Modal .= $Nom . " : ";
 			switch ($ACTIONS->action[$ActionType]->modal[$i]->type)
 			{
 				case "text" :
-					$ModalContenu .= '<input type="text" size="5" name="' . $Nom . '" id="' . $Nom . '">';
+					$Modal .= '<input type="text" size="5" name="' . $Nom . '" id="' . $Nom . '">';
+				break;
 			}
-			$ModalContenu .= "<br />";
+			$Modal .= "<br />";
 		}
 		else
 		{
 			break;
 		}
 	}
-	$ModalContenu .= '<button type="button" onClick="ActionCreer("'.$ActionType.'", 1, 127)">'.$ACTIONS->action[$ActionType]->nom.'</button>';
-  	$ModalContenu .= '<input type="submit" value="'.$ACTIONS->action[$ActionType]->nom.'" onClick="ActionCreer("'.$ActionType.'", 1, 127)">';
-	$ModalContenu .= '<a href="#" onClick="ActionCreer("renforcer-defense", 1, 127)">Test</a>';
+	$Modal .= '<button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">Button 2 onclick</button>';
+  	$Modal .= '<input type="submit" value="Submit onclik4" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">';
 
-	
-	
-
-	$Modal = "<div style='display: none;'><div id='titre_modal_" . $ModalID . "'>";
-	$Modal .= $ModalTitre;
-	$Modal .= "</div>";
-	$Modal .= "<div id='data_modal_" . $ModalID . "'>";
-	$Modal .= $ModalContenu;
-	$Modal .= "</div></div>";
-	
 	return $Modal;
 }
 
@@ -842,13 +838,16 @@ function Supprimer($Table, $Donnees)
 	$req = mysql_query($sql) or die('Erreur SQL #64<br />'.$sql.'<br />'.mysql_error());
 }
 
+
 function print_debug_code($code)
 {
 	global $PARAMETRES;
 	global $ACTIONS;
 	
 	print_debug($code, eval('return '.$code.';'));
-}function print_debug($description, $variable){		print("<pre style='background-color:white; margin-bottom:0px;'>$description</pre>\r\n");	print("<pre style='background-color:black; margin-top:0px; color:white;'>\r\n");
+}
+
+function print_debug($description, $variable){		print("<pre style='background-color:white; margin-bottom:0px;'>$description</pre>\r\n");	print("<pre style='background-color:black; margin-top:0px; color:white;'>\r\n");
 	print_r($variable);
 	print("</pre>\r\n");
 }
