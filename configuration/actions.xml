@@ -201,6 +201,24 @@
 	
 	<!-- ******** Militaire ******** -->
 
+	<action id="creation-armee">
+		<nom>Enroler une armée</nom>
+		<description>Lever un corps armés de brutes sanguinaires mais efficaces!</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<effets type="liste">
+			<effet>
+				<nom>Création d'une armée</nom>
+				<delai>60</delai>
+				<duree>0</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeTerritoire</variable_concernee>
+				<type_effet>CREATION</type_effet>
+				<valeur>ETAT_ID</valeur>
+			</effet>
+		</effets>
+	</action>
+	
 	<action id="renforcer-defense">
 		<nom>Renforcer la défense</nom>
 		<description>Cela fortifie votre territoire</description>

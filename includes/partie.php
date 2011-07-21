@@ -373,6 +373,26 @@ $(window).load(function(){
 
 </script>
 
+
+<?php
+	/* Test sur la croissance de la population
+	echo "<div class='postgrand'> Test de croissance de la population<br />";
+	
+	$Population = 500;
+	$Croissance = 1.02;
+	$Minute		= 0;
+	do
+	{
+		echo $Minute . " : " . round($Population) . "<br />";
+		$Minute++;
+		$Population *= $Croissance;
+	} while ( $Population < 10000 )
+	
+	echo "</div>";
+	*/
+?>
+
+
 <div class="postgrand">
 	<table width="100%" style="border: none;" cellpadding="5">
 		<tr>

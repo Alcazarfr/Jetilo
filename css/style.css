@@ -25,7 +25,7 @@ body {
 	padding: 0;
 	background: #B9B99D url(images/img01.jpg) repeat-x left top;
 	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 11px;
+	font-size: 12px;
 	color: #464646;
 }
 
@@ -246,7 +246,7 @@ hr { display: none; }
 
 .post .entry {
 	padding: 5px 10px;
-	font-size: 11px;
+	font-size: 12px;
 }
 /* Post */
 
@@ -299,7 +299,7 @@ hr { display: none; }
 
 .postpetit .entry {
 	padding: 5px 10px;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 

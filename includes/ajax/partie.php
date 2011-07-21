@@ -322,7 +322,16 @@ switch ( $mode )
 				$EffetType 		= strtoupper($ACTIONS->action[$ActionType]->effets[$i]->type_effet);
 				$EffetValeur 	= $ACTIONS->action[$ActionType]->effets[$i]->valeur;
 				
-				$EffetID		= Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
+				switch ( $EffetType )
+				{
+					case "CREATION":
+						$EffetID = Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
+					break;
+					
+					default:
+						$EffetID = Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
+					break;
+				}
 
 				$SiErreur		.= ( is_numeric($EffetID) == true ) ? ", " . $EffetID : "";
 				
@@ -342,6 +351,7 @@ switch ( $mode )
 				break;
 			}
 		}
+		
 		// On réalise l'effet
 		if ( !$Erreur )
 		{

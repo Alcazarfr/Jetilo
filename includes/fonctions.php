@@ -85,7 +85,7 @@ function Agent($AgentNom, $AgentEtat, $AgentStatut, $AgentSecret, $AgentTerritoi
 
 /* Insérer une action
 
-ActionID 			: ID de l'effet, automatique
+ActionID 			: ID de l'action, automatique
 ActionType	 		: l'ID dans actions.xml
 ActionSourceType	: Etat, territoire, agent...
 ActionSourceID		: ID de l'Etat, du territoire ou de l'agent
@@ -772,9 +772,13 @@ function Modal($ActionType, $Information)
 		{
 			// Il y a un effet
 			$EffetNumero = $i + 1;
+			
+			$Duree = $ACTIONS->action[$ActionType]->effets[$i]->duree > 0 ? $ACTIONS->action[$ActionType]->effets[$i]->duree . "sec" : "illimité";
+			$Delai = $ACTIONS->action[$ActionType]->effets[$i]->delai > 0 ? $ACTIONS->action[$ActionType]->effets[$i]->delai . "sec" : "immédiat";
+			
 			$Modal .= $EffetNumero . ". " . $ACTIONS->action[$ActionType]->effets[$i]->nom . "<br />";
-			$Modal .= "--- Délai : " . $ACTIONS->action[$ActionType]->effets[$i]->delai . " sec<br />";
-			$Modal .= "--- Durée : " . $ACTIONS->action[$ActionType]->effets[$i]->duree . " sec<br />";
+			$Modal .= "--- Délai : " . $Delai . "<br />";
+			$Modal .= "--- Durée : " . $Duree . "<br />";
 			
 			$i++;
 		}
@@ -805,8 +809,8 @@ function Modal($ActionType, $Information)
 			break;
 		}
 	}
-	$Modal .= '<button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">Button 2 onclick</button>';
-  	$Modal .= '<input type="submit" value="Submit onclik4" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">';
+	$Modal .= '<hr /><br /><button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">Lancer l\'action (button)</button>';
+  	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">';
 
 	return $Modal;
 }
