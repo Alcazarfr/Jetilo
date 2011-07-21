@@ -104,6 +104,41 @@ function Action($ActionType, $ActionSourceType, $ActionSourceID, $ActionTimeDebu
 	return mysql_insert_id();
 }
 
+
+/* Insérer une entrée dans la BDD (création d'une armée, d'un joueur...)
+
+ActionID 			: ID de l'action, automatique
+ActionType	 		: l'ID dans actions.xml
+ActionSourceType	: Etat, territoire, agent...
+ActionSourceID		: ID de l'Etat, du territoire ou de l'agent
+ActionTimeDebut	: timestamp du début de l'action
+ActionTimeFin		: timestamp de la fin de l'action
+
+Return				: ID de l'action
+
+*/
+function Entree($EntreeTable, $EntreeInformations)
+{
+	$Entrees = "";
+	$Valeurs = "";
+	for ( $i = 0; $i < count($EntreeInformations); $i++ )
+	{
+		// Génération de la ligne "entrée"
+		$Entrees .= ( $i == 0 ) ? $EntreeInformations[$i]["Entree"] : ", " . $EntreeInformations[$i]["Entree"];
+		
+		// Génération de la ligne "valeur"
+		$Guillemet = is_numeric($EntreeInformations[$i]["Valeur"]) ? "" : "'";
+		$Valeurs .= ( $i == 0 ) ? $Guillemet . $EntreeInformations[$i]["Valeur"] . $Guillemet : ", " . $Guillemet . $EntreeInformations[$i]["Valeur"] . $Guillemet;
+	}
+	
+	$sql = "INSERT INTO " . $EntreeTable . " (" . $Entrees . ")
+		VALUES (" . $Valeurs . ")";
+	mysql_query($sql) or die('Erreur SQL #101 Entree<br />'.$sql.'<br />'.mysql_error());	
+
+	return mysql_insert_id();
+}
+
+
 /* Insérer un effet : bonus ou malus sur un territoire, un Etat, un agent...
 
 EffetID 		: ID de l'effet, automatique
@@ -740,7 +775,7 @@ Information	: ID du territoire ou de l'Etat ou du Joueur utilisée par ajax/part
 */
 
 
-function Modal($ActionType, $Information)
+function Modal($ActionType, $Information, $Etat, $Joueur)
 {
 	global $ACTIONS;
 	
@@ -790,31 +825,59 @@ function Modal($ActionType, $Information)
 	} while ( $Condition == TRUE );
 	
 	// Affichage des champs = A RECODER
+	$Details = "";
 	for ( $i = 0; $i < 10 ; $i++ )
 	{
 		if ( isset($ACTIONS->action[$ActionType]->modal[$i]->nom) )
 		{
-			$Nom = $ACTIONS->action[$ActionType]->modal[$i]->nom;
-			$Modal .= $Nom . " : ";
+			$Nom 	= $ACTIONS->action[$ActionType]->modal[$i]->nom;
+			$Texte 	= isset($ACTIONS->action[$ActionType]->modal[$i]->texte) ? $ACTIONS->action[$ActionType]->modal[$i]->texte : "";
+			$Taille	= isset($ACTIONS->action[$ActionType]->modal[$i]->taille) ? $ACTIONS->action[$ActionType]->modal[$i]->taille : "";
+			$Nom 	= $ACTIONS->action[$ActionType]->modal[$i]->nom;
+			$Valeur = $ACTIONS->action[$ActionType]->modal[$i]->valeur;
+	//		$Modal .= '<input type="text" size="'.$Taille.'" name="JoueurID" id="JoueurID" value="'.$Valeur.'">';
+
 			switch ($ACTIONS->action[$ActionType]->modal[$i]->type)
 			{
 				case "text" :
-					$Modal .= '<input type="text" size="5" name="' . $Nom . '" id="' . $Nom . '">';
+					$Modal .= $Texte . " : ";
+					$Modal .= '<input type="text" size="'.$Taille.'" name="' . $Nom . '" id="' . $Nom . '" value="'.$Valeur.'">';
+					$Modal .= "<br />";
+				break;
+				case "hidden" :
+					$Valeur	= RemplacerValeur($Valeur, $Etat, $Joueur, $Information);
+					$Modal .= '<input type="hidden" name="' . $Nom . '" id="' . $Nom . '" value="'.$Valeur.'">';
 				break;
 			}
-			$Modal .= "<br />";
+
+			$Details .= ( $i == 0 ) ? '\''.$Nom.':\'+document.getElementById(\''.$Nom.'\').value' : '+\'='.$Nom.':\'+document.getElementById(\''.$Nom.'\').value';
 		}
 		else
 		{
 			break;
 		}
 	}
-	$Modal .= '<hr /><br /><button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">Lancer l\'action (button)</button>';
-  	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.')">';
+	$Modal .= '<hr /><br /><button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">Lancer l\'action (button)</button>';
+  	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">';
 
 	return $Modal;
 }
 
+function RemplacerValeur($ValeurCherchee, $Etat, $Joueur, $Territoire)
+{
+	switch ( $ValeurCherchee )
+	{
+		case "EtatID" :
+			return $Etat;
+		break;
+		case "JoueurID" :
+			return $Joueur;
+		break;
+		case "TerritoireID" :
+			return $Territoire;
+		break;
+	}
+}
 
 /* Supprimer permet de supprimer une ou plusieurs entrées de la BDD
 

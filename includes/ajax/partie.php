@@ -164,7 +164,7 @@ switch ( $mode )
 					$message .= "<br /><b>Militaire</b><br />Défense : " . $TerritoireDefenseTexte . " (" . $TerritoireDefense . ")";
 					$message .= "<br />Armée : ";
 					
-					$ListeArmee = "";
+					$ListeArmees = "";
 					$Armees = 0 ;
 					$sql = "SELECT *
 						FROM Armee
@@ -177,7 +177,7 @@ switch ( $mode )
 						$ArmeeTaille	= $data['ArmeeTaille'];
 						$ArmeeType	 	= $data['ArmeeType'];
 						$ArmeeXP	 	= $data['ArmeeXP'];
-						$ListeArmee		.= $data['ArmeeNom'];
+						$ListeArmees		.= "- " . $data['ArmeeNom'] . "<br />";
 					}
 					if ( $Armees == 0 )
 					{
@@ -190,10 +190,8 @@ switch ( $mode )
 					}
 					else
 					{
-						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmees;
+						$message .= $Armees . " armées sont issues de ce territoire<br />" . $ListeArmees;
 					}
-					$time = time();
-
 
 					$ModelAgent = Array(
 						"Nom" 			=> "Rondont",
@@ -206,7 +204,7 @@ switch ( $mode )
 						"Type" 			=> "Général"
 					);
 					$LienGeneral = FormaterLien("AgentCreer", $ModelAgent);
-					
+
 					$message .= "<br /><a href='#ActionMilitaire' id='ActionMilitaire=".$TerritoireID."' class='infobullefixe'>Actions</a>";
     			break;
 			}
@@ -226,6 +224,7 @@ switch ( $mode )
 		switch ( $Type )
 		{
 			case "ActionMilitaire":
+				$message .= "&bull; <a href=\"#\" id=\"creer-armee=" . $ID . "\" class=\"modal\">Créer une armée</a><br />";
 				$message .= "&bull; <a href=\"#\" id=\"renforcer-defense=" . $ID . "\" class=\"modal\">Renforcer les défenses</a><br />";
 				$message .= "&bull; <a href=\"#\" id=\"affaiblir-defense=" . $ID . "\" class=\"modal\">Affaiblir les défenses</a><br />";
 			break;
@@ -247,13 +246,15 @@ switch ( $mode )
 	break;
 	
 	case "Modal" :
-	
+		$Etat 		= isset($_POST['Etat']) ? $_POST['Etat'] : ( isset($_GET['Etat']) ? $_GET['Etat'] : 0);
+		$Joueur 	= isset($_POST['Joueur']) ? $_POST['Joueur'] : ( isset($_GET['Joueur']) ? $_GET['Joueur'] : 0);
+
 		$ModalID = isset($_POST['ModalID']) ? $_POST['ModalID'] : ( isset($_GET['ModalID']) ? $_GET['ModalID'] : 0);
 		$explode 	= explode("=", $ModalID);
 		$Type		= $explode[0];
 		$ID			= isset($explode[1]) ? $explode[1] : 0;
 
-		$message = Modal($Type, $ID);
+		$message = Modal($Type, $ID, $Etat, $Joueur);
 	break;
 	
 	case "ActionCreer":
@@ -261,7 +262,10 @@ switch ( $mode )
 		$Etat 		= $_POST['Etat'];
 		$Joueur 	= $_POST['Joueur'];
 		$ActionType = $_POST['ActionID'];
-		
+		$Details	= $_POST['Details'];
+
+		Message($Partie, $Joueur, "Details", "Echo : " . $Details, 0, "", "noire", 10);
+
 		$ActionSourceID = $_POST['SourceID'];
 		$ActionCibleID 	= $_POST['CibleID'];
 		
@@ -307,42 +311,49 @@ switch ( $mode )
 			break;
 		}
 	
-		// RECUPERER LA VALEUR DEPUIS UNE MODAL / UN CHAMP
-		// ANNULER LES EFFETS SI ILS BUGENT
+		// Si l'action = création d'une entrée dans la BDD
 		$Erreur = false;
-		$SiErreur = "";
-		for ( $i = 0 ; $i < 10 ; $i ++ )
+		$SiErreur = Array();
+		
+		// On fracture champ par champs		
+		$Champs = explode("=", $Details);
+		
+		// A RECODER : IL NE PEUT Y AVOIR QU'UNE ENTREE
+		for ( $i = 0 ; $i < 2 ; $i ++ )
 		{
-			if ( isset($ACTIONS->action[$ActionType]->effets[$i]->nom) )
+			if ( isset($ACTIONS->action[$ActionType]->entrees[$i]->nom) )
 			{
-				$EffetTimeDebut = $ACTIONS->action[$ActionType]->effets[$i]->delai + time();
-				$EffetTimeFin 	= $ACTIONS->action[$ActionType]->effets[$i]->duree + $EffetTimeDebut;
-				$EffetTable 	= $ACTIONS->action[$ActionType]->effets[$i]->table_concernee;
-				$EffetVariable 	= $ACTIONS->action[$ActionType]->effets[$i]->variable_concernee;
-				$EffetType 		= strtoupper($ACTIONS->action[$ActionType]->effets[$i]->type_effet);
-				$EffetValeur 	= $ACTIONS->action[$ActionType]->effets[$i]->valeur;
+				$EntreeTable 	= $ACTIONS->action[$ActionType]->entrees[$i]->table_concernee;
 				
-				switch ( $EffetType )
+				$EntreeInformations = Array();
+				
+				for ( $j = 0 ; $j < count($Champs) ; $j++ )
 				{
-					case "CREATION":
-						$EffetID = Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
-					break;
+					// On récupère le nom du champ [0] puis sa valeur [1]
+					$Explode = explode(":", $Champs[$j]);
+					$Entree = $Explode[0];
+					$Valeur = $Explode[1];
 					
-					default:
-						$EffetID = Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
-					break;
+					$EntreeInformations[$j] = Array(
+						"Entree" => $Entree,
+						"Valeur" => $Valeur);					
 				}
-
-				$SiErreur		.= ( is_numeric($EffetID) == true ) ? ", " . $EffetID : "";
 				
-				if ( is_numeric($EffetID) == false )
+				$EntreeID 		= Entree($EntreeTable, $EntreeInformations);
+
+				$SiErreur[$i]	= ( is_numeric($EntreeID) == true ) ? $EntreeID : "";
+				
+				// S'il y a une erreur, il faut supprimer les entrées déjà ajoutées à la BDD
+				if ( is_numeric($EntreeID) == false )
 				{
 					$Erreur = true;
 					Supprimer("Action", "Action = " . $ActionID);
-					Supprimer("Effet", "EffetID IN(0" . $SiErreur . ")");
-					Supprimer("Effet", "EffetID IN(0" . $SiErreur . ")");
-					
-					// On annule les précédents effets et on supprime l'action
+					for ( $j = 0 ; $j <= $i - 1; $j++ )
+					{
+						$EntreeTableSupprimer 	= $ACTIONS->action[$ActionType]->entrees[$j]->table_concernee;
+						$EntreeIDSupprimer		= $SiErreur[$j];
+						Supprimer($EntreeTableSupprimer, $EntreeIDSupprimer);
+					}
 					break;
 				}
 			}
@@ -352,7 +363,43 @@ switch ( $mode )
 			}
 		}
 		
-		// On réalise l'effet
+		if ( $Erreur == false )
+		{
+			$SiErreur = "";
+			for ( $i = 0 ; $i < 10 ; $i ++ )
+			{
+				if ( isset($ACTIONS->action[$ActionType]->effets[$i]->nom) )
+				{
+					$EffetTimeDebut = $ACTIONS->action[$ActionType]->effets[$i]->delai + time();
+					$EffetTimeFin 	= $ACTIONS->action[$ActionType]->effets[$i]->duree + $EffetTimeDebut;
+					$EffetTable 	= $ACTIONS->action[$ActionType]->effets[$i]->table_concernee;
+					$EffetVariable 	= $ACTIONS->action[$ActionType]->effets[$i]->variable_concernee;
+					$EffetType 		= strtoupper($ACTIONS->action[$ActionType]->effets[$i]->type_effet);
+					$EffetValeur 	= $ACTIONS->action[$ActionType]->effets[$i]->valeur;
+				
+					$EffetID 		= Effet($ActionID, $ActionCibleType, $ActionCibleID, $EffetTimeDebut, $EffetTimeFin, $EffetTable, $EffetVariable, $EffetType, $EffetValeur);
+
+					$SiErreur		.= ( is_numeric($EffetID) == true ) ? ", " . $EffetID : "";
+				
+					// Si erreur, On annule les précédents effets et on supprime l'action
+					if ( is_numeric($EffetID) == false )
+					{
+						$Erreur = true;
+						Supprimer("Action", "Action = " . $ActionID);
+						Supprimer("Effet", "EffetID IN(0" . $SiErreur . ")");
+						Supprimer("Effet", "EffetID IN(0" . $SiErreur . ")");
+						
+						break;
+					}
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		
+		// On réalise l'effet s'il n'y a pas d'erreur
 		if ( !$Erreur )
 		{
 			if ( is_array($Cout) )

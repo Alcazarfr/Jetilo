@@ -104,16 +104,6 @@
 		<type_source>Etat</type_source>
 		<delai>0</delai>
 		<duree>0</duree>
-		<modal type="liste">
-			<champ>
-				<nom>DefenseSupplementaire</nom>
-				<type>text</type>
-			</champ>
-			<champ>
-				<nom>DefenseSupplementaire2</nom>
-				<type>text</type>
-			</champ>
-		</modal>
 		<effets type="liste">
 			<effet>
 				<nom>Révolte</nom>
@@ -201,22 +191,48 @@
 	
 	<!-- ******** Militaire ******** -->
 
-	<action id="creation-armee">
+	<action id="creer-armee">
 		<nom>Enroler une armée</nom>
 		<description>Lever un corps armés de brutes sanguinaires mais efficaces!</description>
 		<type_cible>Territoire</type_cible>
 		<type_source>Etat</type_source>
-		<effets type="liste">
-			<effet>
-				<nom>Création d'une armée</nom>
-				<delai>60</delai>
-				<duree>0</duree>
+		<modal type="liste">
+			<champ>
+				<nom>ArmeeNom</nom>
+				<texte>Nom de votre armée</texte>
+				<taille>15</taille>
+				<type>text</type>
+				<valeur></valeur>
+				<verifier>1</verifier>
+			</champ>
+			<champ>
+				<nom>ArmeeTaille</nom>
+				<texte>Nombre de soldats</texte>
+				<taille>4</taille>
+				<type>text</type>
+				<valeur>100</valeur>
+			</champ>
+			<champ>
+				<nom>ArmeeEtat</nom>
+				<valeur>EtatID</valeur>
+				<type>hidden</type>
+			</champ>
+			<champ>
+				<nom>ArmeeTerritoire</nom>
+				<valeur>TerritoireID</valeur>
+				<type>hidden</type>
+			</champ>
+		</modal>
+		<entrees type="liste">
+			<entree>
+				<nom>Création 1 armée</nom>
 				<table_concernee>Armee</table_concernee>
-				<variable_concernee>ArmeeTerritoire</variable_concernee>
-				<type_effet>CREATION</type_effet>
-				<valeur>ETAT_ID</valeur>
-			</effet>
-		</effets>
+			</entree>
+		</entrees>
+		<couts>
+			<EtatPointMilitaire>100</EtatPointMilitaire>
+			<EtatOr>25</EtatOr>
+		</couts>
 	</action>
 	
 	<action id="renforcer-defense">

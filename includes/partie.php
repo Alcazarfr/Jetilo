@@ -124,18 +124,17 @@ function AgentCreer(Bidon, Nom, Statut, Secret, Territoire, CapaciteFurtivite, C
 }
 
 /* Création d'un agent */
-function ActionCreer(ActionID, SourceID, CibleID)
+function ActionCreer(ActionID, SourceID, CibleID, Details)
 {
 	var PartieID 	= $('#Partie').val();
 	var JoueurID 	= $('#Joueur').val();
 	var EtatID 		= $('#Etat').val();
 
-
 	$.ajax(
 	{
 		type: "POST",
 		url: "./includes/ajax/partie.php",
-		data: "mode=ActionCreer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&ActionID="+ActionID+"&SourceID="+SourceID+"&CibleID="+CibleID
+		data: "mode=ActionCreer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&ActionID="+ActionID+"&SourceID="+SourceID+"&CibleID="+CibleID+"&Details="+Details
 	});
 
 	setTimeout("CarteChargement(false)",200);
@@ -310,6 +309,8 @@ $('.infobullefixe').live('click', function(event)
 $('.modal').live('mouseover', function(event)
 {
 	var PartieID 	= $('#Partie').val();
+	var EtatID 		= $('#Etat').val();
+	var JoueurID 	= $('#Joueur').val();
 	$(this).each(function()
 	{
 		$(this).qtip(
@@ -320,7 +321,7 @@ $('.modal').live('mouseover', function(event)
 				ajax:
                	{
                		url: "./includes/ajax/partie.php",
-                  	data: { mode: 'Modal', Partie: PartieID, ModalID: $.attr(this, 'id') },
+                  	data: { mode: 'Modal', Partie: PartieID, Etat: EtatID, Joueur: JoueurID, ModalID: $.attr(this, 'id') },
                   	method: 'post',
                   	success: function(data,status)
                   	{
@@ -392,7 +393,7 @@ $(window).load(function(){
 	*/
 ?>
 
-
+<div id="TerritoireID">127</div>
 <div class="postgrand">
 	<table width="100%" style="border: none;" cellpadding="5">
 		<tr>
