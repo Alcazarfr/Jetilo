@@ -790,10 +790,10 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 	$CoutsNom = Array("Point Civil", "Point Militaire", "Point de Commerce", "Point de Religion", "Or");
 	for ( $i = 0; $i < 5; $i++)
 	{
-		$CoutTeste = $CoutsPossible[$i];
-		if ( isset($ACTIONS->action[$ActionType]->couts->$CoutTeste) )
+		$CoutTexte = $CoutsPossible[$i];
+		if ( isset($ACTIONS->action[$ActionType]->couts->$CoutTexte) )
 		{
-			$Modal .= "- " . $CoutsNom[$i] . ": " . $ACTIONS->action[$ActionType]->couts->$CoutTeste . "<br />";
+			$Modal .= "- " . $CoutsNom[$i] . ": " . $ACTIONS->action[$ActionType]->couts->$CoutTexte . "<br />";
 		}
 	}
 	
@@ -825,7 +825,7 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 	} while ( $Condition == TRUE );
 	
 	// Affichage des champs = A RECODER
-	$Details = "";
+	$Details = '';
 	for ( $i = 0; $i < 10 ; $i++ )
 	{
 		if ( isset($ACTIONS->action[$ActionType]->modal[$i]->nom) )
@@ -834,8 +834,7 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 			$Texte 	= isset($ACTIONS->action[$ActionType]->modal[$i]->texte) ? $ACTIONS->action[$ActionType]->modal[$i]->texte : "";
 			$Taille	= isset($ACTIONS->action[$ActionType]->modal[$i]->taille) ? $ACTIONS->action[$ActionType]->modal[$i]->taille : "";
 			$Nom 	= $ACTIONS->action[$ActionType]->modal[$i]->nom;
-			$Valeur = $ACTIONS->action[$ActionType]->modal[$i]->valeur;
-	//		$Modal .= '<input type="text" size="'.$Taille.'" name="JoueurID" id="JoueurID" value="'.$Valeur.'">';
+			$Valeur = isset($ACTIONS->action[$ActionType]->modal[$i]->valeur) ? $ACTIONS->action[$ActionType]->modal[$i]->valeur : "";
 
 			switch ($ACTIONS->action[$ActionType]->modal[$i]->type)
 			{
@@ -849,7 +848,7 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 					$Modal .= '<input type="hidden" name="' . $Nom . '" id="' . $Nom . '" value="'.$Valeur.'">';
 				break;
 			}
-
+			// Ne pas changer : résolution d'un bug
 			$Details .= ( $i == 0 ) ? '\''.$Nom.':\'+document.getElementById(\''.$Nom.'\').value' : '+\'='.$Nom.':\'+document.getElementById(\''.$Nom.'\').value';
 		}
 		else
@@ -857,6 +856,9 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 			break;
 		}
 	}
+	
+	// Résolution d'un bug :
+	$Details = !$Details ? 0 : $Details;
 	$Modal .= '<hr /><br /><button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">Lancer l\'action (button)</button>';
   	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">';
 

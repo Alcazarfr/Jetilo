@@ -12,6 +12,7 @@
 		<duree>0</duree>
 		<effets type="liste">
 			<effet>
+				<type>UPDATE</type>
 				<nom>Annexion</nom>
 				<delai>0</delai>
 				<duree>0</duree>
@@ -21,6 +22,7 @@
 				<valeur>ETAT_ID</valeur>
 			</effet>
 			<effet>
+				<type>UPDATE</type>
 				<nom>Annexion</nom>
 				<delai>0</delai>
 				<duree>0</duree>
@@ -41,6 +43,7 @@
 		<duree>0</duree>
 		<effets type="liste">
 			<effet>
+				<type>UPDATE</type>
 				<nom>Indépendance</nom>
 				<delai>0</delai>
 				<duree>0</duree>
@@ -50,6 +53,7 @@
 				<valeur>0</valeur>
 			</effet>
 			<effet>
+				<type>UPDATE</type>
 				<nom>Indépendance</nom>
 				<delai>0</delai>
 				<duree>0</duree>
@@ -77,6 +81,7 @@
 		</couts>
 		<effets type="liste">
 			<effet>
+				<type>Influence</type>
 				<nom>Réduit la satisfaction de 10 pendant 30 sec</nom>
 				<delai>30</delai>
 				<duree>60</duree>
@@ -86,6 +91,7 @@
 				<valeur>10</valeur>
 			</effet>
 			<effet>
+				<type>Influence</type>
 				<nom>Réduit la satisfaction de 5 pendant 60 sec</nom>
 				<delai>60</delai>
 				<duree>120</duree>
@@ -97,8 +103,8 @@
 		</effets>
 	</action>
 	
-	<action id="declancher-revolte">
-		<nom>Déclancher une révolte</nom>
+	<action id="declencher-revolte">
+		<nom>Déclencher une révolte</nom>
 		<description>La population du territoire se soulève</description>
 		<type_cible>Territoire</type_cible>
 		<type_source>Etat</type_source>
@@ -106,6 +112,7 @@
 		<duree>0</duree>
 		<effets type="liste">
 			<effet>
+				<type>UPDATE</type>
 				<nom>Révolte</nom>
 				<delai>0</delai>
 				<duree>0</duree>
@@ -130,6 +137,7 @@
 		</couts>
 		<effets type="liste">
 			<effet>
+				<type>Influence</type>
 				<nom>Croissance = 0</nom>
 				<delai>0</delai>
 				<duree>600</duree>
@@ -154,6 +162,7 @@
 		</couts>
 		<effets type="liste">
 			<effet>
+				<type>Influence</type>
 				<nom>Croissance - 2 </nom>
 				<delai>30</delai>
 				<duree>600</duree>
@@ -178,6 +187,7 @@
 		</couts>
 		<effets type="liste">
 			<effet>
+				<type>Influence</type>
 				<nom>Croissance + 1 </nom>
 				<delai>30</delai>
 				<duree>600</duree>
@@ -222,13 +232,21 @@
 				<valeur>TerritoireID</valeur>
 				<type>hidden</type>
 			</champ>
+			<champ>
+				<nom>ArmeeLieu</nom>
+				<valeur>TerritoireID</valeur>
+				<type>hidden</type>
+			</champ>
 		</modal>
-		<entrees type="liste">
-			<entree>
+		<effets type="liste">
+			<effet>
+				<type>Entree</type>
 				<nom>Création 1 armée</nom>
+				<delai>0</delai>
+				<duree>0</duree>
 				<table_concernee>Armee</table_concernee>
-			</entree>
-		</entrees>
+			</effet>
+		</effets>
 		<couts>
 			<EtatPointMilitaire>100</EtatPointMilitaire>
 			<EtatOr>25</EtatOr>
@@ -241,15 +259,14 @@
 		<type_cible>Territoire</type_cible>
 		<type_source>Etat</type_source>
 		<delai>60</delai>
-		<duree>120</duree>
+		<duree>0</duree>
 		<modal type="liste">
 			<champ>
-				<nom>DefenseSupplementaire</nom>
+				<nom>DefenseAjouter</nom>
+				<texte>Point militaire à consacrer </texte>
+				<taille>5</taille>
 				<type>text</type>
-			</champ>
-			<champ>
-				<nom>DefenseSupplementaire2</nom>
-				<type>text</type>
+				<valeur>10</valeur>
 			</champ>
 		</modal>
 		<couts>
@@ -259,26 +276,80 @@
 		</couts>
 		<effets type="liste">
 			<effet>
-				<nom>Ajouter + 10 en défense</nom>
-				<delai>30</delai>
-				<duree>60</duree>
-				<table_concernee>Territoire</table_concernee>
-				<variable_concernee>TerritoireDefense</variable_concernee>
-				<type_effet>Addition</type_effet>
-				<valeur>10</valeur>
-			</effet>
-			<effet>
-				<nom>Ajouter + 20 en défense</nom>
+				<type>UPDATE</type>
+				<nom>Ajouter X points en défense</nom>
 				<delai>60</delai>
-				<duree>60</duree>
+				<duree>illimité</duree>
 				<table_concernee>Territoire</table_concernee>
 				<variable_concernee>TerritoireDefense</variable_concernee>
 				<type_effet>Addition</type_effet>
-				<valeur>20</valeur>
+				<champ>DefenseAjouter</champ>
+				<valeur></valeur>
 			</effet>
 		</effets>
 	</action>
 
+	<action id="entrainer-armee">
+		<nom>Entrainer votre armée</nom>
+		<description>Votre armée gagne des points d'expérience</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>illimité</duree>
+		<couts>
+			<EtatPointMilitaire>50</EtatPointMilitaire>
+			<EtatOr>20</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<type>UPDATE</type>
+				<nom>+ 10 XP</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeXP</variable_concernee>
+				<type_effet>ADDITION</type_effet>
+				<valeur>10</valeur>
+			</effet>
+		</effets>
+	</action>
+
+
+	<action id="deplacer-armee">
+		<nom>Déplacer votre armée</nom>
+		<description>Votre armée se déplace ailleurs</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>illimité</duree>
+		<couts>
+			<EtatPointMilitaire>10</EtatPointMilitaire>
+			<EtatOr>20</EtatOr>
+		</couts>
+		<modal type="liste">
+			<champ>
+				<nom>NouveauLieu</nom>
+				<texte>Nouvelle position</texte>
+				<taille>5</taille>
+				<type>text</type>
+				<valeur></valeur>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>UPDATE</type>
+				<nom>Déplacement</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeLieu</variable_concernee>
+				<champ>NouveauLieu</champ>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur></valeur>
+			</effet>
+		</effets>
+	</action>
+	
 	<action id="affaiblir-defense">
 		<nom>Affaiblir la défense</nom>
 		<description>Les défenses du territoires sont réduites</description>
@@ -290,8 +361,10 @@
 			<EtatPointMilitaire>50</EtatPointMilitaire>
 			<EtatOr>20</EtatOr>
 		</couts>
+
 		<effets type="liste">
 			<effet>
+				<type>Influence</type>
 				<nom>Moins 10 en défense</nom>
 				<delai>30</delai>
 				<duree>300</duree>
@@ -316,6 +389,7 @@
 		</couts>
 		<effets type="liste">
 			<effet>
+				<type>Influence</type>
 				<delai>0</delai>
 				<duree>30</duree>
 				<table_concernee>Armee</table_concernee>
@@ -324,6 +398,7 @@
 				<valeur>5</valeur>
 			</effet>
 			<effet>
+				<type>Influence</type>
 				<delai>0</delai>
 				<duree>120</duree>
 				<table_concernee>Armee</table_concernee>

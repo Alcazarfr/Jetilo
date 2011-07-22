@@ -393,7 +393,6 @@ $(window).load(function(){
 	*/
 ?>
 
-<div id="TerritoireID">127</div>
 <div class="postgrand">
 	<table width="100%" style="border: none;" cellpadding="5">
 		<tr>
