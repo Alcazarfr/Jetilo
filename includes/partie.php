@@ -323,11 +323,15 @@ $('.modal').live('mouseover', function(event)
                		url: "./includes/ajax/partie.php",
                   	data: { mode: 'Modal', Partie: PartieID, Etat: EtatID, Joueur: JoueurID, ModalID: $.attr(this, 'id') },
                   	method: 'post',
-                  	success: function(data,status)
-                  	{
-                  		// data holds the html with the button for close the tooltip
-                     	this.set('content.text', data); // set ajax content to show
-                  	},
+   success: function(data, status)
+   {
+      // data holds the html with the button for close the tooltip
+      this.set('content.text', data); // set ajax content to show
+ 
+      // Bind your events
+      $('button', this.elements.content).click(function() { hide(); });
+      $('form', this.elements.content).submit(function() { return false; });
+   }
                 },
 				title: 
 				{

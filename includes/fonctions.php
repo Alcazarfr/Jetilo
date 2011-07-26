@@ -861,7 +861,7 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 	$Details = !$Details ? 0 : $Details;
 	$Modal .= '<hr /><br /><button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">Lancer l\'action (button)</button>';
   	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">';
-
+//	$Modal = "<form>" . $Modal . "</form>";
 	return $Modal;
 }
 
