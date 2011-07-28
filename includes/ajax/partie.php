@@ -164,36 +164,81 @@ switch ( $mode )
 					$message .= "<br /><b>Militaire</b><br />Défense : " . $TerritoireDefenseTexte . " (" . $TerritoireDefense . ")";
 					$message .= "<br />Armée : ";
 					
-					$ListeArmees = "";
-					$Armees = 0 ;
-					$sql = "SELECT a.*, t.TerritoireNom
-						FROM Armee a, Territoire t
-						WHERE a.ArmeeTerritoire = " . $TerritoireID . "
-							AND t.TerritoireID = a.ArmeeLieu";
+					$ListeArmeesLocales = "";
+					$ListeArmeesAutres = "";
+					$ArmeesLocales = 0 ;
+					$ArmeesAutres = 0 ;
+					$sql = "SELECT a.*, t.TerritoireNom, e.EtatNom
+						FROM Armee a, Territoire t, Etat e
+						WHERE ( a.ArmeeTerritoire = " . $TerritoireID . " OR a.ArmeeLieu = " . $TerritoireID . " )
+							AND t.TerritoireID = a.ArmeeLieu
+							AND e.EtatID = a.ArmeeEtat";
 					$req = mysql_query($sql) or die('Erreur SQL #051<br />'.$sql.'<br />'.mysql_error());
 					while ( $data = mysql_fetch_array($req) )
 					{
-						$Armees++;
 						$ArmeeID 		= $data['ArmeeID'];
+						$ArmeeEtat 		= $data['ArmeeEtat'];
 						$ArmeeNom 		= $data['ArmeeNom'];
 						$ArmeeTaille	= $data['ArmeeTaille'];
 						$ArmeeType	 	= $data['ArmeeType'];
 						$ArmeeXP	 	= $data['ArmeeXP'];
 						$Localisation 	= $data['TerritoireNom'];
-						$ListeArmees		.= "- " . $data['ArmeeNom'] . " [XP: " . $ArmeeXP . "; Localisation: " . $Localisation . "; <a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a>]<br />";
+						if ( $data['ArmeeTerritoire'] == $TerritoireID )
+						{
+							$ArmeesLocales++;
+							$ListeArmeesLocales		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $Localisation . "</td><td><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a></td></tr>";
+						}
+						else
+						{
+							$ArmeesAutres++;
+							$ListeArmeesAutres	.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $Localisation . "</td><td>" . $ArmeeEtat . "</td><td><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a></td></tr>";						
+						}
 					}
-					if ( $Armees == 0 )
+					// Affichage texte sur les armées locales
+					if ( $ArmeesLocales == 0 )
 					{
 						// Aucune armée n'est issue de ce territoire
 						$message .= "Aucune armée n'est issue de ce territoire";
 					}
-					else if ( $Armees == 1 )
+					else if ( $ArmeesLocales == 1 )
 					{
-						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmees;
+						$ListeArmeesLocales = "<table><tr><td><b>Armée</b></td><td><b>XP</b></td><td><b>Lieu</b></td><td><b>Actions</b></td></tr>" . $ListeArmeesLocales . "</table>";
+						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmeesLocales;
 					}
 					else
 					{
-						$message .= $Armees . " armées sont issues de ce territoire<br />" . $ListeArmees;
+						$ListeArmeesLocales = "<table><tr><td><b>Armée</b></td><td><b>XP</b></td><td><b>Lieu</b></td><td><b>Actions</b></td></tr>" . $ListeArmeesLocales . "</table>";
+						$message .= $ArmeesLocales . " armées sont issues de ce territoire<br />" . $ListeArmeesLocales;
+					}
+				
+					// Affichage texte sur les armées autres (ennemis ou alliées) présentes
+					if ( $ArmeesAutres == 0 )
+					{
+						$message .= "Aucune armée étrangère n'est détectée";
+					}
+					else if ( $ArmeesAutres == 1 )
+					{
+						$ListeArmeesAutres = "<table>
+							<tr>
+								<td><b>Armée</b></td>
+								<td><b>XP</b></td>
+								<td><b>Etat</b></td>
+								<td><b>Région</b></td>
+								<td><b>Actions</b></td>
+							</tr>" . $ListeArmeesAutres . "</table>";
+						$message .= "Une armée squatte ce territoire<br />" . $ListeArmeesAutres;
+					}
+					else
+					{
+						$ListeArmeesAutres = "<table>
+							<tr>
+								<td><b>Armée</b></td>
+								<td><b>XP</b></td>
+								<td><b>Etat</b></td>
+								<td><b>Région</b></td>
+								<td><b>Actions</b></td>
+							</tr>" . $ListeArmeesAutres . "</table>";
+						$message .= $ArmeesAutres . " armées squattent grave ce territoire<br />" . $ListeArmeesAutres;
 					}
 
 					$ModelAgent = Array(
@@ -243,9 +288,6 @@ switch ( $mode )
 				$message .= "&bull; <a href=\"#\" id=\"arreter-croissance-population=" . $ID . "\" class=\"modal\">Arreter la croissance de la population</a><br />";
 				$message .= "&bull; <a href=\"#\" id=\"augmenter-croissance-population=" . $ID . "\" class=\"modal\">Augmenter la croissance de la population</a><br />";
 				$message .= "&bull; <a href=\"#\" id=\"reduire-croissance-population=" . $ID . "\" class=\"modal\">Réduire la croissance de la population</a><br />";
-			break;
-			
-			case "BonusDefensif":
 			break;
 			
 			default:
@@ -356,6 +398,12 @@ switch ( $mode )
 				{
 					case "DELETE" :
 					case "SUPPRIMER" :
+						$Variable 	= $EntreeInformations[0]["Entree"];
+						$Valeur 	= $EntreeInformations[0]["Valeur"];
+				
+						$sql = "DELETE FROM " . $EffetTable . " 
+							WHERE " . $Variable . " = " . $Valeur;
+						mysql_query($sql) or die('Erreur SQL #0104<br />'.$sql.'<br />'.mysql_error());
 					break;
 					
 					case "UPDATE" :

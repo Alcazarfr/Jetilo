@@ -219,8 +219,8 @@
 				<nom>ArmeeTaille</nom>
 				<texte>Nombre de soldats</texte>
 				<taille>4</taille>
-				<type>text</type>
-				<valeur>100</valeur>
+				<type>special</type>
+				<valeur></valeur>
 			</champ>
 			<champ>
 				<nom>ArmeeEtat</nom>
@@ -252,7 +252,34 @@
 			<EtatOr>25</EtatOr>
 		</couts>
 	</action>
-	
+	<action id="supprimer-armee">
+		<nom>Démobiliser une armée</nom>
+		<description>Larmée sélectionnée est démobilisée!</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<modal type="liste">
+			<champ>
+				<nom>ArmeeID</nom>
+				<texte>Armée</texte>
+				<taille>3</taille>
+				<type>text</type>
+				<valeur></valeur>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>Supprimer</type>
+				<nom>Suppression 1 armée</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Armee</table_concernee>
+			</effet>
+		</effets>
+		<couts>
+			<EtatPointMilitaire>5</EtatPointMilitaire>
+			<EtatOr>25</EtatOr>
+		</couts>
+	</action>
 	<action id="renforcer-defense">
 		<nom>Renforcer la défense</nom>
 		<description>Cela fortifie votre territoire</description>

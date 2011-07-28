@@ -843,6 +843,11 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 					$Modal .= '<input type="text" size="'.$Taille.'" name="' . $Nom . '" id="' . $Nom . '" value="'.$Valeur.'">';
 					$Modal .= "<br />";
 				break;
+				case "special" :
+					$Modal .= $Texte . " : ";
+					$Modal .= ModalChampSpecial($Nom, $Information, $Etat, $Joueur);
+					$Modal .= "<br />";
+				break;
 				case "hidden" :
 					$Valeur	= RemplacerValeur($Valeur, $Etat, $Joueur, $Information);
 					$Modal .= '<input type="hidden" name="' . $Nom . '" id="' . $Nom . '" value="'.$Valeur.'">';
@@ -863,6 +868,21 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
   	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">';
 //	$Modal = "<form>" . $Modal . "</form>";
 	return $Modal;
+}
+
+function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
+{
+	switch ( $Type )
+	{
+		case "ArmeeTaille":
+			$Champ = "<select name='" . $Type . "' id='" . $Type . "'>
+			<option value='100'>100</option>
+			<option value='150'>150</option>
+			<option value='200'>200</option>
+			</select>";
+		break;
+	}
+	return $Champ;
 }
 
 function RemplacerValeur($ValeurCherchee, $Etat, $Joueur, $Territoire)
