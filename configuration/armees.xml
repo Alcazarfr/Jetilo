@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<armees>
+	<armee id="infanterie">
+		<nom>Infanterie</nom>
+		<description>L'armée de base</description>
+		<variation>0.20</variation>
+		<force>10</force>
+		<portee>1</portee>
+		<armure>1</armure>
+		<deplacement>2</deplacement>
+	</armee>
+	<armee id="infanterie-lourde">
+		<nom>Infanterie lourde</nom>
+		<description>L'armée de base</description>
+		<variation>0.40</variation>
+		<force>12</force>
+		<portee>1</portee>
+		<armure>4</armure>
+		<deplacement>1</deplacement>
+	</armee>
+	<armee id="infanterie-legere">
+		<nom>Infanterie légère</nom>
+		<description>L'armée de base</description>
+		<variation>0.20</variation>
+		<force>8</force>
+		<portee>1</portee>
+		<armure>0</armure>
+		<deplacement>3</deplacement>
+	</armee>
+</armees>

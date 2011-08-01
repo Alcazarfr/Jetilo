@@ -118,7 +118,7 @@ switch ( $mode )
 						$message .= !$TerritoireEtat ? "<br />Vous pouvez capturer ce territoire: " . $Placement : "";
 					}
 					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants<br /><br />";
-					$message .= "<br /><br />" . TerritoireAcces($TerritoireID);
+					$message .= "<br /><br />" . TerritoireAcces($TerritoireID, "Liste");
 				break;
 				
 				case "Jeu" :
@@ -129,7 +129,7 @@ switch ( $mode )
 						$message .= $TerritoireEtat ? "<a href='#Etat' class='pointille' onClick='EtatInformations(".$TerritoireEtat.")'>" . Attribut($TerritoireEtat, "Etat", "EtatNom") . "</a>" : "Terra Incognita";
 					}
 					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants (".round(ChercherEffet('TERRITOIRE', $TerritoireID, "TerritoireCroissance", $data['TerritoireCroissance']),1)."%) <a href='#ActionPopulation' id='ActionPopulation=".$TerritoireID."' class='infobullefixe'>Actions</a><br /><br />";
-					$message .= "<br /><br />" . TerritoireAcces($TerritoireID);
+					$message .= "<br /><br />" . TerritoireAcces($TerritoireID, "Liste");
 					
 					$TerritoireDefense 	= ChercherEffet("TERRITOIRE", $Territoire, "TerritoireDefense", $data['TerritoireDefense']);
 					if ( $TerritoireDefense > 500 )
@@ -400,10 +400,8 @@ switch ( $mode )
 					case "SUPPRIMER" :
 						$Variable 	= $EntreeInformations[0]["Entree"];
 						$Valeur 	= $EntreeInformations[0]["Valeur"];
-				
-						$sql = "DELETE FROM " . $EffetTable . " 
-							WHERE " . $Variable . " = " . $Valeur;
-						mysql_query($sql) or die('Erreur SQL #0104<br />'.$sql.'<br />'.mysql_error());
+						$Donnees	= $Variable . "=" . $Valeur;
+						Supprimer($EffetTable, $Donnees);
 					break;
 					
 					case "UPDATE" :

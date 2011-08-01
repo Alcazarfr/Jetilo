@@ -223,6 +223,13 @@
 				<valeur></valeur>
 			</champ>
 			<champ>
+				<nom>ArmeeType</nom>
+				<texte>Type </texte>
+				<taille>4</taille>
+				<type>special</type>
+				<valeur></valeur>
+			</champ>
+			<champ>
 				<nom>ArmeeEtat</nom>
 				<valeur>EtatID</valeur>
 				<type>hidden</type>
@@ -355,10 +362,9 @@
 		</couts>
 		<modal type="liste">
 			<champ>
-				<nom>NouveauLieu</nom>
+				<nom>TerritoiresVoisinsArmee</nom>
 				<texte>Nouvelle position</texte>
-				<taille>5</taille>
-				<type>text</type>
+				<type>special</type>
 				<valeur></valeur>
 			</champ>
 		</modal>
@@ -370,7 +376,7 @@
 				<duree>illimité</duree>
 				<table_concernee>Armee</table_concernee>
 				<variable_concernee>ArmeeLieu</variable_concernee>
-				<champ>NouveauLieu</champ>
+				<champ>TerritoiresVoisinsArmee</champ>
 				<type_effet>SUBSTITUTION</type_effet>
 				<valeur></valeur>
 			</effet>

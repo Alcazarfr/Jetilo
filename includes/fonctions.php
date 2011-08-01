@@ -279,13 +279,13 @@ function FormaterLien($Mode, $Tableau)
 
 TerritoireOrigine 		: ID du territoire
 TerritoireDestination	: ID du territoire oÃ¹ l'on veut aller
-			  
+Format 					: Faut il afficher un select, une liste ?
 Return 	: 	Array(TerritoireVoisins1, TerritoireVoisinsN) si TerritoireDestination = fasle
 			Array(AccÃ¨sDirectPossible[TRUE;FALSE], TempsPourYAller)
 
 */
 
-function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
+function TerritoireAcces($TerritoireOrigine, $Format, $TerritoireDestination=false)
 {
 	$nombre = 0;
 	$ListeTerritoire = "";
@@ -331,13 +331,28 @@ function TerritoireAcces($TerritoireOrigine, $TerritoireDestination=false)
 				$TerritoireID = $data2['TerritoireID'];
 				if ( !@$TerritoireTrouve[$TerritoireID] )
 				{
-					$ListeTerritoire 	.= ( $Compteur == 0 ) ? "<a href=\"#" . $TerritoireID. "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>": ", <a href=\"#" . $TerritoireID . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>";
+					if ( $Format == "Liste" )
+					{
+					
+						$ListeTerritoire 	.= ( $Compteur == 0 ) ? "<a href=\"#" . $TerritoireID. "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>": ", <a href=\"#" . $TerritoireID . "\" onClick=\"TerritoireInformations(".$TerritoireID . ");\">" . $data2['TerritoireNom'] . "</a>";
+					}
+					else if ( $Format = "Select" )
+					{
+						$ListeTerritoire 	.= "<option id='" . $TerritoireID . "' name='" . $TerritoireID . "'>" . $data2['TerritoireNom'] . "</option>";
+					}
 					$Compteur++;
 					$TerritoireTrouve[$TerritoireID] = TRUE;
 				}
 			}
 		}
-		$Resultat = $Compteur > 1 ? $Compteur . " territoires adjacents: " .$ListeTerritoire : $Compteur . " territoires adjacents: " .$ListeTerritoire;
+		if ( $Format == "Liste" )
+		{
+			$Resultat = $Compteur > 1 ? $Compteur . " territoires adjacents: " .$ListeTerritoire : $Compteur . " territoires adjacents: " .$ListeTerritoire;
+		}
+		else if ( $Format == "Select" )
+		{
+			$Resultat = "<select name='TerritoiresVoisinsArmee' id='TerritoiresVoisinsArmee'><option id='0'>Sélectionner un territoire</option>" .$ListeTerritoire . "</select>";
+		}
 	}
 	return $Resultat;
 }
@@ -726,6 +741,10 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 			$Table 		= "Etat";
 			$Reference 	= "EtatID";
 		break;
+		case "Armee" :
+			$Table 		= "Armee";
+			$Reference 	= "ArmeeID";
+		break;
 	}
 	if ( is_array($Attribut) == FALSE )
 	{
@@ -872,6 +891,8 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 
 function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 {
+	global $ARMEES;
+	
 	switch ( $Type )
 	{
 		case "ArmeeTaille":
@@ -880,6 +901,20 @@ function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 			<option value='150'>150</option>
 			<option value='200'>200</option>
 			</select>";
+		break;
+		case "ArmeeType":
+				$Nom1 = $ARMEES->armee["infanterie"]->nom;
+				$Nom2 = $ARMEES->armee["infanterie-legere"]->nom;
+				$Nom3 = $ARMEES->armee["infanterie-lourde"]->nom;
+				$Champ = "<select name='" . $Type . "' id='" . $Type . "'>
+			<option value='infanterie'>" . $Nom1 . "</option>
+			<option value='infanterie-legere'>" . $Nom2 . "</option>
+			<option value='infanterie-lourde'>" . $Nom3 . "</option>
+			</select>";
+		break;
+		case "TerritoiresVoisinsArmee":
+			$TerritoireID	=	Attribut($Infos, "Armee", "ArmeeLieu");
+			$Champ = TerritoireAcces($TerritoireID, "Select");
 		break;
 	}
 	return $Champ;
