@@ -287,6 +287,7 @@
 			<EtatOr>25</EtatOr>
 		</couts>
 	</action>
+	
 	<action id="renforcer-defense">
 		<nom>Renforcer la défense</nom>
 		<description>Cela fortifie votre territoire</description>
@@ -349,6 +350,60 @@
 	</action>
 
 
+	<action id="attaquer">
+		<nom>Attaquer une garnison</nom>
+		<description>Votre armée attaque la ville du territoire</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Armee</type_source>
+		<delai>30</delai>
+		<duree>illimité</duree>
+		<couts>
+			<EtatPointMilitaire>1</EtatPointMilitaire>
+			<EtatOr>1</EtatOr>
+		</couts>
+		<modal type="liste">
+			<champ>
+				<nom>BatailleTitre</nom>
+				<texte>Titre de la bataille</texte>
+				<type>text</type>
+				<valeur></valeur>
+			</champ>
+			<champ>
+				<nom>BatailleTerritoire</nom>
+				<type>special</type>
+				<texte>Cible</texte>
+			</champ>
+			<champ>
+				<nom>BatailleDefenseur</nom>
+				<type>special</type>
+			</champ>
+			<champ>
+				<nom>BatailleTimeDebut</nom>
+				<type>hidden</type>
+				<valeur>60</valeur>
+			</champ>
+
+			<champ>
+				<nom>BatailleAttaquant</nom>
+				<texte>Attaquant</texte>
+				<type>hidden</type>
+				<valeur>EtatID</valeur>
+			</champ>
+
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>ENTREE</type>
+				<nom>Combat</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>Bataille</table_concernee>
+				<type_effet></type_effet>
+				<valeur></valeur>
+			</effet>
+		</effets>
+	</action>
+	
 	<action id="deplacer-armee">
 		<nom>Déplacer votre armée</nom>
 		<description>Votre armée se déplace ailleurs</description>
@@ -382,6 +437,72 @@
 			</effet>
 		</effets>
 	</action>
+
+	<action id="engager-armee">
+		<nom>Combattre</nom>
+		<description>Votre armée quitte les lignes arrières et rejoint le combat</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<delai>25</delai>
+		<duree>illimité</duree>
+		<couts>
+			<EtatPointMilitaire>1</EtatPointMilitaire>
+		</couts>
+		<modal type="liste">
+			<champ>
+				<nom>CombattantBataille</nom>
+				<texte>BatailleID</texte>
+				<type>text</type>
+				<valeur>CombattantBataille</valeur>
+			</champ>
+			<champ>
+				<nom>CombattantEtat</nom>
+				<type>text</type>
+				<valeur>CombattantEtat</valeur>
+			</champ>
+			<champ>
+				<nom>CombattantArmee</nom>
+				<type>text</type>
+				<valeur>CombattantArmee</valeur>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>ENTREE</type>
+				<nom>Engager</nom>
+				<delai>25</delai>
+				<duree>illimité</duree>
+				<table_concernee>Combattant</table_concernee>
+			</effet>
+		</effets>
+	</action>
+	
+	<action id="desengager-armee">
+		<nom>Desengager</nom>
+		<description>Votre armée quitte le combat et rejoint les lignes arrières</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<delai>25</delai>
+		<duree>illimité</duree>
+		<couts>
+			<EtatPointMilitaire>1</EtatPointMilitaire>
+		</couts>
+			<champ>
+				<nom>ArmeeID</nom>
+				<type>hidden</type>
+				<valeur>ArmeeID</valeur>
+			</champ>
+
+		<effets type="liste">
+			<effet>
+				<type>DELETE</type>
+				<nom>Désengager</nom>
+				<delai>25</delai>
+				<duree>illimité</duree>
+				<table_concernee>Combattant</table_concernee>
+			</effet>
+		</effets>
+	</action>	
 	
 	<action id="affaiblir-defense">
 		<nom>Affaiblir la défense</nom>

@@ -794,7 +794,7 @@ Information	: ID du territoire ou de l'Etat ou du Joueur utilisée par ajax/part
 */
 
 
-function Modal($ActionType, $Information, $Etat, $Joueur)
+function Modal($ActionType, $Information, $Etat, $Joueur, $AutresInformations)
 {
 	global $ACTIONS;
 	
@@ -855,6 +855,10 @@ function Modal($ActionType, $Information, $Etat, $Joueur)
 			$Nom 	= $ACTIONS->action[$ActionType]->modal[$i]->nom;
 			$Valeur = isset($ACTIONS->action[$ActionType]->modal[$i]->valeur) ? $ACTIONS->action[$ActionType]->modal[$i]->valeur : "";
 
+			if ( isset($AutresInformations[$Valeur]) )
+			{
+				$Valeur = $AutresInformations[$Valeur];
+			}
 			switch ($ACTIONS->action[$ActionType]->modal[$i]->type)
 			{
 				case "text" :
@@ -895,6 +899,18 @@ function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 	
 	switch ( $Type )
 	{
+		case "BatailleTerritoire":
+			$TerritoireID	=	Attribut($Infos, "Armee", "ArmeeLieu");
+			$TerritoireNom	=	Attribut($TerritoireID, "Territoire", "TerritoireNom");
+			$Champ 			= "<select name='" . $Type . "' id='" . $Type . "'>
+			<option value='" . $TerritoireID . "'>" . $TerritoireNom . "</option>
+			</select>";
+		break;
+		case "BatailleDefenseur":
+			$TerritoireID	=	Attribut($Infos, "Armee", "ArmeeLieu");
+			$EtatID			=	Attribut($TerritoireID, "Territoire", "TerritoireEtat");
+			$Champ 			= "<input type='hidden' name='" . $Type . "' id='" . $Type . "' value='" . $EtatID . "'>";
+		break;
 		case "ArmeeTaille":
 			$Champ = "<select name='" . $Type . "' id='" . $Type . "'>
 			<option value='100'>100</option>
@@ -932,6 +948,9 @@ function RemplacerValeur($ValeurCherchee, $Etat, $Joueur, $Territoire)
 		break;
 		case "TerritoireID" :
 			return $Territoire;
+		break;
+		default:
+			return $ValeurCherchee;
 		break;
 	}
 }

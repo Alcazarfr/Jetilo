@@ -22,6 +22,7 @@
 
 <script type="text/javascript">
 
+
 /* Chargement de la carte */
 function CarteChargement(Boucle)
 {
@@ -120,7 +121,6 @@ function AgentCreer(Bidon, Nom, Statut, Secret, Territoire, CapaciteFurtivite, C
 	setTimeout("CarteChargement(false)",200);
 	setTimeout("Population(false)",200);
 	setTimeout("MessageLire(false)",200);
-
 }
 
 /* Création d'un agent */
@@ -140,7 +140,7 @@ function ActionCreer(ActionID, SourceID, CibleID, Details)
 	setTimeout("CarteChargement(false)",200);
 	setTimeout("Population(false)",200);
 	setTimeout("MessageLire(false)",200);
-
+	setTimeout("AfficherBataille(false)",200);
 }
 
 /* Création d'un effet */
@@ -230,6 +230,29 @@ function Journal()
 	}
 	);
 }
+
+/* Chargement des batailles */
+function AfficherBataille(Boucle)
+{
+	var PartieID = $('#Partie').val();
+	var EtatID = $('#Etat').val();
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=afficherBataille&Partie="+PartieID+"&Etat="+EtatID,
+		success:
+    		function(retour){
+			$("#Bataille").empty().append(retour);
+			}
+	}
+	);
+	if ( Boucle == true )
+	{
+		setTimeout("BatailleChargement(true)",20000);
+	}
+}
+
 
 /* InfosBulle dans les retours Ajax */
 
@@ -396,6 +419,7 @@ $(window).load(function(){
 	echo "</div>";
 	*/
 ?>
+<div id="Bataille"></div>
 
 <div class="postgrand">
 	<table width="100%" style="border: none;" cellpadding="5">
@@ -431,7 +455,7 @@ $(window).load(function(){
 				</td>
 			</tr>
 		</table>
-		Mises à jour manuelles : <a href="#" onClick="CarteChargement(false);">Carte</a> • <a href="javascript:void(0);" onclick="MessageLire(false);">Messages</a> • <a href="javascript:void(0);" onclick="Population(false);">Population</a> • <a href="javascript:void(0);" onclick="Production(false);">Production</a>
+		Mises à jour manuelles : <a href="#" onClick="CarteChargement(false);">Carte</a> • <a href="javascript:void(0);" onclick="MessageLire(false);">Messages</a> • <a href="javascript:void(0);" onclick="Population(false);">Population</a> • <a href="javascript:void(0);" onclick="Production(false);">Production</a> • <a href="javascript:void(0);" onclick="AfficherBataille(false);">Bataille</a>
 	</div>
 </div>
 <div class="postgrand">

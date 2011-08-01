@@ -263,6 +263,108 @@ switch ( $mode )
 		}
 	break;
 
+	case "afficherBataille" :
+	
+		$Etat	 	= $_POST['Etat'];
+
+		$Bataille = FALSE;
+		$Batailles = "";
+		$ArmeesEnnemisEngagee = "";
+		$ArmeesEnnemisReserve = "";
+		$ArmeesReserve = "";
+		$ArmeesEngagee = "";
+		$Combattant = Array();
+		
+		$sql = "SELECT *
+			FROM Bataille
+			WHERE BatailleAttaquant = " . $Etat . "
+			OR BatailleDefenseur = " . $Etat;
+		$req = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
+		while ( $data = mysql_fetch_array($req) )
+		{
+			$BatailleID = $data['BatailleID'];
+			$Bataille = TRUE;
+	
+			$sql = "SELECT *
+				FROM Combattant
+				WHERE CombattantBataille = " . $data['BatailleID'];
+			$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
+			while ( $data3 = mysql_fetch_array($req2) )
+			{
+				$ArmeeID	= $data3['CombattantArmee'];
+				$Combattant[$ArmeeID] = Array("Equipe" => $data3['CombattantEquipe']);
+			}
+			
+			$sql = "SELECT *
+				FROM Armee
+				WHERE ArmeeLieu = " . $data['BatailleTerritoire'];
+			$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
+			while ( $data2 = mysql_fetch_array($req2) )
+			{
+				$ArmeeID = $data2['ArmeeID'];
+				if ( $data2['ArmeeEtat'] == $Etat ) 
+				{
+					if ( isset($Combattant[$ArmeeID]) )
+					{
+						// L'armée est engagé
+						$Details = "CombattantArmee:" . $ArmeeID . "=";
+						$ArmeesEngagee .= $data2['ArmeeNom'] . "<a href='#desengager' onClick=\"ActionCreer('desengager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"> --></a><br />";
+					}
+					else
+					{
+						$Details = "CombattantBataille:".$BatailleID."=CombattantEtat:".$Etat."=CombattantArmee:" . $ArmeeID;
+						$ArmeesReserve .= "<a href='#engager' onClick=\"ActionCreer('engager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><-- </a>" . $data2['ArmeeNom'] . "<br />";
+					}
+				}
+				else
+				{
+					if ( isset($Combattant[$ArmeeID]) )
+					{
+						// L'armée est engagé
+						$ArmeesEnnemisEngagee .= $data2['ArmeeNom'] . "<br />";
+					}
+					else
+					{
+						$ArmeesEnnemisReserve .= $data2['ArmeeNom'] . "<br />";
+					}
+				}
+			}
+
+			$Batailles .= '<br />'.$data['BatailleTitre'].'<br /><table border="1" cellspacing="0" cellpadding="3">
+					<tr>
+						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Ennemis</td>
+						<td width="300" align="center" valign="top" style="border: none;">Bataille</td>
+						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Forces</td>
+					</tr>
+					<tr>
+						<td width="150" align="center" valign="top" style="border: none;">Réserve</td>
+						<td width="150" align="center" valign="top" style="border: none;">Combattants</td>
+						<td width="300" align="center" valign="top" style="border: none;"></td>
+						<td width="150" align="center" valign="top" style="border: none;">Combattants</td>
+						<td width="150" align="center" valign="top" style="border: none;">Réserve</td>
+					</tr>
+
+					<tr>
+						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisReserve . '</td>
+						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisEngagee . '</td>
+						<td width="300" align="left" valign="top" style="border: none;"></td>
+						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEngagee . '</td>
+						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesReserve . '</td>
+					</tr>
+				</table><br />';
+		}
+
+		if ( $Bataille == TRUE )
+		{
+		$message = '
+			<div class="postgrand">
+			<div class="entry">
+				' . $Batailles . '
+			</div>
+			</div>';
+		}
+	break;
+	
 	case "InfobulleFixe" :		
 		$InfobulleID = isset($_POST['InfobulleID']) ? $_POST['InfobulleID'] : ( isset($_GET['InfobulleID']) ? $_GET['InfobulleID'] : 0);
 		$explode 	= explode("=", $InfobulleID);
@@ -281,6 +383,7 @@ switch ( $mode )
 				$message .= "&bull; <a href=\"#\" id=\"supprimer-armee=" . $ID . "\" class=\"modal\">Démobilisation</a><br />";
 				$message .= "&bull; <a href=\"#\" id=\"deplacer-armee=" . $ID . "\" class=\"modal\">Déplacement</a><br />";
 				$message .= "&bull; <a href=\"#\" id=\"entrainer-armee=" . $ID . "\" class=\"modal\">Entrainement</a><br />";
+				$message .= "&bull; <a href=\"#\" id=\"attaquer=" . $ID . "\" class=\"modal\">Attaquer</a><br />";
 			break;
 			
 			case "ActionPopulation":
@@ -304,8 +407,15 @@ switch ( $mode )
 		$explode 	= explode("=", $ModalID);
 		$Type		= $explode[0];
 		$ID			= isset($explode[1]) ? $explode[1] : 0;
+		$AutreValeur = Array();
+		// Récupération des valeurs supplémentaires
+		for ( $i = 2; $i < count($explode) ; $i++ )
+		{
+			$explodeInterne = explode(":", $explode[$i]);
+			$AutreValeur = Array($explodeInterne[0] =>$explodeInterne[1]);
+		}
 
-		$message = Modal($Type, $ID, $Etat, $Joueur);
+		$message = Modal($Type, $ID, $Etat, $Joueur, $AutreValeur);
 	break;
 	
 	case "ActionCreer":
