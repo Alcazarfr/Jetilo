@@ -85,7 +85,7 @@ include 'includes/prepartie.php';
 			
 				// Créer une partie si le joueur est connecté
 					include("includes/creerpartie.php");
-		
+					
  				break;
 
 				// Création de la carte

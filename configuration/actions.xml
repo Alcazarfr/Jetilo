@@ -244,6 +244,11 @@
 				<valeur>TerritoireID</valeur>
 				<type>hidden</type>
 			</champ>
+			<champ>
+				<nom>ArmeeMoral</nom>
+				<valeur>50</valeur>
+				<type>hidden</type>
+			</champ>
 		</modal>
 		<effets type="liste">
 			<effet>
@@ -345,6 +350,16 @@
 				<variable_concernee>ArmeeXP</variable_concernee>
 				<type_effet>ADDITION</type_effet>
 				<valeur>10</valeur>
+			</effet>
+			<effet>
+				<type>UPDATE</type>
+				<nom>+ 5 XP</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeXP</variable_concernee>
+				<type_effet>ADDITION</type_effet>
+				<valeur>5</valeur>
 			</effet>
 		</effets>
 	</action>
@@ -461,9 +476,9 @@
 				<valeur>CombattantEtat</valeur>
 			</champ>
 			<champ>
-				<nom>CombattantArmee</nom>
+				<nom>CombattantID</nom>
 				<type>text</type>
-				<valeur>CombattantArmee</valeur>
+				<valeur>CombattantID</valeur>
 			</champ>
 		</modal>
 		<effets type="liste">
@@ -473,6 +488,16 @@
 				<delai>25</delai>
 				<duree>illimité</duree>
 				<table_concernee>Combattant</table_concernee>
+			</effet>
+			<effet>
+				<type>UPDATE</type>
+				<nom>ProchaineAttaque</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>Combattant</table_concernee>
+				<variable_concernee>CombattantProchaineAttaque</variable_concernee>
+				<type_effet>ADDITION</type_effet>
+				<valeur>10</valeur>
 			</effet>
 		</effets>
 	</action>
@@ -488,9 +513,9 @@
 			<EtatPointMilitaire>1</EtatPointMilitaire>
 		</couts>
 			<champ>
-				<nom>ArmeeID</nom>
+				<nom>CombattantID</nom>
 				<type>hidden</type>
-				<valeur>ArmeeID</valeur>
+				<valeur>CombattantID</valeur>
 			</champ>
 
 		<effets type="liste">

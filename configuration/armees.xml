@@ -4,6 +4,7 @@
 		<nom>Infanterie</nom>
 		<description>L'armée de base</description>
 		<variation>0.20</variation>
+		<moral_max>80</moral_max>
 		<force>10</force>
 		<portee>1</portee>
 		<armure>1</armure>
@@ -13,6 +14,7 @@
 		<nom>Infanterie lourde</nom>
 		<description>L'armée de base</description>
 		<variation>0.40</variation>
+		<moral_max>120</moral_max>
 		<force>12</force>
 		<portee>1</portee>
 		<armure>4</armure>
@@ -21,6 +23,7 @@
 	<armee id="infanterie-legere">
 		<nom>Infanterie légère</nom>
 		<description>L'armée de base</description>
+		<moral_max>100</moral_max>
 		<variation>0.20</variation>
 		<force>8</force>
 		<portee>1</portee>

@@ -66,13 +66,15 @@ function EtatInformations(EtatID)
 /* Affichage des infos sur un territoire */
 function TerritoireInformations(TerritoireID)
 {
-	var PartieID 		= $('#Partie').val();
+	var PartieID 	= $('#Partie').val();
+	var JoueurID 	= $('#Joueur').val();
+	var EtatID	 	= $('#Etat').val();
 	
 	$.ajax(
 	{
 		type: "POST",
 		url: "./includes/ajax/partie.php",
-		data: "mode=territoireInformations&Partie="+PartieID+"&Territoire="+TerritoireID+"&Joueur="+Joueur+"&SousMode=Jeu",
+		data: "mode=territoireInformations&Partie="+PartieID+"&Territoire="+TerritoireID+"&Joueur="+JoueurID+"&Etat="+EtatID+"&SousMode=Jeu",
 		success:
     		function(retour){
 			$("#leterritoire").empty().append(retour);
@@ -270,17 +272,6 @@ $('a[title]').live('click', function(event) {
    $.attr(this, 'oldtitle', $.attr(this, 'title'));
    this.removeAttribute('title');
 });
-
-
-$('button').live('click', function()
-{
-	$(this).each(function()
-	{
-   		$(this).qtip('api').hide();
-   		this = null;
-   	});
-});
-
 
 
 $('.infobullefixe').live('click', function(event)

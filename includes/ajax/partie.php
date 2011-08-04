@@ -87,6 +87,7 @@ switch ( $mode )
 	
 	case "territoireInformations":
 		$Joueur 	= $_POST['Joueur'];
+		$Etat	 	= $_POST['Etat'];
 		$Territoire = $_POST['Territoire'];
 		$SousMode 	= $_POST['SousMode'];
 		
@@ -164,9 +165,9 @@ switch ( $mode )
 					$message .= "<br /><b>Militaire</b><br />Défense : " . $TerritoireDefenseTexte . " (" . $TerritoireDefense . ")";
 					$message .= "<br />Armée : ";
 					
-					$ListeArmeesLocales = "";
+					$ListeVosArmees = "";
 					$ListeArmeesAutres = "";
-					$ArmeesLocales = 0 ;
+					$VosArmees = 0 ;
 					$ArmeesAutres = 0 ;
 					$sql = "SELECT a.*, t.TerritoireNom, e.EtatNom
 						FROM Armee a, Territoire t, Etat e
@@ -182,33 +183,48 @@ switch ( $mode )
 						$ArmeeTaille	= $data['ArmeeTaille'];
 						$ArmeeType	 	= $data['ArmeeType'];
 						$ArmeeXP	 	= $data['ArmeeXP'];
+						$ArmeeLieu		= $data['ArmeeLieu'];
+						$Statut		= "Statut";
+						
 						$Localisation 	= $data['TerritoireNom'];
-						if ( $data['ArmeeTerritoire'] == $TerritoireID )
+						
+						// Cas 1 : L'armée est au joueur et vient du territoire
+						if ( $data['ArmeeTerritoire'] == $TerritoireID && $data['ArmeeEtat'] == $Etat )
 						{
-							$ArmeesLocales++;
-							$ListeArmeesLocales		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $Localisation . "</td><td><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a></td></tr>";
+							$VosArmees++;
+							$ActionTexte = ( $data['ArmeeLieu'] == $TerritoireID ) ? "<a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a>" : "";
+							$ListeVosArmees		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td><a href=\"#" . $ArmeeLieu. "\" onClick=\"TerritoireInformations(".$ArmeeLieu . ");\">" . $Localisation . "</a></td><td>" . $ActionTexte . "</td></tr>";
 						}
-						else
+						
+						// Cas 2 : l'armée est au joueur, sur un autre territoire
+						else if ( $data['ArmeeLieu'] == $TerritoireID && $data['ArmeeEtat'] == $Etat )
+						{
+							$VosArmees++;
+							$ActionTexte = ( $data['ArmeeLieu'] == $TerritoireID ) ? "<a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a>" : "";
+							$ListeVosArmees		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td><a href=\"#" . $ArmeeLieu. "\" onClick=\"TerritoireInformations(".$ArmeeLieu . ");\">" . $Localisation . "</a></td><td>" . $ActionTexte . "</td></tr>";
+						}
+						// Cas 3 : l'armée est à un joueur ennemi
+						else if ( $data['ArmeeEtat'] != $Etat )
 						{
 							$ArmeesAutres++;
-							$ListeArmeesAutres	.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $Localisation . "</td><td>" . $ArmeeEtat . "</td><td><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a></td></tr>";						
+							$ListeArmeesAutres	.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . Attribut($ArmeeEtat, "Etat", "EtatNom") . "</td><td>" . $Statut . "</td><td><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'>Actions</a></td></tr>";						
 						}
 					}
 					// Affichage texte sur les armées locales
-					if ( $ArmeesLocales == 0 )
+					if ( $VosArmees == 0 )
 					{
 						// Aucune armée n'est issue de ce territoire
 						$message .= "Aucune armée n'est issue de ce territoire";
 					}
-					else if ( $ArmeesLocales == 1 )
+					else if ( $VosArmees == 1 )
 					{
-						$ListeArmeesLocales = "<table><tr><td><b>Armée</b></td><td><b>XP</b></td><td><b>Lieu</b></td><td><b>Actions</b></td></tr>" . $ListeArmeesLocales . "</table>";
-						$message .= "Une armée est issue de ce territoire<br />" . $ListeArmeesLocales;
+						$ListeVosArmees = "<table><tr><td><b>Armée</b></td><td><b>XP</b></td><td><b>Lieu</b></td><td><b>Actions</b></td></tr>" . $ListeVosArmees . "</table>";
+						$message .= "Une armée est issue de ce territoire<br />" . $ListeVosArmees;
 					}
 					else
 					{
-						$ListeArmeesLocales = "<table><tr><td><b>Armée</b></td><td><b>XP</b></td><td><b>Lieu</b></td><td><b>Actions</b></td></tr>" . $ListeArmeesLocales . "</table>";
-						$message .= $ArmeesLocales . " armées sont issues de ce territoire<br />" . $ListeArmeesLocales;
+						$ListeVosArmees = "<table><tr><td><b>Armée</b></td><td><b>XP</b></td><td><b>Lieu</b></td><td><b>Actions</b></td></tr>" . $ListeVosArmees . "</table>";
+						$message .= $VosArmees . " armées sont issues de ce territoire<br />" . $ListeVosArmees;
 					}
 				
 					// Affichage texte sur les armées autres (ennemis ou alliées) présentes
@@ -263,8 +279,45 @@ switch ( $mode )
 		}
 	break;
 
-	case "afficherBataille" :
+	case "MaintenanceArmees" :
+		$SousMode	 = $_POST['SousMode'];
+
+		switch ( $SousMode )
+		{
+			case "tous" :
+			break;
+			
+			case "armee" :
+				$sql = "SELECT c.*, a.*
+					FROM Combattant c, Armee a
+					WHERE c.CombattantArmee = " . $data['BatailleTerritoire'] . "
+					ORDER BY CombattantProchaineAttaque ASC";
+				$req = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
+				if ( $data = mysql_fetch_array($req) )
+				{
+				}
+			break;
+		}
+		$sql = "SELECT *
+			FROM Combattant
+			WHERE Combattant = " . $data['BatailleTerritoire'] . "
+			ORDER BY CombattantProchaineAttaque ASC";
+		$req = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
+		while ( $data = mysql_fetch_array($req) )
+		{
+		}
+		
+		$sql = "SELECT *
+			FROM Armee
+			WHERE ArmeeLieu = " . $data['BatailleTerritoire'];
+		$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
+		while ( $data2 = mysql_fetch_array($req2) )
+		{
+		}
+		
+	break;
 	
+	case "afficherBataille" :
 		$Etat	 	= $_POST['Etat'];
 
 		$Bataille = FALSE;
@@ -291,7 +344,7 @@ switch ( $mode )
 			$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
 			while ( $data3 = mysql_fetch_array($req2) )
 			{
-				$ArmeeID	= $data3['CombattantArmee'];
+				$ArmeeID	= $data3['CombattantID'];
 				$Combattant[$ArmeeID] = Array("Equipe" => $data3['CombattantEquipe']);
 			}
 			
@@ -302,26 +355,69 @@ switch ( $mode )
 			while ( $data2 = mysql_fetch_array($req2) )
 			{
 				$ArmeeID = $data2['ArmeeID'];
+				$ArmeeMoralMax = $ARMEES->armee[$data2['ArmeeType']]->moral_max;
+				
 				if ( $data2['ArmeeEtat'] == $Etat ) 
 				{
+					$Affichage = '<table border="1" cellspacing="0" cellpadding="3">
+						<tr>
+							<td></td>
+						</tr>
+					</table>';
 					if ( isset($Combattant[$ArmeeID]) )
 					{
 						// L'armée est engagé
-						$Details = "CombattantArmee:" . $ArmeeID . "=";
-						$ArmeesEngagee .= $data2['ArmeeNom'] . "<a href='#desengager' onClick=\"ActionCreer('desengager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"> --></a><br />";
+						$Details = "CombattantID:" . $ArmeeID . "=";
+						$ArmeesEngagee .= '<table border="1" cellspacing="0" cellpadding="3">
+							<tr>';
+						$ArmeesEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />" . $data2['ArmeeNombre'] . " " . $data2['ArmeeType'] . "<br />" . $data2['ArmeeMoral'] . " (" . round($data2['ArmeeMoral']/$ArmeeMoralMax*100, 1) . "%)</td>";
+						$ArmeesEngagee .= "<td><a href='#desengager' onClick=\"ActionCreer('desengager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b>></b></a></td>";
+						$ArmeesEngagee .= '</tr>
+						</table>';
 					}
 					else
 					{
-						$Details = "CombattantBataille:".$BatailleID."=CombattantEtat:".$Etat."=CombattantArmee:" . $ArmeeID;
-						$ArmeesReserve .= "<a href='#engager' onClick=\"ActionCreer('engager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><-- </a>" . $data2['ArmeeNom'] . "<br />";
+						$Details = "CombattantBataille:".$BatailleID."=CombattantEtat:".$Etat."=CombattantID:" . $ArmeeID;
+						$ArmeesReserve .= '<table border="1" cellspacing="0" cellpadding="3">
+							<tr>';
+						$ArmeesReserve .= "<td><a href='#engager' onClick=\"ActionCreer('engager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b><</b></a></td>";
+						$ArmeesReserve .= "<td>" . $data2['ArmeeNom'] . "<br />" . $data2['ArmeeNombre'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $data2['ArmeeMoral'] . " (" . round($data2['ArmeeMoral']/$ArmeeMoralMax*100, 1) . "%)</td>";
+						$ArmeesReserve .= '</tr>
+						</table>';
 					}
 				}
 				else
 				{
 					if ( isset($Combattant[$ArmeeID]) )
 					{
+						$Moral = round($data2['ArmeeMoral'] / $ArmeeMoralMax*100);
+
+						if ( $Moral >= 80 )
+						{
+							$Moral = "Enragé";
+						}
+						else if ( $Moral >= 60 )
+						{
+							$Moral = "Fort";
+						}
+						else if ( $Moral >= 40 )
+						{
+							$Moral = "Bon";
+						}
+						else if ( $Moral >= 20 )
+						{
+							$Moral = "Faible";
+						}
+						else
+						{
+							$Moral = "Fuyard";
+						}
 						// L'armée est engagé
-						$ArmeesEnnemisEngagee .= $data2['ArmeeNom'] . "<br />";
+						$ArmeesEnnemisEngagee .= '<table border="1" cellspacing="0" cellpadding="3">
+							<tr>';
+						$ArmeesEnnemisEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeTaille'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $Moral . "</td>";
+						$ArmeesEnnemisEngagee .= '</tr>
+						</table>';
 					}
 					else
 					{
@@ -333,13 +429,13 @@ switch ( $mode )
 			$Batailles .= '<br />'.$data['BatailleTitre'].'<br /><table border="1" cellspacing="0" cellpadding="3">
 					<tr>
 						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Ennemis</td>
-						<td width="300" align="center" valign="top" style="border: none;">Bataille</td>
+						<td width="350" align="center" valign="top" style="border: none;">Bataille</td>
 						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Forces</td>
 					</tr>
 					<tr>
 						<td width="150" align="center" valign="top" style="border: none;">Réserve</td>
 						<td width="150" align="center" valign="top" style="border: none;">Combattants</td>
-						<td width="300" align="center" valign="top" style="border: none;"></td>
+						<td width="350" align="center" valign="top" style="border: none;"></td>
 						<td width="150" align="center" valign="top" style="border: none;">Combattants</td>
 						<td width="150" align="center" valign="top" style="border: none;">Réserve</td>
 					</tr>
@@ -347,7 +443,7 @@ switch ( $mode )
 					<tr>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisReserve . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisEngagee . '</td>
-						<td width="300" align="left" valign="top" style="border: none;"></td>
+						<td width="350" align="left" valign="top" style="border: none;"></td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEngagee . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesReserve . '</td>
 					</tr>
@@ -464,7 +560,7 @@ switch ( $mode )
 
 		$ActionID	= Action($ActionType, $ActionSourceType, $ActionSourceID, $ActionTimeDebut, $ActionTimeFin);
 
-		// On verifie que l'actiona a bien été crée
+		// On verifie que l'action a bien été crée
 		if ( is_numeric($ActionID) == false )
 		{
 			// La création de l'action a échoué : on annule tout
@@ -494,10 +590,11 @@ switch ( $mode )
 				);					
 			}
 		}
-
+		$NbEffet = 0;
 		$SiErreur = "";
 		for ( $i = 0 ; $i < count($ACTIONS->action[$ActionType]->effets) ; $i ++ )
 		{
+			$NbEffet++;
 			// On vérifie s'il y a un effet
 			if ( isset($ACTIONS->action[$ActionType]->effets[$i]->nom) )
 			{
@@ -556,7 +653,55 @@ switch ( $mode )
 							SET " . $EffetVariable . " = " . $ValeurTexte . "
 							WHERE " . $VariableDeControle . " = " . $ActionCibleID;
 						mysql_query($sql) or die('Erreur SQL #0102<br />'.$sql.'<br />'.mysql_error());
+					break;
+			
+					case "ENTREE" :
+						// On ajoute une entrée dans la BDD (une ligne)
+			
+						if ( $Details )
+						{
+							for ( $k = 0; $k < count($ACTIONS->action[$ActionType]->modal); $k ++ )
+							{
+								if ( isset($ACTIONS->action[$ActionType]->modal[$k]->verifier) )
+								{
+									// On doit vérifier que cette valeur n'existe pas dans la BDD
 
+									// 1. Quelles est cette valeur en fait ?
+									for ( $j = 0 ; $j < count($EntreeInformations) ; $j++ )
+									{
+										$Entre = $EntreeInformations[$j]["Entree"];
+										if ( $EntreeInformations[$j]["Entree"] == $ACTIONS->action[$ActionType]->modal[$k]->nom )
+										{
+											// On a trouvé la valeur renseignée par le joueur dans le champ correspondant
+											$ValeurRenseignee = $EntreeInformations[$j]["Valeur"];
+											break;
+										}
+									}
+						
+									// 2. On cherche si la valeur existe dans la BDD
+
+									$sql = "SELECT *
+										FROM " . $EffetTable . "
+										WHERE " . $Entre . " = '" . $ValeurRenseignee . "'";
+									$req = mysql_query($sql) or die('Erreur SQL # 101<br />'.$sql.'<br />'.mysql_error());
+									if ($data = mysql_fetch_array($req))
+									{
+										// La valeur existe déjà
+										$Erreur 	= true;
+										Message($Partie, $Joueur, "Erreur", "La valeur renseignée pour " . $Entre . " existe déjà", 0, "", "noire", 10);
+										break;
+									}
+								}
+							}
+						}
+						$EntreeID 		= Entree($EffetTable, $EntreeInformations);
+
+						// S'il y a une erreur, il faut supprimer les entrées déjà ajoutées à la BDD
+						if ( is_numeric($EntreeID) == false )
+						{
+							$Erreur 	= true;
+							break;
+						}
 					break;
 					
 					case "INFLUENCE" :
@@ -597,55 +742,7 @@ switch ( $mode )
 						}
 					
 					break;
-					
-					case "ENTREE" :
-						// On ajoute une entrée dans la BDD (une ligne)
-			
-						if ( $Details )
-						{
-							for ( $i = 0; $i < count($ACTIONS->action[$ActionType]->modal); $i ++ )
-							{
-								if ( isset($ACTIONS->action[$ActionType]->modal[$i]->verifier) )
-								{
-									// On doit vérifier que cette valeur n'existe pas dans la BDD
-
-									// 1. Quelles est cette valeur en fait ?
-									for ( $j = 0 ; $j < count($EntreeInformations) ; $j++ )
-									{
-										$Entre = $EntreeInformations[$j]["Entree"];
-										if ( $EntreeInformations[$j]["Entree"] == $ACTIONS->action[$ActionType]->modal[$i]->nom )
-										{
-											// On a trouvé la valeur renseignée par le joueur dans le champ correspondant
-											$ValeurRenseignee = $EntreeInformations[$j]["Valeur"];
-											break;
-										}
-									}
-						
-									// 2. On cherche si la valeur existe dans la BDD
-
-									$sql = "SELECT *
-										FROM " . $EffetTable . "
-										WHERE " . $Entre . " = '" . $ValeurRenseignee . "'";
-									$req = mysql_query($sql) or die('Erreur SQL # 101<br />'.$sql.'<br />'.mysql_error());
-									if ($data = mysql_fetch_array($req))
-									{
-										// La valeur existe déjà
-										$Erreur 	= true;
-										Message($Partie, $Joueur, "Erreur", "La valeur renseignée pour " . $Entre . " existe déjà", 0, "", "noire", 10);
-										break;
-									}
-								}
-							}
-						}
-						$EntreeID 		= Entree($EffetTable, $EntreeInformations);
-
-						// S'il y a une erreur, il faut supprimer les entrées déjà ajoutées à la BDD
-						if ( is_numeric($EntreeID) == false )
-						{
-							$Erreur 	= true;
-							break;
-						}
-					break;
+				
 					// fin du Switch
 				}
 			}
@@ -653,7 +750,7 @@ switch ( $mode )
 			{
 				break;
 			}
-		}
+		} // Fin du For
 
 		
 		// On réalise l'effet s'il n'y a pas d'erreur
@@ -664,7 +761,7 @@ switch ( $mode )
 				// On transmet les ressources au joueur
 				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
 			}
-			Message($Partie, $Joueur, "Nouvelle Action", $ActionNom, 0, "", "noire", 10);
+			Message($Partie, $Joueur, "Nouvelle Action : " . $NbEffet, $ActionNom, 0, "", "noire", 10);
 		}
 		else
 		{
