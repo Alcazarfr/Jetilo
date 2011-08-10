@@ -317,6 +317,92 @@ switch ( $mode )
 		
 	break;
 	
+	case "ArmeeAttaquer" :
+		$Etat	 	= $_POST['Etat'];
+		$Joueur	 	= $_POST['Joueur'];
+		$Armee	 	= $_POST['Armee'];
+
+		// Info sur l'armée qui a attaqué
+		
+		$sql = "SELECT c.*, a.*
+			FROM Combattant c, Armee a
+			WHERE c.CombattantID = " . $Armee . "
+				AND a.ArmeeID = c.CombattantID";
+		$req = mysql_query($sql) or die('Erreur SQL #106<br />'.$sql.'<br />'.mysql_error());
+		$data = mysql_fetch_array($req);
+		
+		$ArmeeType 		= $data['ArmeeType'];
+		$ArmeeEquipe 	= $data['CombattantEquipe'];
+		$ArmeeForce 	= $ARMEES->armee[$ArmeeType]->force;
+		$ArmeeVariation = $ARMEES->armee[$ArmeeType]->variation;
+		$ArmeeBataille 	= $data['CombattantBataille'];
+		
+		$DeAttaque = mt_rand(0, 10);
+		
+		$Degats		= $ArmeeForce * ($DeAttaque / $ArmeeForce);
+		$DegatsMin	= $Degats - $Degats*$ArmeeVariation;
+		$DegatsMax	= $Degats + $Degats*$ArmeeVariation;
+		$Degats		= mt_rand($DegatsMin, $DegatsMax);
+		
+		// Sélection des armées ciblées en priorité par l'Etat de l'armée qui attaque
+		$NombreDeCible = 0;
+		$Cibles = Array();
+		$sql = "SELECT cc.*, c.*, a.*
+			FROM CombattantCible cc, Combattant c, Armee a
+			WHERE cc.CombattantCibleEtat = " . $Etat . " 
+				AND c.CombattantID = cc.CombattantCibleArmee
+				AND c.CombattantBataille = " . $ArmeeBataille . "
+				AND a.ArmeeID = c.CombattantID";
+		$req = mysql_query($sql) or die('Erreur SQL #107<br />'.$sql.'<br />'.mysql_error());
+		while ( $data = mysql_fetch_array($req) )
+		{
+			$NombreDeCible++;
+			$Cibles[$NombreDeCible] = $data['ArmeeNom'];
+		}
+		
+		if ( $NombreDeCible == 0 )
+		{
+			// Aucune cible n'a été désigné. On va donc attaquer les armées ennemies et répartir l'attaque sur une ou plusieurs armées
+			
+			$sql = "SELECT c.*, a.*
+				FROM Combattant c, Armee a
+				WHERE c.CombattantBataille = " . $ArmeeBataille . "
+					AND c.CombattantEquipe != " . $ArmeeEquipe . "
+					AND a.ArmeeID = c.CombattantID";
+			$req = mysql_query($sql) or die('Erreur SQL #108<br />'.$sql.'<br />'.mysql_error());
+			while ( $data = mysql_fetch_array($req) )
+			{
+				$NombreDeCible++;
+				$Cibles[$NombreDeCible] = $data['ArmeeNom'];
+			}	
+		}
+		
+		$DegatsParCible = round($Degats / $NombreDeCible);
+		
+		// On sélectionne les cibles
+		$CiblesInfos = "";
+		for ( $i = 1; $i <= $NombreDeCible; $i++ )
+		{
+			$CiblesInfos .= $Cibles[$i] . "-> '" . $DegatsParCible . "<br />";
+			
+			// Fonction pour 
+			// Mise à jour des armées
+			// Destruction si plus d'armées
+		}
+		
+		// COMPLETER
+		
+		$ProchaineAttaque = time() + 15;
+		$sql = "UPDATE Combattant 
+			SET CombattantProchaineAttaque = " . $ProchaineAttaque . "
+			WHERE CombattantID = " . $Armee;
+		mysql_query($sql) or die('Erreur SQL #116<br />'.$sql.'<br />'.mysql_error());
+
+		// Info sur les armées ennemis
+		Message($Partie, $Joueur, "Assaut", "Dé d'attaque : " . $DeAttaque . "<br />Dégats : " . $Degats . "[". $DegatsMin . "-". $DegatsMax."]<br />Cibles : " . $CiblesInfos, 0, "", "noire", 10);
+
+	break;
+	
 	case "afficherBataille" :
 		$Etat	 	= $_POST['Etat'];
 
@@ -327,6 +413,14 @@ switch ( $mode )
 		$ArmeesReserve = "";
 		$ArmeesEngagee = "";
 		$Combattant = Array();
+				
+		$CombattantEquipeOk = FALSE;
+		// A t'on déjà notre n° d'équipe ?
+		$CombattantEquipe = 1;
+		
+		// CombattantEquipe = L'équipe dans lequel va se retouver le futur bataillon qui s'engage
+		
+		$ArmeeID = 0;
 		
 		$sql = "SELECT *
 			FROM Bataille
@@ -340,12 +434,30 @@ switch ( $mode )
 	
 			$sql = "SELECT *
 				FROM Combattant
-				WHERE CombattantBataille = " . $data['BatailleID'];
+				WHERE CombattantBataille = " . $BatailleID;
 			$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
 			while ( $data3 = mysql_fetch_array($req2) )
 			{
 				$ArmeeID	= $data3['CombattantID'];
-				$Combattant[$ArmeeID] = Array("Equipe" => $data3['CombattantEquipe']);
+				$Combattant[$ArmeeID] = Array(
+					"Equipe" 			=> $data3['CombattantEquipe'],
+					"ProchaineAttaque" 	=> $data3['CombattantProchaineAttaque']
+				);
+				if ( $data3['CombattantEtat'] == $Etat )
+				{
+					$CombattantEquipeOk = TRUE;
+					$CombattantEquipe = $data3['CombattantEquipe'];
+				}
+			}
+			
+			if ( $CombattantEquipeOk == FALSE && $ArmeeID > 0 )
+			{
+				$sq = "SELECT MAX(CombattantEquipe) AS CombattantEquipeMax
+					FROM Combattant
+					WHERE CombattantBataille = " . $BatailleID;
+				$re = mysql_query($sq) or die('Erreur SQL #050<br />'.$sq.'<br />'.mysql_error());
+				$dat = mysql_fetch_array($re);
+				$CombattantEquipe = $dat['CombattantEquipeMax'] + 1;
 			}
 			
 			$sql = "SELECT *
@@ -368,16 +480,27 @@ switch ( $mode )
 					{
 						// L'armée est engagé
 						$Details = "CombattantID:" . $ArmeeID . "=";
+
+						$EcartComplet 	= 15;
+						$EcartExistant 	=  time() - $Combattant[$ArmeeID]['ProchaineAttaque'];
+						$TempsEcoule	= $EcartComplet + $EcartExistant;
+							
+						$AttaqueCoefficient = round(100*$TempsEcoule/$EcartComplet);
+						$AttaqueCoefficient = $AttaqueCoefficient > 300 ? 300 . " %" : $AttaqueCoefficient . " %";
+
 						$ArmeesEngagee .= '<table border="1" cellspacing="0" cellpadding="3">
 							<tr>';
 						$ArmeesEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />" . $data2['ArmeeNombre'] . " " . $data2['ArmeeType'] . "<br />" . $data2['ArmeeMoral'] . " (" . round($data2['ArmeeMoral']/$ArmeeMoralMax*100, 1) . "%)</td>";
+						$ArmeesEngagee .= "<td><a href='#attaque' onClick=\"ArmeeAttaquer(".$ArmeeID.")\"><b>Attaquer</b></a> : Coefficient = " . $AttaqueCoefficient . "</td>";
 						$ArmeesEngagee .= "<td><a href='#desengager' onClick=\"ActionCreer('desengager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b>></b></a></td>";
 						$ArmeesEngagee .= '</tr>
 						</table>';
 					}
 					else
 					{
-						$Details = "CombattantBataille:".$BatailleID."=CombattantEtat:".$Etat."=CombattantID:" . $ArmeeID;
+						$ProchaineAttaque = time() + 15;
+						$CombattantEquipe = 
+						$Details 	= "CombattantBataille:".$BatailleID."=CombattantEtat:".$Etat."=CombattantID:" . $ArmeeID . "=CombattantProchaineAttaque:". $ProchaineAttaque ."=CombattantEquipe:" . $CombattantEquipe;
 						$ArmeesReserve .= '<table border="1" cellspacing="0" cellpadding="3">
 							<tr>';
 						$ArmeesReserve .= "<td><a href='#engager' onClick=\"ActionCreer('engager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b><</b></a></td>";
@@ -412,10 +535,28 @@ switch ( $mode )
 						{
 							$Moral = "Fuyard";
 						}
+						
+						$s = "SELECT *
+							FROM CombattantCible
+							WHERE CombattantCibleEtat = " . $Etat . "
+								AND CombattantCibleArmee = " . $ArmeeID;
+						$r = mysql_query($s) or die('Erreur SQL #050<br />'.$s.'<br />'.mysql_error());
+						if ( $da = mysql_fetch_array($r) )
+						{
+							// Cette armée est ciblée
+							$Details = "CombattantCibleArmee:".$ArmeeID."=CombattantCibleEtat:".$Etat;
+							$Cible = "<a href='#decibler' onClick=\"ActionCreer('decibler-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\">Décibler</a></td>";
+						}
+						else
+						{
+							// Cette armée n'est pas ciblée
+							$Details = "CombattantCibleArmee:".$ArmeeID."=CombattantCibleEtat:".$Etat;
+							$Cible = "<a href='#cibler' onClick=\"ActionCreer('cibler-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\">Cibler</a></td>";						
+						}
 						// L'armée est engagé
 						$ArmeesEnnemisEngagee .= '<table border="1" cellspacing="0" cellpadding="3">
 							<tr>';
-						$ArmeesEnnemisEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeTaille'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $Moral . "</td>";
+						$ArmeesEnnemisEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeTaille'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $Moral . "<br />".$Cible."</td>";
 						$ArmeesEnnemisEngagee .= '</tr>
 						</table>';
 					}

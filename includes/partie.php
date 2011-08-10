@@ -63,6 +63,24 @@ function EtatInformations(EtatID)
 	);
 }
 
+/* Affichage des infos sur un Etat */
+function ArmeeAttaquer(ArmeeID)
+{
+	var PartieID 	= $('#Partie').val();
+	var EtatID 		= $('#Etat').val();
+	var JoueurID 	= $('#Joueur').val();
+	
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=ArmeeAttaquer&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID+"&Armee="+ArmeeID
+	}
+	);
+	setTimeout("AfficherBataille(false)",500);
+	setTimeout("MessageLire(false)",500);
+}
+
 /* Affichage des infos sur un territoire */
 function TerritoireInformations(TerritoireID)
 {

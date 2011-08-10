@@ -480,6 +480,17 @@
 				<type>text</type>
 				<valeur>CombattantID</valeur>
 			</champ>
+			<champ>
+				<nom>CombattantEquipe</nom>
+				<type>text</type>
+				<valeur>CombattantEquipe</valeur>
+			</champ>
+			<champ>
+				<nom>CombattantProchaineAttaque</nom>
+				<texte>Prochaine Attaque</texte>
+				<type>text</type>
+				<valeur>CombattantProchaineAttaque</valeur>
+			</champ>
 		</modal>
 		<effets type="liste">
 			<effet>
@@ -488,16 +499,6 @@
 				<delai>25</delai>
 				<duree>illimité</duree>
 				<table_concernee>Combattant</table_concernee>
-			</effet>
-			<effet>
-				<type>UPDATE</type>
-				<nom>ProchaineAttaque</nom>
-				<delai>0</delai>
-				<duree>illimité</duree>
-				<table_concernee>Combattant</table_concernee>
-				<variable_concernee>CombattantProchaineAttaque</variable_concernee>
-				<type_effet>ADDITION</type_effet>
-				<valeur>10</valeur>
 			</effet>
 		</effets>
 	</action>
@@ -512,12 +513,13 @@
 		<couts>
 			<EtatPointMilitaire>1</EtatPointMilitaire>
 		</couts>
+		<modal type="liste">
 			<champ>
 				<nom>CombattantID</nom>
 				<type>hidden</type>
 				<valeur>CombattantID</valeur>
 			</champ>
-
+		</modal>
 		<effets type="liste">
 			<effet>
 				<type>DELETE</type>
@@ -525,6 +527,61 @@
 				<delai>25</delai>
 				<duree>illimité</duree>
 				<table_concernee>Combattant</table_concernee>
+			</effet>
+		</effets>
+	</action>	
+
+	<action id="cibler-armee">
+		<nom>Cibler une armée ennemie</nom>
+		<description>Cette armée sera attaquée en priorité sur le champ de bataille</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>illimité</duree>
+		<modal type="liste">
+			<champ>
+				<nom>CombattantCibleEtat</nom>
+				<type>text</type>
+				<valeur>CombattantCibleEtat</valeur>
+			</champ>
+			<champ>
+				<nom>CombattantCibleArmee</nom>
+				<type>text</type>
+				<valeur>CombattantCibleArmee</valeur>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>ENTREE</type>
+				<nom>Cibler Armée</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>CombattantCible</table_concernee>
+			</effet>
+		</effets>
+	</action>
+
+	<action id="decibler-armee">
+		<nom>Annuler le ciblage d'une armée ennemie</nom>
+		<description>Cette armée ne sera plus attaquée en priorité sur le champ de bataille</description>
+		<type_cible>Armee</type_cible>
+		<type_source>Etat</type_source>
+		<delai>0</delai>
+		<duree>illimité</duree>
+		<modal type="liste">
+			<champ>
+				<nom>CombattantCibleArmee</nom>
+				<type>text</type>
+				<valeur>CombattantCibleArmee</valeur>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>DELETE</type>
+				<nom>Décibler</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>CombattantCible</table_concernee>
 			</effet>
 		</effets>
 	</action>	

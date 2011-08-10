@@ -899,6 +899,9 @@ function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 	
 	switch ( $Type )
 	{
+		case "TimeProchaineAttaque":
+			$Champ 			= "<input type='hidden' name='" . $Type . "' id='" . $Type . "' value='" . time() . "'>";
+		break;
 		case "BatailleTerritoire":
 			$TerritoireID	=	Attribut($Infos, "Armee", "ArmeeLieu");
 			$TerritoireNom	=	Attribut($TerritoireID, "Territoire", "TerritoireNom");
