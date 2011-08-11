@@ -914,6 +914,13 @@ function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 			$EtatID			=	Attribut($TerritoireID, "Territoire", "TerritoireEtat");
 			$Champ 			= "<input type='hidden' name='" . $Type . "' id='" . $Type . "' value='" . $EtatID . "'>";
 		break;
+		case "ArmeeNombre":
+			$Champ = "<select name='" . $Type . "' id='" . $Type . "'>
+			<option value='100'>100</option>
+			<option value='150'>150</option>
+			<option value='200'>200</option>
+			</select>";
+		break;
 		case "ArmeeTaille":
 			$Champ = "<select name='" . $Type . "' id='" . $Type . "'>
 			<option value='100'>100</option>
@@ -957,6 +964,49 @@ function RemplacerValeur($ValeurCherchee, $Etat, $Joueur, $Territoire)
 		break;
 	}
 }
+
+function ArmeeDegats($ArmeeID, $ArmeeNom, $ArmeeNombre, $ArmeeArmure, $Degats)
+{
+	// Armure
+	$DegatsAbsorbes = mt_rand(0, $ArmeeArmure);
+	$Degats -= $DegatsAbsorbes;
+	$texte = "";
+	
+	if ( $Degats >= $ArmeeNombre )
+	{
+		// Suppression de l'armée et de la cible, si elle existe de la BDD
+		$Donnees = "ArmeeID = " . $ArmeeID;
+		Supprimer("Armee", $Donnees);
+		
+		$Donnees = "CombattantCibleArmee = " . $ArmeeID;
+		Supprimer("CombattantCible", $Donnees);
+		
+		$TexteAleatoire = Array("détruite", "annihilée", "grave niquée", "atomisée", "réduite en poussière comme chaque homme que nous sommes", "a fait pchit");
+		$TexteDe = mt_rand(1, count($TexteAleatoire));
+		$TexteSelectionne = $TexteAleatoire[$TexteDe];
+		$texte = "<i>" . $ArmeeNom . "</i> est attaquée et " . $TexteSelectionne;
+	}
+	else
+	{
+		// Blessés ou morts ?
+		$Blesses = mt_rand($ArmeeArmure, $Degats);
+		$Morts = $Degats - $Blesses;
+		$texte = "<i>" . $ArmeeNom . "</i> est attaquée et perd " . $Degats . " hommes, dont " . $Blesses . " blessés";
+
+		$sql = "UPDATE Armee
+			SET ArmeeNombre = ArmeeNombre - " . $Degats . ", ArmeeBlesses = ArmeeBlesses + " . $Blesses . "
+				WHERE ArmeeID = " . $ArmeeID;
+		mysql_query($sql) or die('Erreur SQL #0119<br />'.$sql.'<br />'.mysql_error());
+
+		$sql = "UPDATE Combattant
+			SET CombattantMorts = CombattantMorts + " . $Morts . "
+				WHERE CombattantID = " . $ArmeeID;
+		mysql_query($sql) or die('Erreur SQL #0120<br />'.$sql.'<br />'.mysql_error());
+	}
+	
+	return $texte;
+}
+
 
 /* Supprimer permet de supprimer une ou plusieurs entrées de la BDD
 

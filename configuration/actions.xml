@@ -216,12 +216,20 @@
 				<verifier>1</verifier>
 			</champ>
 			<champ>
+				<nom>ArmeeNombre</nom>
+				<texte>Nombre de soldats</texte>
+				<taille>4</taille>
+				<type>special</type>
+				<valeur></valeur>
+			</champ>
+			<champ>
 				<nom>ArmeeTaille</nom>
 				<texte>Nombre de soldats</texte>
 				<taille>4</taille>
 				<type>special</type>
 				<valeur></valeur>
 			</champ>
+
 			<champ>
 				<nom>ArmeeType</nom>
 				<texte>Type </texte>
@@ -257,6 +265,17 @@
 				<delai>0</delai>
 				<duree>0</duree>
 				<table_concernee>Armee</table_concernee>
+			</effet>
+			<effet>
+				<type>UPDATE</type>
+				<nom>Mod armée</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeNombre</variable_concernee>
+				<type_effet>Substitution</type_effet>
+				<champ>ArmeeTaille</champ>
+				<valeur></valeur>
 			</effet>
 		</effets>
 		<couts>

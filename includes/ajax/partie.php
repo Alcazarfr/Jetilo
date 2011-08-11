@@ -357,7 +357,10 @@ switch ( $mode )
 		while ( $data = mysql_fetch_array($req) )
 		{
 			$NombreDeCible++;
-			$Cibles[$NombreDeCible] = $data['ArmeeNom'];
+			$Cibles[$NombreDeCible]['ID'] = $data['ArmeeID'];
+			$Cibles[$NombreDeCible]['Nom'] = $data['ArmeeNom'];
+			$Cibles[$NombreDeCible]['PV'] = $data['ArmeeNombre'];
+			$Cibles[$NombreDeCible]['Armure'] = $ARMEES->armee[$data['ArmeeType']]->armure;
 		}
 		
 		if ( $NombreDeCible == 0 )
@@ -373,7 +376,10 @@ switch ( $mode )
 			while ( $data = mysql_fetch_array($req) )
 			{
 				$NombreDeCible++;
-				$Cibles[$NombreDeCible] = $data['ArmeeNom'];
+				$Cibles[$NombreDeCible]['ID'] = $data['ArmeeID'];
+				$Cibles[$NombreDeCible]['Nom'] = $data['ArmeeNom'];
+				$Cibles[$NombreDeCible]['PV'] = $data['ArmeeNombre'];
+				$Cibles[$NombreDeCible]['Armure'] = $ARMEES->armee[$data['ArmeeType']]->armure;
 			}	
 		}
 		
@@ -382,12 +388,11 @@ switch ( $mode )
 		// On sélectionne les cibles
 		$CiblesInfos = "";
 		for ( $i = 1; $i <= $NombreDeCible; $i++ )
-		{
-			$CiblesInfos .= $Cibles[$i] . "-> '" . $DegatsParCible . "<br />";
-			
+		{			
 			// Fonction pour 
 			// Mise à jour des armées
 			// Destruction si plus d'armées
+			$CiblesInfos .= ArmeeDegats($Cibles[$i]['ID'], $Cibles[$i]['Nom'], $Cibles[$i]['PV'], $Cibles[$i]['Armure'], $DegatsParCible);
 		}
 		
 		// COMPLETER
@@ -556,7 +561,7 @@ switch ( $mode )
 						// L'armée est engagé
 						$ArmeesEnnemisEngagee .= '<table border="1" cellspacing="0" cellpadding="3">
 							<tr>';
-						$ArmeesEnnemisEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeTaille'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $Moral . "<br />".$Cible."</td>";
+						$ArmeesEnnemisEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeNombre'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $Moral . "<br />".$Cible."</td>";
 						$ArmeesEnnemisEngagee .= '</tr>
 						</table>';
 					}
@@ -728,7 +733,7 @@ switch ( $mode )
 				$EntreeInformations[$j] = Array(
 					"Entree" => $Entree,
 					"Valeur" => $Valeur
-				);					
+				);
 			}
 		}
 		$NbEffet = 0;
