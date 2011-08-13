@@ -971,6 +971,7 @@ function ArmeeDegats($ArmeeID, $ArmeeNom, $ArmeeNombre, $ArmeeArmure, $Degats)
 	$DegatsAbsorbes = mt_rand(0, $ArmeeArmure);
 	$Degats -= $DegatsAbsorbes;
 	$texte = "";
+	$texte .= "<br />Dégats absorbés : " . $DegatsAbsorbes . " [0, " . $ArmeeArmure . "]<br />";
 	
 	if ( $Degats >= $ArmeeNombre )
 	{
@@ -983,15 +984,16 @@ function ArmeeDegats($ArmeeID, $ArmeeNom, $ArmeeNombre, $ArmeeArmure, $Degats)
 		
 		$TexteAleatoire = Array("détruite", "annihilée", "grave niquée", "atomisée", "réduite en poussière comme chaque homme que nous sommes", "a fait pchit");
 		$TexteDe = mt_rand(1, count($TexteAleatoire));
-		$TexteSelectionne = $TexteAleatoire[$TexteDe];
-		$texte = "<i>" . $ArmeeNom . "</i> est attaquée et " . $TexteSelectionne;
+		$TexteSelectionne = isset($TexteAleatoire[$TexteDe]) ? $TexteAleatoire[$TexteDe] : "écrasée";
+		$texte .= "=> <i>" . $ArmeeNom . "</i> est attaquée et " . $TexteSelectionne;
 	}
-	else
+	else if ( $Degats > 0 )
 	{
 		// Blessés ou morts ?
-		$Blesses = mt_rand($ArmeeArmure, $Degats);
+		$Blesses = mt_rand(0, $Degats);
 		$Morts = $Degats - $Blesses;
-		$texte = "<i>" . $ArmeeNom . "</i> est attaquée et perd " . $Degats . " hommes, dont " . $Blesses . " blessés";
+		
+		$texte .= "=> <i>" . $ArmeeNom . "</i> est attaquée et perd " . $Degats . " hommes, dont " . $Blesses . " blessés";
 
 		$sql = "UPDATE Armee
 			SET ArmeeNombre = ArmeeNombre - " . $Degats . ", ArmeeBlesses = ArmeeBlesses + " . $Blesses . "
@@ -1002,6 +1004,14 @@ function ArmeeDegats($ArmeeID, $ArmeeNom, $ArmeeNombre, $ArmeeArmure, $Degats)
 			SET CombattantMorts = CombattantMorts + " . $Morts . "
 				WHERE CombattantID = " . $ArmeeID;
 		mysql_query($sql) or die('Erreur SQL #0120<br />'.$sql.'<br />'.mysql_error());
+	}
+	else
+	{
+		$TexteAleatoire = Array("Ils sont trop nuls!", "Joli coup!", "Pffff.", "Loser!", "zzZzZzZzZZzzz", "Apprenez à viser !");
+		$TexteDe = mt_rand(1, count($TexteAleatoire));
+		$TexteSelectionne = isset($TexteAleatoire[$TexteDe]) ? $TexteAleatoire[$TexteDe] : "A coté !";
+
+		$texte .= "=> <i>" . $ArmeeNom . "</i> est attaquée mais ne subit aucune perte. " . $TexteSelectionne;
 	}
 	
 	return $texte;

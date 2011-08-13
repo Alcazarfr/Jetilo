@@ -52,7 +52,7 @@ switch ( $mode )
 	case "messageLire":
 		$Joueur = $_POST['Joueur'];
 
-		$messages = LireMessages($Partie, $Joueur, time() - 120, false, false, true, false);
+		$messages = LireMessages($Partie, $Joueur, time() - 120, false, "", false, true, false);
 		
 		foreach ($messages as $data) 
 		{
@@ -330,16 +330,28 @@ switch ( $mode )
 				AND a.ArmeeID = c.CombattantID";
 		$req = mysql_query($sql) or die('Erreur SQL #106<br />'.$sql.'<br />'.mysql_error());
 		$data = mysql_fetch_array($req);
-		
+				
+
 		$ArmeeType 		= $data['ArmeeType'];
 		$ArmeeEquipe 	= $data['CombattantEquipe'];
 		$ArmeeForce 	= $ARMEES->armee[$ArmeeType]->force;
 		$ArmeeVariation = $ARMEES->armee[$ArmeeType]->variation;
 		$ArmeeBataille 	= $data['CombattantBataille'];
+		$ArmeeTaille 	= $data['ArmeeTaille'];
+		$ArmeeNombre 	= $data['ArmeeNombre'];
+		$ArmeeCoefficient	= $ArmeeNombre / $ArmeeTaille;
 		
-		$DeAttaque = mt_rand(0, 10);
+		$EcartComplet 	= 15;
+		$EcartExistant 	=  time() - $data['CombattantProchaineAttaque'];
+		$TempsEcoule	= $EcartComplet + $EcartExistant;
+							
+		$AttaqueCoefficient = round($TempsEcoule/$EcartComplet);
+		$AttaqueCoefficient = $AttaqueCoefficient > 3 ? 3 : $AttaqueCoefficient;
+		$DeAttaqueMin = 0;
+		$DeAttaqueMax = 10;
+		$DeAttaque = mt_rand($DeAttaqueMin, $DeAttaqueMax);
 		
-		$Degats		= $ArmeeForce * ($DeAttaque / $ArmeeForce);
+		$Degats		= $ArmeeForce * ($DeAttaque / $ArmeeForce) * $AttaqueCoefficient * $ArmeeCoefficient;
 		$DegatsMin	= $Degats - $Degats*$ArmeeVariation;
 		$DegatsMax	= $Degats + $Degats*$ArmeeVariation;
 		$Degats		= mt_rand($DegatsMin, $DegatsMax);
@@ -386,16 +398,15 @@ switch ( $mode )
 		$DegatsParCible = round($Degats / $NombreDeCible);
 		
 		// On sélectionne les cibles
-		$CiblesInfos = "";
+		$DegatsInfos = "";
 		for ( $i = 1; $i <= $NombreDeCible; $i++ )
 		{			
 			// Fonction pour 
 			// Mise à jour des armées
 			// Destruction si plus d'armées
-			$CiblesInfos .= ArmeeDegats($Cibles[$i]['ID'], $Cibles[$i]['Nom'], $Cibles[$i]['PV'], $Cibles[$i]['Armure'], $DegatsParCible);
+			$DegatsInfos .= ArmeeDegats($Cibles[$i]['ID'], $Cibles[$i]['Nom'], $Cibles[$i]['PV'], $Cibles[$i]['Armure'], $DegatsParCible);
 		}
 		
-		// COMPLETER
 		
 		$ProchaineAttaque = time() + 15;
 		$sql = "UPDATE Combattant 
@@ -404,7 +415,7 @@ switch ( $mode )
 		mysql_query($sql) or die('Erreur SQL #116<br />'.$sql.'<br />'.mysql_error());
 
 		// Info sur les armées ennemis
-		Message($Partie, $Joueur, "Assaut", "Dé d'attaque : " . $DeAttaque . "<br />Dégats : " . $Degats . "[". $DegatsMin . "-". $DegatsMax."]<br />Cibles : " . $CiblesInfos, 0, "", "noire", 10);
+		Message($Partie, 0, "Assaut", "Dé d'attaque : " . $DeAttaque . " [".$DeAttaqueMin."-".$DeAttaqueMax."]<br />Dégats : " . $Degats . " [". $DegatsMin . "-". $DegatsMax."]<br />Coefficients: " . $AttaqueCoefficient . " & " . $ArmeeCoefficient . $DegatsInfos, $ArmeeBataille, "", "noire", 10, "combat");
 
 	break;
 	
@@ -471,9 +482,13 @@ switch ( $mode )
 			$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
 			while ( $data2 = mysql_fetch_array($req2) )
 			{
-				$ArmeeID = $data2['ArmeeID'];
+				$ArmeeID 		= $data2['ArmeeID'];
+				$ArmeeTaille 	= $data2['ArmeeTaille'];
+				$ArmeeNombre 	= $data2['ArmeeNombre'];
+						
 				$ArmeeMoralMax = $ARMEES->armee[$data2['ArmeeType']]->moral_max;
 				
+
 				if ( $data2['ArmeeEtat'] == $Etat ) 
 				{
 					$Affichage = '<table border="1" cellspacing="0" cellpadding="3">
@@ -489,14 +504,19 @@ switch ( $mode )
 						$EcartComplet 	= 15;
 						$EcartExistant 	=  time() - $Combattant[$ArmeeID]['ProchaineAttaque'];
 						$TempsEcoule	= $EcartComplet + $EcartExistant;
-							
+
+						// Attaque de l'armée proportionnelle au nombre d'hommes encore debout
+						$ArmeeCoefficient	= 100 * $ArmeeNombre / $ArmeeTaille;
+						$ArmeeCoefficientTexte = $ArmeeCoefficient . "%";
+
+						// Attaque de l'armée proportionnelle au temps écoulé depuis la dernière attaque (100% = 15 sec, max 300%)					
 						$AttaqueCoefficient = round(100*$TempsEcoule/$EcartComplet);
-						$AttaqueCoefficient = $AttaqueCoefficient > 300 ? 300 . " %" : $AttaqueCoefficient . " %";
+						$AttaqueCoefficientTexte = $AttaqueCoefficient > 300 ? 300 . " %" : $AttaqueCoefficient . " %";
 
 						$ArmeesEngagee .= '<table border="1" cellspacing="0" cellpadding="3">
 							<tr>';
 						$ArmeesEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />" . $data2['ArmeeNombre'] . " " . $data2['ArmeeType'] . "<br />" . $data2['ArmeeMoral'] . " (" . round($data2['ArmeeMoral']/$ArmeeMoralMax*100, 1) . "%)</td>";
-						$ArmeesEngagee .= "<td><a href='#attaque' onClick=\"ArmeeAttaquer(".$ArmeeID.")\"><b>Attaquer</b></a> : Coefficient = " . $AttaqueCoefficient . "</td>";
+						$ArmeesEngagee .= $AttaqueCoefficient >= 100 ? "<td><a href='#attaque' onClick=\"ArmeeAttaquer(".$ArmeeID.")\"><b>Attaquer l'ennemi</b></a> : Coefficients :" . $AttaqueCoefficientTexte . "/" . $ArmeeCoefficientTexte ."</td>" : "<td>En préparation: Coefficient = " . $AttaqueCoefficientTexte . "</td>";
 						$ArmeesEngagee .= "<td><a href='#desengager' onClick=\"ActionCreer('desengager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b>></b></a></td>";
 						$ArmeesEngagee .= '</tr>
 						</table>';
@@ -572,6 +592,22 @@ switch ( $mode )
 				}
 			}
 
+			$TimeMin = time() - 600;
+			$messages = LireMessages($Partie, "", $TimeMin, time(), "combat", $BatailleID, false, true);
+		
+			$messagesCombat = "";
+			foreach ($messages as $dataMessage) 
+			{
+				// Modulo ?				
+				$Time 			= time() - $dataMessage['MessageTime'];
+				$Minutes		= round($Time / 60);
+	
+				$Secondes		= $Time % 60;
+				$Time			= $Minutes . "' " . $Secondes . "''";
+
+				$messagesCombat .= $Time .": " . $dataMessage['MessageTexte'] . "<br /><br />";
+			}
+			
 			$Batailles .= '<br />'.$data['BatailleTitre'].'<br /><table border="1" cellspacing="0" cellpadding="3">
 					<tr>
 						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Ennemis</td>
@@ -589,7 +625,7 @@ switch ( $mode )
 					<tr>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisReserve . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisEngagee . '</td>
-						<td width="350" align="left" valign="top" style="border: none;"></td>
+						<td width="350" align="left" valign="top" style="border: none;">' . $messagesCombat . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEngagee . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesReserve . '</td>
 					</tr>
@@ -836,12 +872,16 @@ switch ( $mode )
 										$Erreur 	= true;
 										Message($Partie, $Joueur, "Erreur", "La valeur renseignée pour " . $Entre . " existe déjà", 0, "", "noire", 10);
 										break;
+										exit;
 									}
 								}
 							}
 						}
-						$EntreeID 		= Entree($EffetTable, $EntreeInformations);
-
+						$EntreeID = "";
+						if ( $Erreur == false )
+						{
+							$EntreeID 		= Entree($EffetTable, $EntreeInformations);
+						}
 						// S'il y a une erreur, il faut supprimer les entrées déjà ajoutées à la BDD
 						if ( is_numeric($EntreeID) == false )
 						{
@@ -1117,7 +1157,7 @@ $(document).ready(function() {
 		$TimeMax 	= $_POST['TimeMax'] ? $_POST['TimeMax'] : time();
 		$Source 	= $_POST['Source'] ? "AND MessageSource = " . $_POST['Source'] : "";
 
-		$messages = LireMessages($Partie, $Joueur, $TimeMin, $TimeMax, $Source, false, true);
+		$messages = LireMessages($Partie, $Joueur, $TimeMin, $TimeMax, "", $Source, false, true);
 		
 		foreach ($messages as $data) 
 		{
