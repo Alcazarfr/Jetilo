@@ -139,13 +139,13 @@ Durée			: Durée d'affichage
  * @param unknown_type $Couleur			La Couleur, noire et rouge (si important)
  * @param unknown_type $Duree			Durée d'affichage (0 pour rester à vie, 5 pour un affichage court, 10 pour un normal, 15 pour un long)
  */
-function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Couleur, $Duree)
+function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Couleur, $Duree, $SourceType = "")
 {
 	/*$Titre = mysql_escape_string($Titre);
 	$Texte = mysql_escape_string($Texte);*/
 	
-	$sql = "INSERT INTO Message (MessagePartie, MessageDestinataire, MessageExclus, MessageTitre, MessageTexte, MessageSource, MessageTime, MessageCouleur, MessageDuree)
-		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . htmlspecialchars(addslashes($Titre)) . "', '" . htmlspecialchars(addslashes($Texte)) . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
+	$sql = "INSERT INTO Message (MessagePartie, MessageDestinataire, MessageExclus, MessageTitre, MessageTexte, MessageSourceType, MessageSource, MessageTime, MessageCouleur, MessageDuree)
+		VALUES (".$Partie.", " . $Destinataire . ", '" . $Exclus . "', '" . htmlspecialchars(addslashes($Titre)) . "', '" . htmlspecialchars(addslashes($Texte)) . "', '" . $SourceType . "', " . $Source . ", " . time() . ", '" . $Couleur . "', " . $Duree . ")";
 	mysql_query($sql) or die('Erreur SQL #29 Message<br />'.$sql.'<br />'.mysql_error());
 }
 
@@ -160,12 +160,15 @@ function Message($Partie, $Destinataire, $Titre, $Texte, $Source, $Exclus, $Coul
  * @param Booléen 	$Nouveaux	Si true, ne récupère que les messages "non lus", et les passes en "lus"
  * @param Booléen 	$Descendant	Si true, trie les messages du plus récent au plus ancien 
  */
-function LireMessages($Partie, $Joueur, $TimeMin, $TimeMax, $Source, $Nouveaux, $Descendant)
+function LireMessages($Partie, $Joueur, $TimeMin, $TimeMax, $SourceType, $Source, $Nouveaux, $Descendant)
 {
 	$tables = "Message m";
-	$conditions = "MessagePartie = " . $Partie . "
-		AND MessageDestinataire IN (0, " . $Joueur . ")";
+	$conditions = "MessagePartie = " . $Partie;
 	
+	if ( $Joueur )
+	{
+		$conditions .= " AND MessageDestinataire IN (0, " . $Joueur . ")";
+	}
 	// Filtres
 	
 	if ($TimeMin)
@@ -178,9 +181,14 @@ function LireMessages($Partie, $Joueur, $TimeMin, $TimeMax, $Source, $Nouveaux, 
 		$conditions .= " AND m.MessageTime <= " . $TimeMax;
 	}
 		
+	if ($SourceType)
+	{
+		$conditions .= " AND m.MessageSourceType = '" . $SourceType . "'";
+	}
+	
 	if ($Source)
 	{
-		$conditions .= " AND m.MessageSource = " . Source;
+		$conditions .= " AND m.MessageSource = " . $Source;
 	}
 	
 	if ($Nouveaux)
