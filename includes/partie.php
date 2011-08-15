@@ -81,6 +81,23 @@ function ArmeeAttaquer(ArmeeID)
 	setTimeout("MessageLire(false)",500);
 }
 
+/* Revendiquer une victoire */
+function RevendiquerVictoire(BatailleID)
+{
+	var EtatID 		= $('#Etat').val();
+	var PartieID 	= $('#Partie').val();
+	
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=RevendiquerVictoire&Partie="+PartieID+"&Etat="+EtatID+"&Bataille="+BatailleID
+	}
+	);
+	setTimeout("AfficherBataille(false)",500);
+	setTimeout("MessageLire(false)",500);
+}
+
 /* Affichage des infos sur un territoire */
 function TerritoireInformations(TerritoireID)
 {
@@ -405,6 +422,7 @@ $(window).load(function(){
 	EtatInformations(<?php echo $Etat ?>);
 	CarteChargement(true);
 	MessageLire(true);
+	AfficherBataille(true);
 });
 
 
