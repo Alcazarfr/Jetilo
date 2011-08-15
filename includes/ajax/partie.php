@@ -279,42 +279,38 @@ switch ( $mode )
 		}
 	break;
 
-	case "MaintenanceArmees" :
-		$SousMode	 = $_POST['SousMode'];
+	case "RevendiquerVictoire" :
+		$Etat	 	= $_POST['Etat'];
+		$Bataille	= $_POST['Bataille'];
+		$Partie		= $_POST['Partie'];
+		$BatailleNom 	= Attribut($Bataille, "Bataille", "BatailleTitre");
 
-		switch ( $SousMode )
-		{
-			case "tous" :
-			break;
-			
-			case "armee" :
-				$sql = "SELECT c.*, a.*
-					FROM Combattant c, Armee a
-					WHERE c.CombattantArmee = " . $data['BatailleTerritoire'] . "
-					ORDER BY CombattantProchaineAttaque ASC";
-				$req = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
-				if ( $data = mysql_fetch_array($req) )
-				{
-				}
-			break;
-		}
-		$sql = "SELECT *
+		$sql = "SELECT CombattantEquipe
 			FROM Combattant
-			WHERE Combattant = " . $data['BatailleTerritoire'] . "
-			ORDER BY CombattantProchaineAttaque ASC";
-		$req = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
-		while ( $data = mysql_fetch_array($req) )
-		{
-		}
+			WHERE CombattantEtat = " . $Etat . "
+				AND CombattantBataille = " . $Bataille;
+		$req = mysql_query($sql) or die('Erreur SQL #116<br />'.$sql.'<br />'.mysql_error());
+		$data = mysql_fetch_array($req);
+		$Equipe = $data['CombattantEquipe'];
 		
-		$sql = "SELECT *
-			FROM Armee
-			WHERE ArmeeLieu = " . $data['BatailleTerritoire'];
-		$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
-		while ( $data2 = mysql_fetch_array($req2) )
+		$sql = "SELECT CombattantEtat
+			FROM Combattant
+			WHERE CombattantBataille = " . $Bataille . "
+				AND CombattantEquipe != " . $Equipe;
+		$req = mysql_query($sql) or die('Erreur SQL #117<br />'.$sql.'<br />'.mysql_error());
+		if ( $data = mysql_fetch_array($req) )
 		{
+			// Il y a des armées en face...
+			Message($Partie, 0, "Revendiquer la victoire", "La bataille " . $BatailleNom . " est toujours en cours", $Etat, "", "noire", 10);			
 		}
-		
+		else
+		{
+			$EtatNom 		= Attribut($Etat, "Etat", "EtatNom");
+			Supprimer("Bataille", "BatailleID = " . $Bataille);
+			Supprimer("Combattant", "CombattantBataille = " . $Bataille);
+			// Plus aucun ennemi
+			Message($Partie, 0, "Victoire", $EtatNom . " a remporté la bataille " . $BatailleNom,  $Etat, "", "noire", 10);
+		}
 	break;
 	
 	case "ArmeeAttaquer" :
@@ -499,7 +495,7 @@ switch ( $mode )
 					if ( isset($Combattant[$ArmeeID]) )
 					{
 						// L'armée est engagé
-						$Details = "CombattantID:" . $ArmeeID . "=";
+						$Details = "CombattantID:" . $ArmeeID . "=CombattantCibleArmee:" . $ArmeeID . "=";
 
 						$EcartComplet 	= 15;
 						$EcartExistant 	=  time() - $Combattant[$ArmeeID]['ProchaineAttaque'];
@@ -519,7 +515,7 @@ switch ( $mode )
 						$ArmeesEngagee .= $AttaqueCoefficient >= 100 ? "<td><a href='#attaque' onClick=\"ArmeeAttaquer(".$ArmeeID.")\"><b>Attaquer l'ennemi</b></a> : Coefficients :" . $AttaqueCoefficientTexte . "/" . $ArmeeCoefficientTexte ."</td>" : "<td>En préparation: Coefficient = " . $AttaqueCoefficientTexte . "</td>";
 						$ArmeesEngagee .= "<td><a href='#desengager' onClick=\"ActionCreer('desengager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b>></b></a></td>";
 						$ArmeesEngagee .= '</tr>
-						</table>';
+						</table><br />';
 					}
 					else
 					{
@@ -531,7 +527,7 @@ switch ( $mode )
 						$ArmeesReserve .= "<td><a href='#engager' onClick=\"ActionCreer('engager-armee', " . $Etat . ", ".$ArmeeID.", '" . $Details . "')\"><b><</b></a></td>";
 						$ArmeesReserve .= "<td>" . $data2['ArmeeNom'] . "<br />" . $data2['ArmeeNombre'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $data2['ArmeeMoral'] . " (" . round($data2['ArmeeMoral']/$ArmeeMoralMax*100, 1) . "%)</td>";
 						$ArmeesReserve .= '</tr>
-						</table>';
+						</table><br />';
 					}
 				}
 				else
@@ -583,18 +579,22 @@ switch ( $mode )
 							<tr>';
 						$ArmeesEnnemisEngagee .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeNombre'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "<br />" . $Moral . "<br />".$Cible."</td>";
 						$ArmeesEnnemisEngagee .= '</tr>
-						</table>';
+						</table><br />';
 					}
 					else
 					{
-						$ArmeesEnnemisReserve .= $data2['ArmeeNom'] . "<br />";
+						$ArmeesEnnemisReserve .= '<table border="1" cellspacing="0" cellpadding="3">
+							<tr>';
+						$ArmeesEnnemisReserve .= "<td>" . $data2['ArmeeNom'] . "<br />Régiment de " . $data2['ArmeeNombre'] . " " . $ARMEES->armee[$data2['ArmeeType']]->nom . "</td>";
+						$ArmeesEnnemisReserve .= '</tr>
+						</table><br />';
 					}
 				}
 			}
 
 			$TimeMin = time() - 600;
 			$messages = LireMessages($Partie, "", $TimeMin, time(), "combat", $BatailleID, false, true);
-		
+
 			$messagesCombat = "";
 			foreach ($messages as $dataMessage) 
 			{
@@ -608,7 +608,7 @@ switch ( $mode )
 				$messagesCombat .= $Time .": " . $dataMessage['MessageTexte'] . "<br /><br />";
 			}
 			
-			$Batailles .= '<br />'.$data['BatailleTitre'].'<br /><table border="1" cellspacing="0" cellpadding="3">
+			$Batailles .= '<br /><a href="javascript:void(0);" onclick="AfficherBataille(false);">MAJ</a> -> <b>'.$data['BatailleTitre'].'</b> -> <a href="#revendiquer" onClick="RevendiquerVictoire('.$BatailleID.')">Revendiquer la victoire</a><br /><br /><table border="1" cellspacing="0" cellpadding="3">
 					<tr>
 						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Ennemis</td>
 						<td width="350" align="center" valign="top" style="border: none;">Bataille</td>
@@ -625,7 +625,7 @@ switch ( $mode )
 					<tr>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisReserve . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEnnemisEngagee . '</td>
-						<td width="350" align="left" valign="top" style="border: none;">' . $messagesCombat . '</td>
+						<td width="350" align="left" valign="top" style="border: none;"><div style="height: 200px; width: 300; overflow: auto">' . $messagesCombat . '</div></td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesEngagee . '</td>
 						<td width="150" align="left" valign="top" style="border: none;">' . $ArmeesReserve . '</td>
 					</tr>
@@ -787,8 +787,8 @@ switch ( $mode )
 				{
 					case "DELETE" :
 					case "SUPPRIMER" :
-						$Variable 	= $EntreeInformations[0]["Entree"];
-						$Valeur 	= $EntreeInformations[0]["Valeur"];
+						$Variable 	= $EntreeInformations[$i]["Entree"];
+						$Valeur 	= $EntreeInformations[$i]["Valeur"];
 						$Donnees	= $Variable . "=" . $Valeur;
 						Supprimer($EffetTable, $Donnees);
 					break;

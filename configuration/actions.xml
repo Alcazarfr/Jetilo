@@ -229,7 +229,6 @@
 				<type>special</type>
 				<valeur></valeur>
 			</champ>
-
 			<champ>
 				<nom>ArmeeType</nom>
 				<texte>Type </texte>
@@ -538,14 +537,26 @@
 				<type>hidden</type>
 				<valeur>CombattantID</valeur>
 			</champ>
+			<champ>
+				<nom>CombattantCibleArmee</nom>
+				<type>hidden</type>
+				<valeur>CombattantCibleArmee</valeur>
+			</champ>
 		</modal>
 		<effets type="liste">
 			<effet>
 				<type>DELETE</type>
 				<nom>Désengager</nom>
-				<delai>25</delai>
+				<delai>0</delai>
 				<duree>illimité</duree>
 				<table_concernee>Combattant</table_concernee>
+			</effet>
+			<effet>
+				<type>DELETE</type>
+				<nom>Décibler</nom>
+				<delai>0</delai>
+				<duree>illimité</duree>
+				<table_concernee>CombattantCible</table_concernee>
 			</effet>
 		</effets>
 	</action>	

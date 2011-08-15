@@ -719,33 +719,9 @@ Return 			: FALSE s'il y a une erreur ou que la valeur n'est pas trouvée
 function Attribut($ReferenceValeur, $Type, $Attribut)
 {
 	$Requete = "";
-	switch ( $Type )
-	{
-		case "Partie" :
-			$Table 		= "Partie";
-			$Reference 	= "PartieID";
-		break;
-		case "Territoire" :
-			$Table 		= "Territoire";
-			$Reference 	= "TerritoireID";
-		break;
-		case "Region" :
-			$Table 		= "Region";
-			$Reference 	= "RegionID";
-		break;
-		case "Joueur" :
-			$Table 		= "Joueur";
-			$Reference 	= "JoueurID";
-		break;
-		case "Etat" :
-			$Table 		= "Etat";
-			$Reference 	= "EtatID";
-		break;
-		case "Armee" :
-			$Table 		= "Armee";
-			$Reference 	= "ArmeeID";
-		break;
-	}
+	$Table = $Type;
+	$Reference = $Table . "ID";
+	
 	if ( is_array($Attribut) == FALSE )
 	{
 		$Requete = $Attribut;
@@ -843,7 +819,6 @@ function Modal($ActionType, $Information, $Etat, $Joueur, $AutresInformations)
 		}
 	} while ( $Condition == TRUE );
 	
-	// Affichage des champs = A RECODER
 	$Details = '';
 	for ( $i = 0; $i < 10 ; $i++ )
 	{
@@ -978,6 +953,9 @@ function ArmeeDegats($ArmeeID, $ArmeeNom, $ArmeeNombre, $ArmeeArmure, $Degats)
 		// Suppression de l'armée et de la cible, si elle existe de la BDD
 		$Donnees = "ArmeeID = " . $ArmeeID;
 		Supprimer("Armee", $Donnees);
+
+		$Donnees = "CombattantID = " . $ArmeeID;
+		Supprimer("Combattant", $Donnees);
 		
 		$Donnees = "CombattantCibleArmee = " . $ArmeeID;
 		Supprimer("CombattantCible", $Donnees);
