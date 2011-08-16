@@ -287,6 +287,11 @@
 		<description>Larmée sélectionnée est démobilisée!</description>
 		<type_cible>Armee</type_cible>
 		<type_source>Etat</type_source>
+		<conditions type="liste">
+			<condition>
+				<nom>PasEnCombat</nom>
+			</condition>
+		</conditions>
 		<modal type="liste">
 			<champ>
 				<nom>ArmeeID</nom>
@@ -448,6 +453,11 @@
 			<EtatPointMilitaire>10</EtatPointMilitaire>
 			<EtatOr>20</EtatOr>
 		</couts>
+		<conditions type="liste">
+			<condition>
+				<nom>PasEnCombat</nom>
+			</condition>
+		</conditions>
 		<modal type="liste">
 			<champ>
 				<nom>TerritoiresVoisinsArmee</nom>
@@ -518,6 +528,15 @@
 				<duree>illimité</duree>
 				<table_concernee>Combattant</table_concernee>
 			</effet>
+			<effet>
+				<type>UPDATE</type>
+				<nom>Statut sur 1</nom>
+				<delai>0</delai>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeStatut</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>1</valeur>
+			</effet>
 		</effets>
 	</action>
 	
@@ -557,6 +576,15 @@
 				<delai>0</delai>
 				<duree>illimité</duree>
 				<table_concernee>CombattantCible</table_concernee>
+			</effet>
+			<effet>
+				<type>UPDATE</type>
+				<nom>Statut sur 1</nom>
+				<delai>0</delai>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeStatut</variable_concernee>
+				<type_effet>SUBSTITUTION</type_effet>
+				<valeur>0</valeur>
 			</effet>
 		</effets>
 	</action>	

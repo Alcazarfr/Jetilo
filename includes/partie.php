@@ -224,6 +224,23 @@ function MessageLire(Boucle)
 }
 
 /* Affichage des infos sur un territoire */
+function ActionLancer(Boucle)
+{
+	var PartieID 	= $('#Partie').val();
+	
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=ActionLancer&Partie="+PartieID
+	}
+	);
+	if ( Boucle == true )
+	{
+		setTimeout("ActionLancer(true)",50000);
+	}
+}
+/* Affichage des infos sur un territoire */
 function Population(Boucle)
 {
 	var PartieID 	= $('#Partie').val();
@@ -372,15 +389,15 @@ $('.modal').live('mouseover', function(event)
                		url: "./includes/ajax/partie.php",
                   	data: { mode: 'Modal', Partie: PartieID, Etat: EtatID, Joueur: JoueurID, ModalID: $.attr(this, 'id') },
                   	method: 'post',
-   success: function(data, status)
-   {
-      // data holds the html with the button for close the tooltip
-      this.set('content.text', data); // set ajax content to show
- 
-      // Bind your events
-      $('button', this.elements.content).click(function() { hide(); });
-      $('form', this.elements.content).submit(function() { return false; });
-   }
+   					success: function(data, status)
+  					{
+      					// data holds the html with the button for close the tooltip
+      					this.set('content.text', data); // set ajax content to show
+
+     					// Bind your events
+      					$('button', this.elements.content).click(function() { hide(); });
+      					$('form', this.elements.content).submit(function() { return false; });
+   					}
                 },
 				title: 
 				{
@@ -482,7 +499,7 @@ $(window).load(function(){
 				</td>
 			</tr>
 		</table>
-		Mises à jour manuelles : <a href="#" onClick="CarteChargement(false);">Carte</a> • <a href="javascript:void(0);" onclick="MessageLire(false);">Messages</a> • <a href="javascript:void(0);" onclick="Population(false);">Population</a> • <a href="javascript:void(0);" onclick="Production(false);">Production</a> • <a href="javascript:void(0);" onclick="AfficherBataille(false);">Bataille</a>
+		Mises à jour manuelles : <a href="#" onClick="CarteChargement(false);">Carte</a> • <a href="javascript:void(0);" onclick="MessageLire(false);">Messages</a> • <a href="javascript:void(0);" onclick="Population(false);">Population</a> • <a href="javascript:void(0);" onclick="Production(false);">Production</a> • <a href="javascript:void(0);" onclick="ActionLancer(false);">Actions</a> • <a href="javascript:void(0);" onclick="AfficherBataille(false);">Bataille</a>
 	</div>
 </div>
 <div class="postgrand">
