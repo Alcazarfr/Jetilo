@@ -129,7 +129,8 @@ switch ( $mode )
 						$message .= "<br />";
 						$message .= $TerritoireEtat ? "<a href='#Etat' class='pointille' onClick='EtatInformations(".$TerritoireEtat.")'>" . Attribut($TerritoireEtat, "Etat", "EtatNom") . "</a>" : "Terra Incognita";
 					}
-					$message .= "<br />" . $data['TerritoirePopulation'] . " habitants (".round(ChercherEffet('TERRITOIRE', $TerritoireID, "TerritoireCroissance", $data['TerritoireCroissance']),1)."%) <a href='#ActionPopulation' id='ActionPopulation=".$TerritoireID."' class='infobullefixe'>Actions</a><br /><br />";
+					$message .= ( $Etat == $TerritoireEtat ) ? "<br /><a href='#ActionPopulation' id='ActionPopulation=".$TerritoireID."' class='infobullefixe'><img src='./images/population.png'></a> " : "<br /><img src='./images/population.png'> ";
+					$message .= $data['TerritoirePopulation'] . " habitants (".round(ChercherEffet('TERRITOIRE', $TerritoireID, "TerritoireCroissance", $data['TerritoireCroissance']),1)."%)<br /><br />";
 					$message .= "<br /><br />" . TerritoireAcces($TerritoireID, "Liste");
 					
 					$TerritoireDefense 	= ChercherEffet("TERRITOIRE", $Territoire, "TerritoireDefense", $data['TerritoireDefense']);
@@ -655,16 +656,16 @@ switch ( $mode )
 		switch ( $Type )
 		{
 			case "ActionMilitaire":
-				$message .= "&bull; <a href=\"#\" id=\"creer-armee=" . $ID . "\" class=\"modal\">Créer une armée</a><br />";
-				$message .= "&bull; <a href=\"#\" id=\"renforcer-defense=" . $ID . "\" class=\"modal\">Renforcer les défenses</a><br />";
-				$message .= "&bull; <a href=\"#\" id=\"affaiblir-defense=" . $ID . "\" class=\"modal\">Affaiblir les défenses</a><br />";
+				$message .= "<a href=\"#\" id=\"creer-armee=" . $ID . "\" class=\"modal\"><img src='./images/ironsword.gif'>Créer une armée</a><br />";
+				$message .= "<br /><a href=\"#\" id=\"renforcer-defense=" . $ID . "\" class=\"modal\"><img src='./images/Castle.png'>Renforcer les défenses</a><br />";
+				$message .= "<br /><a href=\"#\" id=\"affaiblir-defense=" . $ID . "\" class=\"modal\"><img src='./images/pioche.png'>Affaiblir les défenses</a><br />";
 			break;
 
 			case "ActionArmee":
-				$message .= "&bull; <a href=\"#\" id=\"supprimer-armee=" . $ID . "\" class=\"modal\">Démobilisation</a><br />";
-				$message .= "&bull; <a href=\"#\" id=\"deplacer-armee=" . $ID . "\" class=\"modal\">Déplacement</a><br />";
-				$message .= "&bull; <a href=\"#\" id=\"entrainer-armee=" . $ID . "\" class=\"modal\">Entrainement</a><br />";
-				$message .= "&bull; <a href=\"#\" id=\"attaquer=" . $ID . "\" class=\"modal\">Attaquer</a><br />";
+				$message .= "<a href=\"#\" id=\"supprimer-armee=" . $ID . "\" class=\"modal\"><img src='./images/destroy.gif'>Démobilisation</a><br />";
+				$message .= "<br /><a href=\"#\" id=\"deplacer-armee=" . $ID . "\" class=\"modal\"><img src='./images/move.png'>Déplacement</a><br />";
+				$message .= "<br /><a href=\"#\" id=\"entrainer-armee=" . $ID . "\" class=\"modal\"><img src='./images/TrainingIcon.gif'>Entrainement</a><br />";
+				$message .= "<br /><a href=\"#\" id=\"attaquer=" . $ID . "\" class=\"modal\"><img src='./images/epee.jpeg'>Attaquer</a><br />";
 			break;
 			
 			case "ActionPopulation":
@@ -971,7 +972,33 @@ $(document).ready(function() {
 			 });
  		</script>';
 	break;
-	
+
+	case "ActionsEnCours":
+		$Etat 	= $_POST['Etat'];		
+
+		
+		$sql = "SELECT *
+			FROM Action
+			WHERE ActionEtat = " . $Etat . "
+				AND ActionTimeDebut > " . time();
+		$req = mysql_query($sql) or die('Erreur SQL #150<br />'.$sql.'<br />'.mysql_error());
+		while ( $data = mysql_fetch_array($req) )
+		{
+			$TempsRestant 	= $data['ActionTimeFin'] - time();
+			$ActionNom		= $ACTIONS->action[$data['ActionType']]->nom;
+			$ActionCible	= $ACTIONS->action[$data['ActionType']]->type_cible;
+			$message .= "
+			<tr>
+				<td width='30%'><b>" . $ActionNom . "</b></td>
+				<td width='30%'>sur " . $ActionCible ."</td>
+				<td width='40%'>" . $TempsRestant . " sec</td>
+			</tr>";
+		}
+		
+		$message = "<table cellspacing='0' cellpadding='0'>" . $message . "</table>";
+	break;
+
+
 	case "Journal":
 		
 		$Joueur 	= $_POST['Joueur'];		

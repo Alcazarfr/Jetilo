@@ -198,6 +198,29 @@ function EffetCreer(Bidon, CibleType, CibleID, SourceType, SourceID, Nom, TimeDe
 	setTimeout("MessageLire(false)",200);
 }
 
+/* Affichage des actions en cours */
+function ActionsEnCours(Boucle)
+{
+	var PartieID 	= $('#Partie').val();
+	var EtatID 		= $('#Etat').val();
+
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=ActionsEnCours&Partie="+PartieID+"&Etat="+EtatID,
+		success:
+    		function(retour){
+			$("#ActionsEnCours").empty().append(retour);
+			}
+	}
+	);
+	if ( Boucle == true )
+	{
+		setTimeout("ActionsEnCours(true)",13000);
+	}
+}
+
 /* Lecture et affichage des messages, en haut à droite */
 function MessageLire(Boucle)
 {
@@ -235,6 +258,7 @@ function ActionLancer(Boucle)
 		data: "mode=ActionLancer&Partie="+PartieID
 	}
 	);
+	setTimeout("ActionsEnCours(false)",500);
 	if ( Boucle == true )
 	{
 		setTimeout("ActionLancer(true)",50000);
@@ -509,6 +533,15 @@ $(window).load(function(){
 </div>
 <div class="postgrand">
 	<div class="entry"><h2>Journal des messages</h2>
-		<div id="Journal"></div>
+		<table width="100%">
+			<tr>
+				<td width="50%">
+					<div id="Journal"></div>
+				</td>
+				<td width="50%">				
+					<div id="ActionsEnCours"></div>
+				</td>
+			</tr>
+		</table>
 	</div>
 </div>
