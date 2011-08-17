@@ -393,12 +393,17 @@
 		<description>Votre armée attaque la ville du territoire</description>
 		<type_cible>Territoire</type_cible>
 		<type_source>Armee</type_source>
-		<delai>30</delai>
+		<delai>0</delai>
 		<duree>illimité</duree>
 		<couts>
 			<EtatPointMilitaire>1</EtatPointMilitaire>
 			<EtatOr>1</EtatOr>
 		</couts>
+		<conditions type="liste">
+			<condition>
+				<nom>PasDeCombatIci</nom>
+			</condition>
+		</conditions>
 		<modal type="liste">
 			<champ>
 				<nom>BatailleTitre</nom>
@@ -486,8 +491,9 @@
 		<description>Votre armée quitte les lignes arrières et rejoint le combat</description>
 		<type_cible>Armee</type_cible>
 		<type_source>Etat</type_source>
-		<delai>25</delai>
+		<delai>5</delai>
 		<duree>illimité</duree>
+
 		<couts>
 			<EtatPointMilitaire>1</EtatPointMilitaire>
 		</couts>

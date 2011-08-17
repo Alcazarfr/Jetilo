@@ -190,20 +190,21 @@ switch ( $mode )
 						$Statut		= "Statut";
 						
 						$Localisation 	= $data['TerritoireNom'];
+						$ActionStatut = ( $data['ArmeeStatut'] == 0 ) ? "id='ActionArmee=".$ArmeeID."' class='infobullefixe'" : "";
 						
 						// Cas 1 : L'armée est au joueur et vient du territoire
 						if ( $data['ArmeeTerritoire'] == $TerritoireID && $data['ArmeeEtat'] == $Etat )
 						{
 							$VosArmees++;
 							$LieuTexte = ( $data['ArmeeLieu'] == $TerritoireID ) ? "sur place" : "<a href=\"#" . $ArmeeLieu. "\" onClick=\"TerritoireInformations(".$ArmeeLieu . ");\">" . $Localisation . "</a>";
-							$ListeVosArmees		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $LieuTexte . "</td><td>" . $ArmeeStatut . "</td><td align='center'><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'><img src='./images/move.png'></a></td></tr>";
+							$ListeVosArmees		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $LieuTexte . "</td><td>" . $ArmeeStatut . "</td><td align='center'><a href='#ActionArmee' " . $ActionStatut . "><img src='./images/move.png'></a></td></tr>";
 						}
 						
 						// Cas 2 : l'armée est au joueur, sur un autre territoire
 						else if ( $data['ArmeeLieu'] == $TerritoireID && $data['ArmeeEtat'] == $Etat )
 						{
 							$VosArmees++;
-							$ListeVosArmees		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td>" . $ArmeeStatut . "</td><td><a href=\"#" . $ArmeeLieu. "\" onClick=\"TerritoireInformations(".$ArmeeLieu . ");\">" . $Localisation . "</a></td><td align='center'><a href='#ActionArmee' id='ActionArmee=".$ArmeeID."' class='infobullefixe'><img src='./images/move.png'></a></td></tr>";
+							$ListeVosArmees		.= "<tr><td>" . $data['ArmeeNom'] . "</td><td> " . $ArmeeXP . "</td><td><a href=\"#" . $ArmeeLieu. "\" onClick=\"TerritoireInformations(".$ArmeeLieu . ");\">" . $Localisation . "</a></td><td>" . $ArmeeStatut . "</td><td align='center'><a href='#ActionArmee' " . $ActionStatut . "><img src='./images/move.png'></a></td></tr>";
 						}
 						// Cas 3 : l'armée est à un joueur ennemi
 						else if ( $data['ArmeeEtat'] != $Etat )
@@ -289,7 +290,7 @@ switch ( $mode )
 		$Partie		= $_POST['Partie'];
 		$BatailleNom 	= Attribut($Bataille, "Bataille", "BatailleTitre");
 
-		$sql = "SELECT CombattantEquipe
+		$sql = "SELECT CombattantEquipe, CombattantBataille
 			FROM Combattant
 			WHERE CombattantEtat = " . $Etat . "
 				AND CombattantBataille = " . $Bataille;
@@ -310,8 +311,26 @@ switch ( $mode )
 		else
 		{
 			$EtatNom 		= Attribut($Etat, "Etat", "EtatNom");
+			
+			// On efface toute trace de la bataille et des combats
 			Supprimer("Bataille", "BatailleID = " . $Bataille);
+			Supprimer("CombattantCible", "CombattantCibleEtat = " . $Etat);
+						
+			$sql = "SELECT CombattantID
+				FROM Combattant
+				WHERE CombattantBataille = " . $Bataille . "
+					AND combattantEquipe = " . $Equipe;
+			$req = mysql_query($sql) or die('Erreur SQL #117<br />'.$sql.'<br />'.mysql_error());
+			while ( $data = mysql_fetch_array($req) )
+			{
+				$sql = "UPDATE Armee 
+					SET ArmeeXP = ArmeeXP + 5, ArmeeStatut = 0
+					WHERE ArmeeID = " . $data['CombattantID'];
+				mysql_query($sql) or die('Erreur SQL #116<br />'.$sql.'<br />'.mysql_error());
+			}
+
 			Supprimer("Combattant", "CombattantBataille = " . $Bataille);
+
 			// Plus aucun ennemi
 			Message($Partie, 0, "Victoire", $EtatNom . " a remporté la bataille " . $BatailleNom,  $Etat, "", "noire", 10);
 		}
@@ -340,6 +359,7 @@ switch ( $mode )
 		$ArmeeTaille 	= $data['ArmeeTaille'];
 		$ArmeeNombre 	= $data['ArmeeNombre'];
 		$ArmeeCoefficient	= $ArmeeNombre / $ArmeeTaille;
+		$ArmeeXP 		= $data['ArmeeXP'] / 20;
 		
 		$EcartComplet 	= 15;
 		$EcartExistant 	=  time() - $data['CombattantProchaineAttaque'];
@@ -352,7 +372,7 @@ switch ( $mode )
 		$DeAttaque = mt_rand($DeAttaqueMin, $DeAttaqueMax);
 		
 		$Degats		= $ArmeeForce * ($DeAttaque / $ArmeeForce) * $AttaqueCoefficient * $ArmeeCoefficient;
-		$DegatsMin	= $Degats - $Degats*$ArmeeVariation;
+		$DegatsMin	= $Degats - $Degats*($ArmeeVariation+$ArmeeXP);
 		$DegatsMax	= $Degats + $Degats*$ArmeeVariation;
 		$Degats		= mt_rand($DegatsMin, $DegatsMax);
 		
@@ -407,6 +427,12 @@ switch ( $mode )
 			$DegatsInfos .= ArmeeDegats($Cibles[$i]['ID'], $Cibles[$i]['Nom'], $Cibles[$i]['PV'], $Cibles[$i]['Armure'], $DegatsParCible);
 		}
 		
+		$ArmeeXPGagne = $Degats / 50;
+		
+		$sql = "UPDATE Armee 
+			SET ArmeeXP = ArmeeXP + " . $ArmeeXPGagne . "
+			WHERE ArmeeID = " . $Armee;
+		mysql_query($sql) or die('Erreur SQL #116<br />'.$sql.'<br />'.mysql_error());
 		
 		$ProchaineAttaque = time() + 15;
 		$sql = "UPDATE Combattant 
@@ -423,20 +449,11 @@ switch ( $mode )
 		$Etat	 	= $_POST['Etat'];
 
 		$Bataille = FALSE;
-		$Batailles = "";
-		$ArmeesEnnemisEngagee = "";
-		$ArmeesEnnemisReserve = "";
-		$ArmeesReserve = "";
-		$ArmeesEngagee = "";
-		$Combattant = Array();
-				
-		$CombattantEquipeOk = FALSE;
-		// A t'on déjà notre n° d'équipe ?
-		$CombattantEquipe = 1;
 		
 		// CombattantEquipe = L'équipe dans lequel va se retouver le futur bataillon qui s'engage
 		
 		$ArmeeID = 0;
+			$Batailles = "";
 		
 		$sql = "SELECT *
 			FROM Bataille
@@ -445,8 +462,15 @@ switch ( $mode )
 		$req = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
 		while ( $data = mysql_fetch_array($req) )
 		{
-			$BatailleID = $data['BatailleID'];
+			$BatailleID 		= $data['BatailleID'];
+			$BatailleTerritoire = $data['BatailleTerritoire'];
 			$Bataille = TRUE;
+
+			$Combattant = Array();
+				
+			$CombattantEquipeOk = FALSE;
+			// A t'on déjà notre n° d'équipe ?
+			$CombattantEquipe = 1;
 
 			$sql = "SELECT *
 				FROM Combattant
@@ -475,10 +499,15 @@ switch ( $mode )
 				$dat = mysql_fetch_array($re);
 				$CombattantEquipe = $dat['CombattantEquipeMax'] + 1;
 			}
-			
+
+			$ArmeesEnnemisEngagee = "";
+			$ArmeesEnnemisReserve = "";
+			$ArmeesReserve = "";
+			$ArmeesEngagee = "";
+				
 			$sql = "SELECT *
 				FROM Armee
-				WHERE ArmeeLieu = " . $data['BatailleTerritoire'];
+				WHERE ArmeeLieu = " . $BatailleTerritoire;
 			$req2 = mysql_query($sql) or die('Erreur SQL #050<br />'.$sql.'<br />'.mysql_error());
 			while ( $data2 = mysql_fetch_array($req2) )
 			{
@@ -488,6 +517,7 @@ switch ( $mode )
 						
 				$ArmeeMoralMax = $ARMEES->armee[$data2['ArmeeType']]->moral_max;
 				
+
 
 				if ( $data2['ArmeeEtat'] == $Etat ) 
 				{
@@ -612,7 +642,7 @@ switch ( $mode )
 				$messagesCombat .= $Time .": " . $dataMessage['MessageTexte'] . "<br /><br />";
 			}
 			
-			$Batailles .= '<br /><a href="javascript:void(0);" onclick="AfficherBataille(false);">MAJ</a> -> <b>'.$data['BatailleTitre'].'</b> -> <a href="#revendiquer" onClick="RevendiquerVictoire('.$BatailleID.')">Revendiquer la victoire</a><br /><br /><table border="1" cellspacing="0" cellpadding="3">
+			$Batailles .= '<br /><a href="javascript:void(0);" onclick="AfficherBataille(false);">MAJ</a> -> <b>'.$data['BatailleTitre'].$BatailleTerritoire.'</b> -> <a href="#revendiquer" onClick="RevendiquerVictoire('.$BatailleID.')">Revendiquer la victoire</a><br /><br /><table border="1" cellspacing="0" cellpadding="3">
 					<tr>
 						<td width="300" align="center" valign="top" style="border: none;" colspan="2">Ennemis</td>
 						<td width="350" align="center" valign="top" style="border: none;">Bataille</td>
@@ -935,14 +965,66 @@ switch ( $mode )
 			$message .= "<td align='center'>" . round($data['EtatTaxe']*$PIB/100, 1) . " pts</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
-			$message .= "<td height='30'>Points</td>";
-			$message .= "<td align='center'>" . round($data['EtatPointCivil'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['EtatPointCommerce'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['EtatPointMilitaire'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['EtatPointReligion'], 1) . " pts</td>";
-			$message .= "<td align='center'> " . round($data['EtatPopulation']*$data['EtatCroissance']/100) . " hab</td>";
+			$message .= "<td height='40'></td>";
+			$message .= "<td width='100' align='center'><b>Civil</b></td>";
+			$message .= "<td width='100' align='center'><b>Commerce</b></td>";
+			$message .= "<td width='100' align='center'><b>Militaire</b></td>";
+			$message .= "<td width='100' align='center'><b>Religion</b></td>";
+			$message .= "<td width='100' align='center'><b>Total</b></td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td align='center'>" . round($data['EtatOr'], 1) . " or</td>";
+			$message .= "<td width='100' align='center'><b>Or</b></td>";
+		$message .= "</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='30'>Offre (pts/min)</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreCivil-".$Etat."\">". $data['CommerceOffreCivil'] . "</span> pts</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreCommerce-".$Etat."\">". $data['CommerceOffreCommerce'] . "</span> pts</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreMilitaire-".$Etat."\">". $data['CommerceOffreMilitaire'] . "</span> pts</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreReligion-".$Etat."\">". $data['CommerceOffreReligion'] . "</span> pts</td>";
+			$message .= "<td align='center'> " . round($data['CommerceOffreCivil']+$data['CommerceOffreCommerce']+$data['CommerceOffreMilitaire']+$data['CommerceOffreReligion']) . "</td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>...</td>";
+		$message .= "</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='30'>Demande (pts/min)</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceDemandeCivil-".$Etat."\">". $data['CommerceDemandeCivil'] . "</span> pts</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceDemandeCommerce-".$Etat."\">". $data['CommerceDemandeCommerce'] . "</span> pts</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceDemandeMilitaire-".$Etat."\">". $data['CommerceDemandeMilitaire'] . "</span> pts</td>";
+			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceDemandeReligion-".$Etat."\">". $data['CommerceDemandeReligion'] . "</span> pts</td>";
+			$message .= "<td align='center'> " . round($data['CommerceDemandeCivil']+$data['CommerceDemandeCommerce']+$data['CommerceDemandeMilitaire']+$data['CommerceDemandeReligion']) . "</td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>...</td>";
+		$message .= "</tr>";
+		$message .= "<tr><td height='5' colspan='8'</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='30'>Exportation (pts/min)</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationCivil'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationCommerce'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationMilitaire'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationReligion'], 1) . " pts</td>";
+			$message .= "<td align='center'> " . round($data['CommerceExportationCivil']) . "</td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>...</td>";
+		$message .= "</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='30'>Importation (pts/min)</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationCivil'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationCommerce'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationMilitaire'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationReligion'], 1) . " pts</td>";
+			$message .= "<td align='center'> " . round($data['CommerceOffreCivil']) . "</td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>...</td>";
+		$message .= "</tr>";
+		$message .= "<tr><td height='5' colspan='8'</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='30'>Solde (pts/min)</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationCivil']-$data['CommerceImportationCivil'], 1)) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationCommerce']-$data['CommerceImportationCommerce'], 1)) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationMilitaire']-$data['CommerceImportationMilitaire'], 1)) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationReligion']-$data['CommerceImportationReligion'], 1)) . " pts</td>";
+			$message .= "<td align='center'> " . Couleur(round($data['CommerceExportationCivil']-$data['CommerceImportationCivil']+$data['CommerceExportationMilitaire']-$data['CommerceImportationMilitaire']+$data['CommerceExportationCommerce']-$data['CommerceImportationCommerce']+$data['CommerceExportationReligion']-$data['CommerceImportationReligion'])) . " pts</td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>...</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='40'></td>";
@@ -953,6 +1035,16 @@ switch ( $mode )
 			$message .= "<td width='100' align='center'><b>Total</b></td>";
 			$message .= "<td width='1' align='center'></td>";
 			$message .= "<td width='100' align='center'><b>Or</b></td>";
+		$message .= "</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='30'>Points</td>";
+			$message .= "<td align='center'>" . round($data['EtatPointCivil'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['EtatPointCommerce'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['EtatPointMilitaire'], 1) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['EtatPointReligion'], 1) . " pts</td>";
+			$message .= "<td align='center'> " . round($data['EtatPopulation']*$data['EtatCroissance']/100) . " hab</td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>" . round($data['EtatOr'], 1) . " or</td>";
 		$message .= "</tr>";
 		$message .= "</table>";
 		$message .= '<script type="text/javascript">
@@ -976,7 +1068,7 @@ $(document).ready(function() {
 	case "ActionsEnCours":
 		$Etat 	= $_POST['Etat'];		
 
-		
+		$message = time();
 		$sql = "SELECT *
 			FROM Action
 			WHERE ActionEtat = " . $Etat . "

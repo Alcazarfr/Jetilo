@@ -123,6 +123,7 @@ switch ( $mode )
 					echo $AncienneValeur;
 					exit;
 				}
+			default :
 				$message = TRUE;
 
 			case "EtatNom":
@@ -134,6 +135,7 @@ switch ( $mode )
 			case "EtatPointCommerce":
 			case "EtatPointMilitaire":
 			case "EtatOr":
+				$message = TRUE;
 				$sql = "UPDATE Etat
 					SET " . $Type . " = '" . $ChampValeur . "'
 						WHERE EtatID = " . $Reference;

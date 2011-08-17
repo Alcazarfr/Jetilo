@@ -97,6 +97,21 @@ Return				: ID de l'action
 */
 function ActionInserer($ActionType, $ActionSourceType, $ActionSourceID, $ActionCibleID, $ActionTimeDebut, $ActionTimeFin, $ActionDetails, $ActionPartie, $ActionJoueur, $ActionEtat)
 {
+	$sql = "SELECT *
+		FROM Action
+		WHERE ActionType = '" . $ActionType . "'
+		AND ActionSourceType = '" . $ActionSourceType . "'
+		AND ActionSourceID = " . $ActionSourceID . "
+		AND ActionCibleID = " . $ActionCibleID . "
+		AND ActionDetails = '" . $ActionDetails . "'
+		AND ActionStatut = 0
+		AND ActionEtat = " . $ActionEtat;
+	$req = mysql_query($sql) or die('Erreur SQL #051<br />'.$sql.'<br />'.mysql_error());
+	if ( $data = mysql_fetch_array($req) )
+	{
+		return false;
+	}
+
 	$sql = "INSERT INTO Action (ActionType, ActionSourceType, ActionSourceID, ActionTimeDebut, ActionTimeFin, ActionCibleID, ActionDetails, ActionPartie, ActionJoueur, ActionEtat)
 		VALUES ('" . $ActionType . "', '" . $ActionSourceType . "', " . $ActionSourceID . ", " . $ActionTimeDebut . ", " . $ActionTimeFin . ", '" . $ActionCibleID . "', '" . $ActionDetails . "', " . $ActionPartie. ", " . $ActionJoueur . ", " . $ActionEtat . ")";
 	mysql_query($sql) or die('Erreur SQL #63 Message<br />'.$sql.'<br />'.mysql_error());	
@@ -135,11 +150,13 @@ function Action($ActionType, $ActionSourceID, $ActionCibleID, $Details, $Partie,
 	}
 
 	// Création de l'action
-	$ActionNom			=	$ACTIONS->action[$ActionType]->nom;
-	$ActionTimeDebut	=	time() + $ACTIONS->action[$ActionType]->delai;
-	$ActionTimeFin		=	( $ACTIONS->action[$ActionType]->duree == "illimité" ) ?  $ActionTimeDebut + 999999 : $ActionTimeDebut + $ACTIONS->action[$ActionType]->duree;
+	$ActionNom		= $ACTIONS->action[$ActionType]->nom;
+	$ActionDelai	= $ACTIONS->action[$ActionType]->delai;
+	$ActionDuree	= $ACTIONS->action[$ActionType]->duree; 
+	$ActionDebut	= time() + $ActionDelai;
+	$ActionFin		= ( $ActionDuree == "illimité" OR $ActionDuree == 0 ) ? 0 : $ActionDebut + $ActionDuree;
 
-	$ActionID	= ActionInserer($ActionType, $ActionSourceType, $ActionSourceID, $ActionCibleID, $ActionTimeDebut, $ActionTimeFin, $Details, $Partie, $Joueur, $Etat);
+	$ActionID	= ActionInserer($ActionType, $ActionSourceType, $ActionSourceID, $ActionCibleID, $ActionDebut, $ActionFin, $Details, $Partie, $Joueur, $Etat);
 
 	// On verifie que l'action a bien été crée
 	if ( is_numeric($ActionID) == false )
@@ -224,6 +241,19 @@ function ActionProduireEffets($Partie, $Etat, $Joueur, $ActionType, $Details, $A
 						// L'armée ciblée combat...
 						$Erreur = true;
 						Message($Partie, $Joueur, "Erreur", "L'armée à déplacer est en train de combattre. Vous ne pouvez pas la dépasser", 0, "", "noire", 10);
+						exit;
+					}
+				break;
+				case "PasDeCombatIci" :
+					$sql = "SELECT BatailleID
+						FROM Bataille
+						WHERE BatailleTerritoire = " . $EntreeInformations[1]['Valeur'];
+					$req 	= mysql_query($sql) or die('Erreur SQL #136!<br />'.$sql.'<br />'.mysql_error());
+					if ( $data 	= mysql_fetch_array($req) )
+					{
+						// Le territoire est déjà en bataille
+						$Erreur = true;
+						Message($Partie, $Joueur, "Erreur", "Ce territoire connait déjà une bataille. Vous ne pouvez en créer une seconde, mais vous pouvez rejoindre cette bataille.", 0, "", "noire", 10);
 						exit;
 					}
 				break;

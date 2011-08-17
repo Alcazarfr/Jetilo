@@ -327,7 +327,7 @@ function AfficherBataille(Boucle)
 	);
 	if ( Boucle == true )
 	{
-		setTimeout("BatailleChargement(true)",20000);
+		setTimeout("AfficherBataille(true)",20000);
 	}
 }
 
