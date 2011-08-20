@@ -69,11 +69,12 @@ switch ( $mode )
 	
 	case "EtatInformations":
 		$Joueur 	= $_POST['Joueur'];
+		$EtatCible 	= $_POST['EtatCible'];
 		$Etat	 	= $_POST['Etat'];
 		
 		$sql = "SELECT *
 			FROM Etat
-			WHERE EtatID = " . $Etat;
+			WHERE EtatID = " . $EtatCible;
 		$req = mysql_query($sql) or die('Erreur SQL #038<br />'.$sql.'<br />'.mysql_error());
 		if ( $data = mysql_fetch_array($req) )
 		{
@@ -81,7 +82,10 @@ switch ( $mode )
 			$message .= Attribut($data['EtatJoueur'], "Joueur", "JoueurNom") . "<br />";
 			$message .= "<br />Territoires: " . $data['EtatTerritoires'];
 			$message .= "<br />Population: " . $data['EtatPopulation'];
-
+			if ( $EtatCible == $Etat )
+			{
+				$message .= "<br /><br /><a href=\"#\" id=\"creer-agent=" . $Etat . "\" class=\"modal\"><img src='./images/ironsword.gif'>Créer un agent</a><br />";
+			}
 		}
 	break;
 	
@@ -922,7 +926,7 @@ switch ( $mode )
 		
 		$message .= "<table>";
 		$message .= "<tr>";
-			$message .= "<td height='40'></td>";
+			$message .= "<td height='40' colspan='2'></td>";
 			$message .= "<td width='100' align='center'><b>Civil</b></td>";
 			$message .= "<td width='100' align='center'><b>Commerce</b></td>";
 			$message .= "<td width='100' align='center'><b>Militaire</b></td>";
@@ -933,6 +937,7 @@ switch ( $mode )
 			$message .= "<td width='100' align='center'><b><a class='pointille' title=\"".$TexteInfoBulle."\" id='InfoOrTitre'>Or</span></a></td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
+			$message .= "<td height='40' width='12' rowspan='3' align='center'>P<br />E<br />U<br />P<br />L<br />E</td>";
 			$message .= "<td height='30'>Répartition (%)</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-EtatPopulationCivil-".$Etat."\">". $data['EtatPopulationCivil'] . "</span> %</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-EtatPopulationCommerce-".$Etat."\">". $data['EtatPopulationCommerce'] . "</span> %</td>";
@@ -965,7 +970,7 @@ switch ( $mode )
 			$message .= "<td align='center'>" . round($data['EtatTaxe']*$PIB/100, 1) . " pts</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
-			$message .= "<td height='40'></td>";
+			$message .= "<td height='40' colspan='2'></td>";
 			$message .= "<td width='100' align='center'><b>Civil</b></td>";
 			$message .= "<td width='100' align='center'><b>Commerce</b></td>";
 			$message .= "<td width='100' align='center'><b>Militaire</b></td>";
@@ -975,6 +980,7 @@ switch ( $mode )
 			$message .= "<td width='100' align='center'><b>Or</b></td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
+			$message .= "<td height='40' width='12' rowspan='7' align='center'>C<br />O<br />M<br />M<br />E<br />R<br />C<br />E</td>";
 			$message .= "<td height='30'>Offre (pts/min)</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreCivil-".$Etat."\">". $data['CommerceOffreCivil'] . "</span> pts</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreCommerce-".$Etat."\">". $data['CommerceOffreCommerce'] . "</span> pts</td>";
@@ -1027,7 +1033,7 @@ switch ( $mode )
 			$message .= "<td align='center'>...</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
-			$message .= "<td height='40'></td>";
+			$message .= "<td height='40' colspan='2'></td>";
 			$message .= "<td width='100' align='center'><b>Civil</b></td>";
 			$message .= "<td width='100' align='center'><b>Commerce</b></td>";
 			$message .= "<td width='100' align='center'><b>Militaire</b></td>";
@@ -1037,6 +1043,7 @@ switch ( $mode )
 			$message .= "<td width='100' align='center'><b>Or</b></td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
+			$message .= "<td height='40'></td>";
 			$message .= "<td height='30'>Points</td>";
 			$message .= "<td align='center'>" . round($data['EtatPointCivil'], 1) . " pts</td>";
 			$message .= "<td align='center'>" . round($data['EtatPointCommerce'], 1) . " pts</td>";
@@ -1048,7 +1055,6 @@ switch ( $mode )
 		$message .= "</tr>";
 		$message .= "</table>";
 		$message .= '<script type="text/javascript">
-
 				$(function () {
 						$("#Next").countdown({until: +60,layout: "{sn} {sl}"});
 					});
@@ -1065,6 +1071,161 @@ $(document).ready(function() {
  		</script>';
 	break;
 
+	case "Commercer":
+		$sql = "SELECT *
+			FROM CommerceTaux
+			WHERE CommercePartie = " . $Partie . "
+				ORDER BY CommerceTime DESC LIMIT 1";
+		$req = mysql_query($sql) or die('Erreur SQL #150<br />'.$sql.'<br />'.mysql_error());
+		if ( $data = mysql_fetch_array($req) )
+		{
+			$PartieTauxProchain = $data['CommerceTime'] + 60;
+			$Prix['Civil'] 		= $data['CommerceCivil'];
+			$Prix['Commerce'] 	= $data['CommerceCommerce'];
+			$Prix['Militaire'] 	= $data['CommerceMilitaire'];
+			$Prix['Religion'] 	= $data['CommerceReligion'];
+		}
+		else
+		{
+			// Première utilisation
+			$PartieTauxProchain = time() - 60;
+			$Prix['Civil'] 		= 10;
+			$Prix['Commerce'] 	= 10;
+			$Prix['Militaire'] 	= 10;
+			$Prix['Religion'] 	= 10;
+		}
+	
+		if ( time() < $PartieTauxProchain )
+		{
+			// Il y a commerce et changement de taux toutes les 2 minutes
+			return false;
+		}
+		
+		$Offre 		= Array(
+			"Civil" => 0, 
+			"Commerce" => 0, 
+			"Militaire" => 0, 
+			"Religion" => 0);
+		
+		$Demande 	= Array(
+			"Civil" => 0, 
+			"Commerce" => 0, 
+			"Militaire" => 0, 
+			"Religion" => 0);
+			
+		$Variation 	= Array(
+			"Civil" => 0, 
+			"Commerce" => 0, 
+			"Militaire" => 0, 
+			"Religion" => 0);
+
+		$NombreOffrant	= Array(
+			"Civil" => 0, 
+			"Commerce" => 0, 
+			"Militaire" => 0, 
+			"Religion" => 0);
+			
+		$Offrant	= Array(
+			"Civil" => "", 
+			"Commerce" => "", 
+			"Militaire" => "", 
+			"Religion" => "");
+
+		$Exportation	= Array(
+			"Civil" => "", 
+			"Commerce" => "", 
+			"Militaire" => "", 
+			"Religion" => "");
+
+
+		$NombreDemandeur	= Array(
+			"Civil" => 0, 
+			"Commerce" => 0, 
+			"Militaire" => 0, 
+			"Religion" => 0);
+
+		$Demandeur	= Array(
+			"Civil" => "", 
+			"Commerce" => "", 
+			"Militaire" => "", 
+			"Religion" => "");
+
+		$Importation	= Array(
+			"Civil" => "", 
+			"Commerce" => "", 
+			"Militaire" => "", 
+			"Religion" => "");
+
+		$Allocation	= Array(
+			"Civil" => "", 
+			"Commerce" => "", 
+			"Militaire" => "", 
+			"Religion" => "");
+
+		$sql = "SELECT CommerceOffreCivil, CommerceOffreCommerce, CommerceOffreMilitaire, CommerceOffreReligion, CommerceDemandeCivil, CommerceDemandeCommerce, CommerceDemandeMilitaire, CommerceDemandeReligion
+			FROM Etat
+			WHERE EtatPartie = " . $Partie;
+		$req = mysql_query($sql) or die('Erreur SQL #134<br />'.$sql.'<br />'.mysql_error());
+		while ( $data = mysql_fetch_array($req) )
+		{
+			$Etat = $data['EtatID'];
+			$Offre['Civil'] 	+= $data['CommerceOffreCivil'];
+			$Offre['Commerce'] 	+= $data['CommerceOffreCommerce'];
+			$Offre['Militaire'] += $data['CommerceOffreMilitaire'];
+			$Offre['Religion'] 	+= $data['CommerceOffreReligion'];
+			
+			if ( $data['CommerceOffreCivil'] > 0 )
+			{
+				$Nombre = $NombreOffrant['Civil']++;
+				@$Offrant['Civil'][$Nombre] = Array(
+					"Etat" => $Etat,
+					"Valeur" => $data['CommerceOffreCivil']);
+				@$Exportation['Civil'][$Etat] = 0;
+			}
+			
+			
+			if ( $data['CommerceDemandeCivil'] > 0 )
+			{
+				$Nombre = $NombreDemandeur['Civil']++;
+				@$Demandeur['Civil'][$Nombre] = Array(
+					"Etat" => $Etat,
+					"Valeur" => $data['CommerceDemandeCivil']);
+				@$Importation['Civil'][$Etat] = 0;
+			}
+			
+			$Demande['Civil'] 		+= $data['CommerceDemandeCivil'];
+			$Demande['Commerce'] 	+= $data['CommerceDemandeCommerce'];
+			$Demande['Militaire'] 	+= $data['CommerceDemandeMilitaire'];
+			$Demande['Religion'] 	+= $data['CommerceDemandeReligion'];
+		}
+		
+		$Allocation['Civil'] = CommerceAllocation("Civil", $Offrant['Civil'], $Demandeur['Civil'], $Offre['Civil'], $Demande['Civil']);
+		
+		// On fait les échanges...
+		
+		
+		// On paye...
+		
+		
+		// Il faut 3 minutes pour un changement complet de taux
+		$Variation['Civil'] 	= round((DeterminerVariationTaux($Offre['Civil'] , $Demande['Civil']) / 10), 2); 
+		$Variation['Commerce'] 	= round((DeterminerVariationTaux($Offre['Commerce'] , $Demande['Commerce']) / 10), 2); 
+		$Variation['Militaire'] = round((DeterminerVariationTaux($Offre['Militaire'] , $Demande['Militaire']) / 10), 2); 
+		$Variation['Religion'] 	= round((DeterminerVariationTaux($Offre['Religion'] , $Demande['Religion']) / 10), 2); 
+		
+		$Prix['Civil'] 		+= round($Prix['Civil'] * $Variation['Civil'],2);
+		$Prix['Commerce'] 	+= round($Prix['Commerce'] * $Variation['Commerce'],2);
+		$Prix['Militaire'] 	+= round($Prix['Militaire'] * $Variation['Militaire'],2);
+		$Prix['Religion'] 	+= round($Prix['Religion'] * $Variation['Religion'],2);
+		
+		$sql = "INSERT INTO CommerceTaux (CommercePartie, CommerceCivil, CommerceCommerce, CommerceMilitaire, CommerceReligion, CommerceTime)
+			VALUES (" . $Partie . ", " . $Prix['Civil'] . ", " . $Prix['Commerce'] . ", " . $Prix['Militaire'] . ", " . $Prix['Religion'] . ", " . time() . ")";
+		mysql_query($sql) or die('Erreur SQL #157 Commerce<br />'.$sql.'<br />'.mysql_error());	
+
+		Message($Partie, 0, "Commerce - Taux", "De nouveaux taux ont été fixés:<br />- Civil : " . $Prix['Civil'] . "(".$Variation['Civil'].")<br />- Commerce : " . $Prix['Commerce'] . "(".$Variation['Commerce'].")<br />- Militaire : " . $Prix['Militaire'] . "(".$Variation['Militaire'].")<br />- Religion : " . $Prix['Religion'] . "(".$Variation['Religion'].")", 0, "", "noire", 10);			
+		
+	break;
+	
 	case "ActionsEnCours":
 		$Etat 	= $_POST['Etat'];		
 

@@ -98,6 +98,13 @@ switch ( $mode )
 				$Total			= $Recherche["EtatPopulationCivil"] + $Recherche["EtatPopulationMilitaire"] + $Recherche["EtatPopulationCommerce"] + $Recherche["EtatPopulationReligion"] - $AncienneValeur + $ChampValeur;
 
 			case "EtatTaxe":
+			
+				if ( $ChampValeur < 0 OR is_numeric($ChampValeur) == false )
+				{
+					$message = O;
+					break;
+				}
+				
 				$Variation = $Variation ? $Variation : 1;
 				if ( $Total	> 100 )
 				{
@@ -125,16 +132,26 @@ switch ( $mode )
 				}
 			default :
 				$message = TRUE;
-
-			case "EtatNom":
-			case "EtatCouleur":
-			case "EtatPopulation":
-			case "EtatCroissance":
+				if ( $ChampValeur < 0 OR is_numeric($ChampValeur) == false )
+				{
+					$message = O;
+					break;
+				}
 			case "EtatPointCivil":
 			case "EtatPointReligion":
 			case "EtatPointCommerce":
 			case "EtatPointMilitaire":
 			case "EtatOr":
+				if ( $ChampValeur < 0 OR is_numeric($ChampValeur) == false )
+				{
+					$message = O;
+					break;
+				}			
+			case "EtatNom":
+			case "EtatCouleur":
+			case "EtatPopulation":
+			case "EtatCroissance":
+
 				$message = TRUE;
 				$sql = "UPDATE Etat
 					SET " . $Type . " = '" . $ChampValeur . "'

@@ -45,16 +45,17 @@ function CarteChargement(Boucle)
 }
 
 /* Affichage des infos sur un Etat */
-function EtatInformations(EtatID)
+function EtatInformations(EtatCible)
 {
 	var PartieID 	= $('#Partie').val();
 	var JoueurID 	= $('#Joueur').val();
+	var EtatID 		= $('#Etat').val();
 	
 	$.ajax(
 	{
 		type: "POST",
 		url: "./includes/ajax/partie.php",
-		data: "mode=EtatInformations&Partie="+PartieID+"&Etat="+EtatID+"&Joueur="+JoueurID,
+		data: "mode=EtatInformations&Partie="+PartieID+"&Etat="+EtatID+"&EtatCible="+EtatCible+"&Joueur="+JoueurID,
 		success:
     		function(retour){
 			$("#leterritoire").empty().append(retour);
@@ -264,6 +265,26 @@ function ActionLancer(Boucle)
 		setTimeout("ActionLancer(true)",50000);
 	}
 }
+
+
+/* Affichage des infos sur un territoire */
+function Commercer(Boucle)
+{
+	var PartieID 	= $('#Partie').val();
+	
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=Commercer&Partie="+PartieID
+	}
+	);
+	if ( Boucle == true )
+	{
+		setTimeout("Commercer(true)",60000);
+	}
+}
+
 /* Affichage des infos sur un territoire */
 function Population(Boucle)
 {
@@ -419,8 +440,7 @@ $('.modal').live('mouseover', function(event)
       					this.set('content.text', data); // set ajax content to show
 
      					// Bind your events
-      					$('button', this.elements.content).click(function() { hide(); });
-      					$('form', this.elements.content).submit(function() { return false; });
+      					$('button', this.elements.content).click($.proxy(this.hide, this));
    					}
                 },
 				title: 
@@ -464,6 +484,7 @@ $(window).load(function(){
 	CarteChargement(true);
 	MessageLire(true);
 	AfficherBataille(true);
+	Commercer(true);
 });
 
 
@@ -523,7 +544,7 @@ $(window).load(function(){
 				</td>
 			</tr>
 		</table>
-		Mises à jour manuelles : <a href="#" onClick="CarteChargement(false);">Carte</a> • <a href="javascript:void(0);" onclick="MessageLire(false);">Messages</a> • <a href="javascript:void(0);" onclick="Population(false);">Population</a> • <a href="javascript:void(0);" onclick="Production(false);">Production</a> • <a href="javascript:void(0);" onclick="ActionLancer(false);">Actions</a> • <a href="javascript:void(0);" onclick="AfficherBataille(false);">Bataille</a>
+		Mises à jour manuelles : <a href="#" onClick="CarteChargement(false);">Carte</a> • <a href="javascript:void(0);" onclick="MessageLire(false);">Messages</a> • <a href="javascript:void(0);" onclick="Population(false);">Population</a> • <a href="javascript:void(0);" onclick="Production(false);">Production</a> • <a href="javascript:void(0);" onclick="ActionLancer(false);">Actions</a> • <a href="javascript:void(0);" onclick="AfficherBataille(false);">Bataille</a> • <a href="javascript:void(0);" onclick="Commercer(false);">Commercer</a>
 	</div>
 </div>
 <div class="postgrand">

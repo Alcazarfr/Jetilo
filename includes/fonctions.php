@@ -119,6 +119,39 @@ function ActionInserer($ActionType, $ActionSourceType, $ActionSourceID, $ActionC
 	return mysql_insert_id();
 }
 
+function FormaterDetails($Details)
+{
+	$Champs = explode("=", $Details);
+	$EntreeInformations = Array();
+		
+	for ( $j = 0 ; $j < count($Champs) ; $j++ )
+	{
+		// On récupère le nom du champ [0] puis sa valeur [1]
+		$Explode = explode(":", $Champs[$j]);
+		$Entree = $Explode[0];
+		$Valeur = $Explode[1];
+					
+		$EntreeInformations[$j] = Array(
+			"Entree" => $Entree,
+			"Valeur" => $Valeur
+		);
+	}
+	return $EntreeInformations;
+}
+function CoutSpecial($Type, $Details)
+{
+	$Cout = Array();
+	
+	switch ( $Type )
+	{
+		case "creer-agent" :
+			
+		break;
+	}
+	return $Cout;
+}
+
+
 function Action($ActionType, $ActionSourceID, $ActionCibleID, $Details, $Partie, $Joueur, $Etat)
 {
 	global $ACTIONS;
@@ -126,15 +159,22 @@ function Action($ActionType, $ActionSourceID, $ActionCibleID, $Details, $Partie,
 	$ActionCibleType 	= strtoupper($ACTIONS->action[$ActionType]->type_cible);
 	$ActionSourceType 	= strtoupper($ACTIONS->action[$ActionType]->type_source);
 
-	$TableauDesNomsDesCouts	= Array("EtatPointCivil", "EtatPointCommerce", "EtatPointMilitaire", "EtatPointReligion", "EtatOr"); 
-	$Cout = Array();
-		
-	for ( $i = 0; $i < count($TableauDesNomsDesCouts); $i++ )
+	if ( isset($ACTIONS->action[$ActionType]->couts->Special) )
 	{
-		$CoutPotentiel = $TableauDesNomsDesCouts[$i];
-		if ( isset($ACTIONS->action[$ActionType]->couts->$CoutPotentiel))
+		$Cout = CoutSpecial($ActionCibleType, FormaterDetails($Details));
+	}
+	else
+	{
+		$TableauDesNomsDesCouts	= Array("EtatPointCivil", "EtatPointCommerce", "EtatPointMilitaire", "EtatPointReligion", "EtatOr"); 
+		$Cout = Array();
+		
+		for ( $i = 0; $i < count($TableauDesNomsDesCouts); $i++ )
 		{
-			$Cout[$CoutPotentiel] = $ACTIONS->action[$ActionType]->couts->$CoutPotentiel;
+			$CoutPotentiel = $TableauDesNomsDesCouts[$i];
+			if ( isset($ACTIONS->action[$ActionType]->couts->$CoutPotentiel))
+			{
+				$Cout[$CoutPotentiel] = $ACTIONS->action[$ActionType]->couts->$CoutPotentiel;
+			}
 		}
 	}
 
@@ -204,21 +244,7 @@ function ActionProduireEffets($Partie, $Etat, $Joueur, $ActionType, $Details, $A
 	// On fracture champ par champs	
 	if ( $Details )
 	{
-		$Champs = explode("=", $Details);
-		$EntreeInformations = Array();
-		
-		for ( $j = 0 ; $j < count($Champs) ; $j++ )
-		{
-			// On récupère le nom du champ [0] puis sa valeur [1]
-			$Explode = explode(":", $Champs[$j]);
-			$Entree = $Explode[0];
-			$Valeur = $Explode[1];
-					
-			$EntreeInformations[$j] = Array(
-				"Entree" => $Entree,
-				"Valeur" => $Valeur
-			);
-		}
+		$EntreeInformations = FormaterDetails($Details);
 	}
 	$NbEffet = 0;
 	$SiErreur = "";
@@ -540,41 +566,6 @@ function ChercherEffet($SourceType, $SourceID, $SourceVariable, $SourceValeur)
 	return $Resultat;
 }
 
-
-
-/* Créer le lien Ajax vers Partie.php, qui appellera la fonction Effet ou Agent
-
-Utilité : générer le lien pour créer un agent ou un effet est long. D'oÃ¹ cette fonction.
-1. On remplit le tableau ci-dessous
-2. On
-
-
-Exemple : Création d'un agent puis d'un effet
-	  	  Dans 1 minute et pour 10 minutes,
-		  un agent (ID=33) réduit la croissance d'un territoire (ID=6) de 10%
-		  (=multiplication par 0.9)
-
-1. Remplissable du tableau
-$ModelEffet	= Array(
-	"CibleType" => "TERRITOIRE",
-	"CibleID" => 6,
-	"SourceType" => "AGENT",
-	"SourceID" => 33,
-	"Nom" => "Reduction Croissance",
-	"TimeDebut" => time() + 60,
-	"TimeFin" => time() + 660,
-	"Table" => "Territoire",
-	"Variable" => "TerritoireCroissance",
-	"Type" => "MULTIPLICATION",
-	"Valeur" => 0.90
-);
-
-2. Appel de la fonction
-$Lien = FormaterLien("Effet", $ModelEffet);
-
-3. On insÃ¨re le lien
-
-*/
 function FormaterLien($Mode, $Tableau)
 {
 	$Lien = $Mode . "('Bidon'";
@@ -1085,6 +1076,65 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 	return $resultat;
 }
 
+function DeterminerVariationTaux($Offre, $Demande)
+{
+	$Difference = abs($Offre-$Demande);
+	
+	if ( $Offre > $Demande )
+	{
+		$DifferencePourcent = $Difference / $Offre;
+		$VariationPrix = $DifferencePourcent * -1;
+	}
+	else if ( $Offre < $Demande )
+	{
+		// La demande est supérieure à l'offre
+		//
+		$DifferencePourcent = $Difference / $Demande;
+		$VariationPrix = $DifferencePourcent;
+	}
+	else
+	{
+		$VariationPrix = 1;
+	}
+	return $VariationPrix;
+}
+
+function CommerceAllocation($Ressource, $Offrant, $Demandeur, $Offre, $Demande)
+{
+	if ( $Demande > $Offre && $Demande > 0 && $Offre > 0 )
+	{
+		for ( $i = 0; $i < count($Offrant); $i++)
+		{
+			$Etat 	= @$Offrant[$i]["Etat"];
+			$Valeur = @$Offrant[$i][$Valeur];
+			@$Resultat[$Ressource][$Etat]['Exportation'] = $Valeur;
+		}
+		for ( $i = 0; $i < count($Demandeur); $i++)
+		{
+			$Etat 	= @$Demandeur[$i]["Etat"];
+			$Valeur = @$Demandeur[$i][$Valeur];
+			$Proportion = round($Valeur / $Demande, 2);
+			@$Resultat[$Ressource][$Etat]['Importation'] = round($Offre * $Proportion, 2);
+		}
+	}
+	else if ( $Demande < $Offre && $Demande > 0  && $Offre > 0 )
+	{
+		for ( $i = 0; $i < count($Offrant); $i++)
+		{
+			$Etat 	= @$Offrant[$i]["Etat"];
+			$Valeur = @$Offrant[$i][$Valeur];
+			$Proportion = round($Valeur / $Demande, 2);
+			@$Resultat[$Ressource][$Etat]['Exportation'] = round($Offre * $Proportion, 2);
+		}
+		for ( $i = 0; $i < count($Demandeur); $i++)
+		{
+			$Etat 	= @$Demandeur[$i]["Etat"];
+			$Valeur = @$Demandeur[$i][$Valeur];
+			@$Resultat[$Ressource][$Etat]['Importation'] = $Valeur;
+		}
+	}
+	return $Resultat;
+}
 
 /* Modal crée les infobulles modales pour les actions
 
@@ -1144,7 +1194,7 @@ function Modal($ActionType, $Information, $Etat, $Joueur, $AutresInformations)
 	} while ( $Condition == TRUE );
 	
 	$Details = '';
-	for ( $i = 0; $i < 10 ; $i++ )
+	for ( $i = 0; $i < count($ACTIONS->action[$ActionType]->modal) ; $i++ )
 	{
 		if ( isset($ACTIONS->action[$ActionType]->modal[$i]->nom) )
 		{
@@ -1187,17 +1237,28 @@ function Modal($ActionType, $Information, $Etat, $Joueur, $AutresInformations)
 	// Résolution d'un bug :
 	$Details = !$Details ? 0 : $Details;
 	$Modal .= '<hr /><br /><button type="actioncreer" id="actioncreer" class="actioncreer" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">Lancer l\'action (button)</button>';
-  	$Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">';
+//  $Modal .= '<input type="submit" value="Lancer l\'action (submit)" onClick="ActionCreer(\''.$ActionType.'\', 1, '.$Information.', ' . $Details . ')">';
 //	$Modal = "<form>" . $Modal . "</form>";
 	return $Modal;
 }
 
 function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 {
-	global $ARMEES;
+	global $ARMEES, $AGENTS;
 	
 	switch ( $Type )
 	{
+		case "AgentType":
+			$Agents = Array("diplomate", "commando", "missionnaire", "escroc");
+			$Champ = "<select name='" . $Type . "' id='" . $Type . "'>";
+			for ( $i = 0; $i < count($Agents); $i++ )
+			{
+				$ID 	= $Agents[$i];
+				$Champ .= "<option value='" . $ID . "'>" . $AGENTS->agent[$ID]->nom . "</option>";
+			}
+			$Champ .= "</select>";
+		break;
+
 		case "TimeProchaineAttaque":
 			$Champ 			= "<input type='hidden' name='" . $Type . "' id='" . $Type . "' value='" . time() . "'>";
 		break;

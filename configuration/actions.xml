@@ -66,6 +66,43 @@
 	</action>
 	
 	
+	<action id="creer-agent">
+		<nom>Créer un agent</nom>
+		<description>...</description>
+		<type_cible>Territoire</type_cible>
+		<type_source>Etat</type_source>
+		<modal type="liste">
+			<champ>
+				<nom>AgentNom</nom>
+				<texte>Nom / Code de votre agent</texte>
+				<taille>15</taille>
+				<type>text</type>
+				<valeur></valeur>
+				<verifier>1</verifier>
+			</champ>
+			<champ>
+				<nom>AgentType</nom>
+				<texte>Spécialité de l'agent</texte>
+				<taille>4</taille>
+				<type>special</type>
+				<valeur></valeur>
+			</champ>
+		</modal>
+		<effets type="liste">
+			<effet>
+				<type>Entree</type>
+				<nom>Création 1 agent</nom>
+				<delai>0</delai>
+				<duree>0</duree>
+				<table_concernee>Agent</table_concernee>
+			</effet>
+		</effets>
+		<couts>
+			<Special>Agent</Special>
+			<EtatOr>10</EtatOr>
+		</couts>
+	</action>
+
 	<!-- ******** Civil ******** -->
 	
 	<action id="encourager-revolte">
@@ -679,6 +716,43 @@
 	<action id="saper-moral">
 		<nom>Saper le moral d'une armée adverse</nom>
 		<description>Sappe le moral d'une armée adverse, afin d'en réduire l'efficacitée</description>
+		<type_cible>Armée</type_cible>
+		<type_source>Carte</type_source>
+		<delai>60</delai>
+		<duree>120</duree>
+		<couts>
+			<EtatPointCivil>35</EtatPointCivil>
+			<EtatOr>5</EtatOr>
+		</couts>
+		<effets type="liste">
+			<effet>
+				<type>Influence</type>
+				<delai>0</delai>
+				<duree>30</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeDefense</variable_concernee>
+				<type_effet>Soustraction</type_effet>
+				<valeur>5</valeur>
+			</effet>
+			<effet>
+				<type>Influence</type>
+				<delai>0</delai>
+				<duree>120</duree>
+				<table_concernee>Armee</table_concernee>
+				<variable_concernee>ArmeeForce</variable_concernee>
+				<type_effet>Division</type_effet>
+				<valeur>1.5</valeur>
+			</effet>
+		</effets>
+	</action>
+	
+
+<!-- COMMERCE -->
+
+	
+	<action id="influencer-prix">
+		<nom>Influencer un prix</nom>
+		<description>Le</description>
 		<type_cible>Armée</type_cible>
 		<type_source>Carte</type_source>
 		<delai>60</delai>

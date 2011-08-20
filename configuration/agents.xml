@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <agents>
 	<agent id="diplomate">
+		<nom>Diplomate</nom>
 		<stratégie>civil</stratégie>
 		<renseignement>1</renseignement>
 	</agent>
 	<agent id="espion">
+		<nom>Espion</nom>
 		<stratégie>militaire</stratégie>
 		<renseignement>1</renseignement>
 	</agent>
 	<agent id="colporteur">
+		<nom>Colporteur</nom>
 		<stratégie>économie</stratégie>
 		<renseignement>1</renseignement>
 	</agent>
 	<agent id="confesseur">
+		<nom>Confesseur</nom>
 		<stratégie>religion</stratégie>
 		<renseignement>1</renseignement>
 	</agent>
 	<agent id="agitateur">
+		<nom>Agitateur</nom>
 		<stratégie>civil</stratégie>
 		<renseignement>0</renseignement>
 	</agent>
 	<agent id="commando">
+		<nom>Commando</nom>
 		<stratégie>militaire</stratégie>
 		<renseignement>0</renseignement>
 	</agent>
 	<agent id="escroc">
+		<nom>Escroc</nom>
 		<stratégie>économie</stratégie>
 		<renseignement>0</renseignement>
 	</agent>
 	<agent id="missionnaire">
+		<nom>Missionnaire</nom>
 		<stratégie>religion</stratégie>
 		<renseignement>0</renseignement>
 	</agent>
