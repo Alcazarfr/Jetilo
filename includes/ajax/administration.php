@@ -118,7 +118,7 @@ switch ( $mode )
 					echo $AncienneValeur;
 					exit;
 				}
-				else if ( $Variation > 35 )
+				else if ( $Variation > 35 && $ChampValeur > 5 )
 				{
 					$sql = "SELECT EtatJoueur
 						FROM Etat

@@ -681,6 +681,29 @@ switch ( $mode )
 		}
 	break;
 	
+	case "EnvoyerMP":
+		$MessageCout 		= Array("EtatOr" => -1);
+		$MessageEtat		= $_POST['MessageEtat'];
+		$MessageJoueur 		= $_POST['MessageJoueur'];
+		$MessageDestinataire= $_POST['MessageDestinataire'];
+		$MessageTexte		= $_POST['MessageTexte'] . "<br /><i>Signé " . Attribut($MessageJoueur, "Joueur", "JoueurNom") . "</i>";
+		$MessageDestinataire= $_POST['MessageDestinataire'];
+		
+		if ( $MessageDestinataire == -1 )
+		{
+			break;
+		}
+
+		if ( Transaction($Partie, $MessageEtat, $MessageCout, true) )
+		{
+			$t = Transaction($Partie, $MessageEtat, $MessageCout, false);
+			$m = Message($Partie, $MessageDestinataire, "Message Privé", $MessageTexte, $MessageJoueur, "", "noire", 10);
+		}
+		return $t;
+	
+	break;
+	
+	
 	case "InfobulleFixe" :		
 		$InfobulleID = isset($_POST['InfobulleID']) ? $_POST['InfobulleID'] : ( isset($_GET['InfobulleID']) ? $_GET['InfobulleID'] : 0);
 		$explode 	= explode("=", $InfobulleID);
@@ -775,7 +798,7 @@ switch ( $mode )
 				if ( is_array($Cout) )
 				{
 					// Si oui, On vérifie que le Joueur a les ressources suffisantes
-					if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+					if ( !Transaction($Partie, $Etat, $Cout, true) )
 					{
 						Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
 						break;
@@ -784,7 +807,7 @@ switch ( $mode )
 				if ( is_array($Cout) )
 				{
 					// On transmet les ressources au joueur
-					$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+					$Transaction = Transaction($Partie, $Etat, $Cout, false);
 				}
 				$ActionNom = $ACTIONS->action[$ActionType]->nom;
 				Message($Partie, $Joueur, "Nouvelle Action ", $ActionNom, 0, "", "noire", 10);
@@ -812,48 +835,6 @@ switch ( $mode )
 
 	break;
 	
-	case "AgentCreer":
-		$Partie 			= $_POST['Partie'];
-		$Etat 				= $_POST['Etat'];
-		$Joueur 			= $_POST['Joueur'];
-		$Nom 				= $_POST['Nom'];
-		$Statut 			= $_POST['Statut'];
-		$Secret 			= $_POST['Secret'];
-		$Territoire 		= $_POST['Territoire'];
-		$CapaciteFurtivite 	= $_POST['CapaciteFurtivite'];
-		$CapaciteVitesse 	= $_POST['CapaciteVitesse'];
-		$CapaciteReussite 	= $_POST['CapaciteReussite'];
-		$Type 				= $_POST['Type'];
-		$Cout 				= Array("EtatPointMilitaire" => -10, "EtatOr" => -10);
-
-		// Cela coute t'il de l'argent ?
-		if ( is_array($Cout) )
-		{
-			// Si oui, On vérifie que le Joueur a les ressources suffisantes
-			if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
-			{
-				Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
-				break;
-			}
-		}
-
-		// On réalise l'effet
-		$Succes		= Agent($Nom, $Etat, $Statut, $Secret, $Territoire, $CapaciteFurtivite, $CapaciteVitesse, $CapaciteReussite, $Type);
-		if ( $Succes )
-		{
-			if ( is_array($Cout) )
-			{
-				// On transmet les ressources au joueur
-				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
-			}
-			Message($Partie, $Joueur, "Effet", "Agent crée", 0, "", "noire", 10);
-		}
-		else
-		{
-			Message($Partie, $Joueur, "Effet", "Création échec", 0, "", "noire", 10);
-		}
-	break;
-	
 	
 	case "EffetCreer":
 		$Partie 	= $_POST['Partie'];
@@ -876,7 +857,7 @@ switch ( $mode )
 		if ( is_array($Cout) )
 		{
 			// Si oui, On vérifie que le Joueur a les ressources suffisantes
-			if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+			if ( !Transaction($Partie, $Etat, $Cout, true) )
 			{
 				Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
 				break;
@@ -890,7 +871,7 @@ switch ( $mode )
 			if ( is_array($Cout) )
 			{
 				// On transmet les ressources au joueur
-				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+				$Transaction = Transaction($Partie, $Etat, $Cout, false);
 			}
 			Message($Partie, $Joueur, "Effet", "Création réussie", 0, "", "noire", 10);
 		}
@@ -917,12 +898,25 @@ switch ( $mode )
 		$EtatCroissance		= Couleur(round($data['EtatCroissance'], 1));
 		$DerniereProduction = $data["EtatDerniereProduction"];
 		$Coefficient 		= (time() - $DerniereProduction ) / $DureeTourProduction;
-//		$ProchaineProduction= $DerniereProduction + 30 - time();
-//		$ProchaineProduction= ( $ProchaineProduction < 10 ) ? 10 : $ProchaineProduction;
+
+
 		$Oisifs = (100-$data['EtatPopulationCivil']-$data['EtatPopulationMilitaire']-$data['EtatPopulationCommerce']-$data['EtatPopulationReligion']);
-		$PIB	= ( $data['EtatPopulationCivil']*$data['EtatPopulation']/10000 ) / ( $data['EtatPopulationCommerce']*$data['EtatPopulation']/10000 ) + ( $data['EtatPopulationMilitaire']*$data['EtatPopulation']/10000 ) + ( $data['EtatPopulationReligion']*$data['EtatPopulation']/10000 );
+		$PIB	= ( $data['EtatPopulationCivil']*$data['EtatPopulation']/10000 ) + ( $data['EtatPopulationCommerce']*$data['EtatPopulation']/10000 ) + ( $data['EtatPopulationMilitaire']*$data['EtatPopulation']/10000 ) + ( $data['EtatPopulationReligion']*$data['EtatPopulation']/10000 );
 		
 		$message .= "Prochaine production dans <span id='Next'></span>";
+		
+		$sql = "SELECT *
+			FROM CommerceTaux
+			WHERE CommercePartie = " . $Partie . "
+				ORDER BY CommerceTime DESC LIMIT 1";
+				
+		$req 	= mysql_query($sql) or die('Erreur SQL #0150<br />'.$sql.'<br />'.mysql_error());
+		$data2 	= mysql_fetch_array($req);
+		
+		$TauxMilitaire 	= $data2['CommerceMilitaire'];
+		$TauxReligion 	= $data2['CommerceReligion'];
+		$TauxCommerce 	= $data2['CommerceCommerce'];
+		$TauxCivil 		= $data2['CommerceCivil'];
 		
 		$message .= "<table>";
 		$message .= "<tr>";
@@ -965,7 +959,7 @@ switch ( $mode )
 			$message .= "<td align='center'>" . round($data['EtatPopulationMilitaire']*$data['EtatPopulation']/10000, 1) . " pts</td>";
 			$message .= "<td align='center'>" . round($data['EtatPopulationReligion']*$data['EtatPopulation']/10000, 1) . " pts</td>";
 			$TexteInfoBulle	= "Croissance de votre population. Par défaut, la croissance augmente de +0.05 point par territoire par minute. En cas de famine, la croissance perd 2 points par minute, dans les territoires en surpopulation.";
-			$message .= "<td align='center'><a class='pointille' id='InfoTotalProd' title=\"".$TexteInfoBulle."\">" . $EtatCroissance . " %</a></td>";
+			$message .= "<td align='center'> " . round($data['EtatPopulation']*$data['EtatCroissance']/100) . " hab / <a class='pointille' id='InfoTotalProd' title=\"".$TexteInfoBulle."\">" . $EtatCroissance . " %</a></td>";
 			$message .= "<td width='1' align='center'></td>";
 			$message .= "<td align='center'>" . round($data['EtatTaxe']*$PIB/100, 1) . " pts</td>";
 		$message .= "</tr>";
@@ -980,15 +974,47 @@ switch ( $mode )
 			$message .= "<td width='100' align='center'><b>Or</b></td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
-			$message .= "<td height='40' width='12' rowspan='7' align='center'>C<br />O<br />M<br />M<br />E<br />R<br />C<br />E</td>";
+			$message .= "<td height='30' colspan='2'>Entretien (pts/min)</td>";
+			$message .= "<td align='center'>" . couleur(round(-$data['EtatEntretienCivil'], 2)) . " pts</td>";
+			$message .= "<td align='center'>" . couleur(round(-$data['EtatEntretienCommerce'], 2)) . " pts</td>";
+			$message .= "<td align='center'>" . couleur(round(-$data['EtatEntretienMilitaire'], 2)) . " pts</td>";
+			$message .= "<td align='center'>" . couleur(round(-$data['EtatEntretienReligion'], 2)) . " pts</td>";
+			$message .= "<td align='center'> " . round($data['EtatPopulation']*$data['EtatCroissance']/100) . " hab / <a class='pointille' id='InfoTotalProd' title=\"".$TexteInfoBulle."\">" . $EtatCroissance . " %</a></td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>" . round($data['EtatTaxe']*$PIB/100, 1) . " pts</td>";
+		$message .= "</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='40' colspan='2'></td>";
+			$message .= "<td width='100' align='center'><b>Civil</b></td>";
+			$message .= "<td width='100' align='center'><b>Commerce</b></td>";
+			$message .= "<td width='100' align='center'><b>Militaire</b></td>";
+			$message .= "<td width='100' align='center'><b>Religion</b></td>";
+			$message .= "<td width='100' align='center'><b>Total</b></td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td width='100' align='center'><b>Or</b></td>";
+		$message .= "</tr>";
+		$message .= "<tr>";
+			$message .= "<td height='40' width='12' rowspan='9' align='center'>C<br />O<br />M<br />M<br />E<br />R<br />C<br />E</td>";
+			$TexteInfoBulle	= "Prix de 10 Points de ressource en Or.";
+			$message .= "<td height='30'><a id='InfoTotalRep' title=\"".$TexteInfoBulle."\"  class='pointille'>Taux</a></td>";
+			$message .= "<td align='center'>" . $TauxCivil . " Or</td>";
+			$message .= "<td align='center'>" . $TauxCommerce . " Or</td>";
+			$message .= "<td align='center'>" . $TauxMilitaire . " Or</td>";
+			$message .= "<td align='center'>" . $TauxReligion . " Or </td>";
+			$message .= "<td align='center'></td>";
+			$message .= "<td width='1' align='center'></td>";
+			$message .= "<td align='center'>...</td>";
+		$message .= "</tr>";
+		$message .= "<tr><td height='5' colspan='8'</tr>";
+		$message .= "<tr>";
 			$message .= "<td height='30'>Offre (pts/min)</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreCivil-".$Etat."\">". $data['CommerceOffreCivil'] . "</span> pts</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreCommerce-".$Etat."\">". $data['CommerceOffreCommerce'] . "</span> pts</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreMilitaire-".$Etat."\">". $data['CommerceOffreMilitaire'] . "</span> pts</td>";
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceOffreReligion-".$Etat."\">". $data['CommerceOffreReligion'] . "</span> pts</td>";
-			$message .= "<td align='center'> " . round($data['CommerceOffreCivil']+$data['CommerceOffreCommerce']+$data['CommerceOffreMilitaire']+$data['CommerceOffreReligion']) . "</td>";
+			$message .= "<td align='center'> " . round(-1*($data['CommerceOffreCivil']+$data['CommerceOffreCommerce']+$data['CommerceOffreMilitaire']+$data['CommerceOffreReligion']), 2) . "</td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td align='center'>...</td>";
+			$message .= "<td align='center'>" . Couleur(round((($data['CommerceOffreCivil']*$TauxCivil)+($data['CommerceOffreCommerce']*$TauxCommerce)+($data['CommerceOffreMilitaire']*$TauxMilitaire)+($data['CommerceOffreReligion']*$TauxReligion))*(1/10), 2)) . "</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='30'>Demande (pts/min)</td>";
@@ -998,39 +1024,59 @@ switch ( $mode )
 			$message .= "<td align='center'><span class=\"edit\" id=\"".$Partie."-CommerceDemandeReligion-".$Etat."\">". $data['CommerceDemandeReligion'] . "</span> pts</td>";
 			$message .= "<td align='center'> " . round($data['CommerceDemandeCivil']+$data['CommerceDemandeCommerce']+$data['CommerceDemandeMilitaire']+$data['CommerceDemandeReligion']) . "</td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td align='center'>...</td>";
+			$message .= "<td align='center'>" . Couleur(round((($data['CommerceDemandeCivil']*$TauxCivil)+($data['CommerceDemandeCommerce']*$TauxCommerce)+($data['CommerceDemandeMilitaire']*$TauxMilitaire)+($data['CommerceDemandeReligion']*$TauxReligion))*(-1/10), 2)) . "</td>";
 		$message .= "</tr>";
 		$message .= "<tr><td height='5' colspan='8'</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='30'>Exportation (pts/min)</td>";
-			$message .= "<td align='center'>" . round($data['CommerceExportationCivil'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['CommerceExportationCommerce'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['CommerceExportationMilitaire'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['CommerceExportationReligion'], 1) . " pts</td>";
-			$message .= "<td align='center'> " . round($data['CommerceExportationCivil']) . "</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationCivil'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationCommerce'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationMilitaire'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceExportationReligion'], 2) . " pts</td>";
+			$message .= "<td align='center'> " . round($data['CommerceExportationCivil']+$data['CommerceExportationCommerce']+$data['CommerceExportationMilitaire']+$data['CommerceExportationReligion']) . "</td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td align='center'>...</td>";
+			$message .= "<td align='center'>" . Couleur(round((($data['CommerceExportationCivil']*$TauxCivil)+($data['CommerceExportationCommerce']*$TauxCommerce)+($data['CommerceExportationMilitaire']*$TauxMilitaire)+($data['CommerceExportationReligion']*$TauxReligion))*(-1/10), 2)) . "</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='30'>Importation (pts/min)</td>";
-			$message .= "<td align='center'>" . round($data['CommerceImportationCivil'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['CommerceImportationCommerce'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['CommerceImportationMilitaire'], 1) . " pts</td>";
-			$message .= "<td align='center'>" . round($data['CommerceImportationReligion'], 1) . " pts</td>";
-			$message .= "<td align='center'> " . round($data['CommerceOffreCivil']) . "</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationCivil'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationCommerce'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationMilitaire'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationReligion'], 2) . " pts</td>";
+			$message .= "<td align='center'>" . round($data['CommerceImportationCivil']+$data['CommerceImportationCommerce']+$data['CommerceImportationMilitaire']+$data['CommerceImportationReligion'], 2) . "</td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td align='center'>...</td>";
+			$message .= "<td align='center'>" . Couleur(round((($data['CommerceImportationCivil']*$TauxCivil)+($data['CommerceImportationCommerce']*$TauxCommerce)+($data['CommerceImportationMilitaire']*$TauxMilitaire)+($data['CommerceImportationReligion']*$TauxReligion))*(-1/10), 2)) . "</td>";
 		$message .= "</tr>";
 		$message .= "<tr><td height='5' colspan='8'</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='30'>Solde (pts/min)</td>";
-			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationCivil']-$data['CommerceImportationCivil'], 1)) . " pts</td>";
-			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationCommerce']-$data['CommerceImportationCommerce'], 1)) . " pts</td>";
-			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationMilitaire']-$data['CommerceImportationMilitaire'], 1)) . " pts</td>";
-			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationReligion']-$data['CommerceImportationReligion'], 1)) . " pts</td>";
-			$message .= "<td align='center'> " . Couleur(round($data['CommerceExportationCivil']-$data['CommerceImportationCivil']+$data['CommerceExportationMilitaire']-$data['CommerceImportationMilitaire']+$data['CommerceExportationCommerce']-$data['CommerceImportationCommerce']+$data['CommerceExportationReligion']-$data['CommerceImportationReligion'])) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceImportationCivil']+$data['CommerceExportationCivil'], 2)) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationCommerce']+$data['CommerceImportationCommerce'], 2)) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationMilitaire']+$data['CommerceImportationMilitaire'], 2)) . " pts</td>";
+			$message .= "<td align='center'>" . Couleur(round($data['CommerceExportationReligion']+$data['CommerceImportationReligion'], 2)) . " pts</td>";
+			$message .= "<td align='center'> " . Couleur(round($data['CommerceExportationCivil']+$data['CommerceImportationCivil']+$data['CommerceExportationMilitaire']-$data['CommerceImportationMilitaire']+$data['CommerceExportationCommerce']-$data['CommerceImportationCommerce']+$data['CommerceExportationReligion']-$data['CommerceImportationReligion']),2) . " pts</td>";
 			$message .= "<td width='1' align='center'></td>";
-			$message .= "<td align='center'>...</td>";
+			$message .= "<td align='center'>".
+			Couleur(round(
+					(
+						(
+							($data['CommerceExportationCivil']*$TauxCivil)+($data['CommerceExportationCommerce']*$TauxCommerce)
+							+($data['CommerceExportationMilitaire']*$TauxMilitaire)
+							+($data['CommerceExportationReligion']*$TauxReligion)
+						)
+						*
+						(-1/10)
+					)
+					+
+					(
+						(
+							($data['CommerceImportationCivil']*$TauxCivil)
+							+($data['CommerceImportationCommerce']*$TauxCommerce)
+							+($data['CommerceImportationMilitaire']*$TauxMilitaire)
+							+($data['CommerceImportationReligion']*$TauxReligion)
+						)
+						*(-1/10)
+					), 2))."</td>";
 		$message .= "</tr>";
 		$message .= "<tr>";
 			$message .= "<td height='40' colspan='2'></td>";
@@ -1049,7 +1095,7 @@ switch ( $mode )
 			$message .= "<td align='center'>" . round($data['EtatPointCommerce'], 1) . " pts</td>";
 			$message .= "<td align='center'>" . round($data['EtatPointMilitaire'], 1) . " pts</td>";
 			$message .= "<td align='center'>" . round($data['EtatPointReligion'], 1) . " pts</td>";
-			$message .= "<td align='center'> " . round($data['EtatPopulation']*$data['EtatCroissance']/100) . " hab</td>";
+			$message .= "<td align='center'></td>";
 			$message .= "<td width='1' align='center'></td>";
 			$message .= "<td align='center'>" . round($data['EtatOr'], 1) . " or</td>";
 		$message .= "</tr>";
@@ -1079,7 +1125,7 @@ $(document).ready(function() {
 		$req = mysql_query($sql) or die('Erreur SQL #150<br />'.$sql.'<br />'.mysql_error());
 		if ( $data = mysql_fetch_array($req) )
 		{
-			$PartieTauxProchain = $data['CommerceTime'] + 60;
+			$PartieTauxProchain = $data['CommerceTime'] + 30;
 			$Prix['Civil'] 		= $data['CommerceCivil'];
 			$Prix['Commerce'] 	= $data['CommerceCommerce'];
 			$Prix['Militaire'] 	= $data['CommerceMilitaire'];
@@ -1100,6 +1146,9 @@ $(document).ready(function() {
 			// Il y a commerce et changement de taux toutes les 2 minutes
 			return false;
 		}
+		
+		$NombreEtat = 0;
+		$Etats = Array();
 		
 		$Offre 		= Array(
 			"Civil" => 0, 
@@ -1156,74 +1205,156 @@ $(document).ready(function() {
 			"Militaire" => "", 
 			"Religion" => "");
 
-		$Allocation	= Array(
-			"Civil" => "", 
-			"Commerce" => "", 
-			"Militaire" => "", 
-			"Religion" => "");
+		$Allocation	= Array();
 
-		$sql = "SELECT CommerceOffreCivil, CommerceOffreCommerce, CommerceOffreMilitaire, CommerceOffreReligion, CommerceDemandeCivil, CommerceDemandeCommerce, CommerceDemandeMilitaire, CommerceDemandeReligion
+		$sql = "SELECT EtatID, EtatJoueur, CommerceOffreCivil, CommerceOffreCommerce, CommerceOffreMilitaire, CommerceOffreReligion, CommerceDemandeCivil, CommerceDemandeCommerce, CommerceDemandeMilitaire, CommerceDemandeReligion
 			FROM Etat
 			WHERE EtatPartie = " . $Partie;
-		$req = mysql_query($sql) or die('Erreur SQL #134<br />'.$sql.'<br />'.mysql_error());
+		$req = mysql_query($sql) or die('Erreur SQL #2134<br />'.$sql.'<br />'.mysql_error());
 		while ( $data = mysql_fetch_array($req) )
 		{
-			$Etat = $data['EtatID'];
-			$Offre['Civil'] 	+= $data['CommerceOffreCivil'];
-			$Offre['Commerce'] 	+= $data['CommerceOffreCommerce'];
-			$Offre['Militaire'] += $data['CommerceOffreMilitaire'];
-			$Offre['Religion'] 	+= $data['CommerceOffreReligion'];
+			$Etat 	= $data['EtatID'];
+			$Joueur = $data['EtatJoueur'];
+			$Etats[$NombreEtat] = $Etat;
+			$NombreEtat++;
 			
-			if ( $data['CommerceOffreCivil'] > 0 )
+			$Organisation = Array(
+				0 => Array($data['CommerceOffreCivil'], "Civil", "EtatPointCivil"),
+				1 => Array($data['CommerceOffreCommerce'], "Commerce", "EtatPointCommerce"),
+				2 => Array($data['CommerceOffreMilitaire'], "Militaire", "EtatPointMilitaire"),
+				3 => Array($data['CommerceOffreReligion'], "Religion", "EtatPointReligion")
+			);
+			for ( $b = 0; $b < 4; $b++ )
 			{
-				$Nombre = $NombreOffrant['Civil']++;
-				@$Offrant['Civil'][$Nombre] = Array(
-					"Etat" => $Etat,
-					"Valeur" => $data['CommerceOffreCivil']);
-				@$Exportation['Civil'][$Etat] = 0;
+				$dataValeur = $Organisation[$b][0];
+				$dataTexte 	= $Organisation[$b][1];
+				$dataPoint 	= $Organisation[$b][2];
+
+				if ( $dataValeur > 0 && Transaction($Partie, $Etat, Array($dataPoint => $dataValeur*-1), true) == true )
+				{
+					// On ne prend que les offrants qui peuvent envoyer leur marchandise.
+					$Offre[$dataTexte] 	+= $dataValeur;
+					$Nombre = $NombreOffrant[$dataTexte]++;
+
+					$Offrant[$dataTexte][$Nombre] = Array(
+						"Etat" => $Etat,
+						"Valeur" => $dataValeur);
+					$Exportation[$dataTexte][$Etat] = 0;
+			//		Message($Partie, 0, "Test", "Etat " . $Etat . " offre " . $dataTexte . " : Q=" . $dataValeur, 0, "", "noire", 10);			
+
+				}
 			}
-			
-			
-			if ( $data['CommerceDemandeCivil'] > 0 )
+
+			$Organisation = Array(
+				0 => Array($data['CommerceDemandeCivil'], "Civil"),
+				1 => Array($data['CommerceDemandeCommerce'], "Commerce"),
+				2 => Array($data['CommerceDemandeMilitaire'], "Militaire"),
+				3 => Array($data['CommerceDemandeReligion'], "Religion")
+			);
+
+			for ( $b = 0; $b < 4; $b++ )
 			{
-				$Nombre = $NombreDemandeur['Civil']++;
-				@$Demandeur['Civil'][$Nombre] = Array(
-					"Etat" => $Etat,
-					"Valeur" => $data['CommerceDemandeCivil']);
-				@$Importation['Civil'][$Etat] = 0;
+				$dataValeur = $Organisation[$b][0];
+				$dataTexte 	= $Organisation[$b][1];
+
+				if ( $dataValeur > 0 )
+				{
+					$Nombre = $NombreDemandeur[$dataTexte]++;
+					$Demande[$dataTexte] += $dataValeur;
+
+					$Demandeur[$dataTexte][$Nombre] = Array(
+						"Etat" => $Etat,
+						"Valeur" => $dataValeur);
+					$Importation[$dataTexte][$Etat] = 0;
+			//		Message($Partie, 0, "Test", "Etat " . $Etat . " demande " . $dataTexte . " : Q=" . $dataValeur, 0, "", "noire", 10);			
+				}
 			}
-			
-			$Demande['Civil'] 		+= $data['CommerceDemandeCivil'];
-			$Demande['Commerce'] 	+= $data['CommerceDemandeCommerce'];
-			$Demande['Militaire'] 	+= $data['CommerceDemandeMilitaire'];
-			$Demande['Religion'] 	+= $data['CommerceDemandeReligion'];
 		}
+		// Création Demandeur et Offrant vérifiée et OK
+
+		$Allocation["Civil"] 		= CommerceAllocation($Offrant['Civil'], $Demandeur['Civil'], $Offre['Civil'], $Demande['Civil']);
+		$Allocation["Commerce"] 	= CommerceAllocation($Offrant['Commerce'], $Demandeur['Commerce'], $Offre['Commerce'], $Demande['Commerce']);
+		$Allocation["Militaire"] 	= CommerceAllocation($Offrant['Militaire'], $Demandeur['Militaire'], $Offre['Militaire'], $Demande['Militaire']);
+		$Allocation["Religion"] 	= CommerceAllocation($Offrant['Religion'], $Demandeur['Religion'], $Offre['Religion'], $Demande['Religion']);
 		
-		$Allocation['Civil'] = CommerceAllocation("Civil", $Offrant['Civil'], $Demandeur['Civil'], $Offre['Civil'], $Demande['Civil']);
+		// Echanges
+		$Ressources = Array("Civil", "Commerce", "Militaire", "Religion");
+		$RessourcesEtat = Array("EtatPointCivil", "EtatPointCommerce", "EtatPointMilitaire", "EtatPointReligion");
+		for ( $i = 0; $i < 4; $i++ )
+		{
+			// Boucle 1 : Les 4 ressources
+			$Ressource 		= $Ressources[$i];
+			$RessourceEtat 	= $RessourcesEtat[$i];
+			
+			for ( $j = 0; $j < $NombreEtat; $j++ )
+			{
+				// Boucle 2 : on prend tous les Etats
+				$Etat = $Etats[$j];		// OK
+				
+				// Niveau 3 : Importation
+				if ( isset($Allocation[$Ressource][$Etat]["Importation"]) )
+				{
+					$transaction 	= Array($RessourceEtat => $Allocation[$Ressource][$Etat]["Importation"]);
+					Transaction($Partie, $Etat, $transaction, false);
+					
+					$ImportationSet = "CommerceImportation" . $Ressource;
+					$Set 			= $ImportationSet . " = " . $Allocation[$Ressource][$Etat]["Importation"];
+					$Where			= "EtatID = " . $Etat;
+					$Table 			= "Etat";
+					UpdateTable($Table, $Where, $Set);
+			//	Message($Partie, 0, "Commerce - Taux", "M : " . $Set, 0, "", "noire", 10);			
+
+					$CoutOr			= $Allocation[$Ressource][$Etat]["Importation"] * $Prix[$Ressource] * -1;
+					$transactionOr 	= Array("EtatOr" => $CoutOr);
+					Transaction($Partie, $Etat, $transaction, false);
+				}
+				
+				// Niveau 3 : Exportation
+				if ( isset($Allocation[$Ressource][$Etat]["Exportation"]) )
+				{
+					$transaction 	= Array($RessourceEtat => $Allocation[$Ressource][$Etat]["Exportation"]*-1);
+					$Montant 		= $Allocation[$Ressource][$Etat]["Exportation"]*-1;
+					Transaction($Partie, $Etat, $transaction, false);
+
+					$ExportationSet = "CommerceExportation" . $Ressource;
+					$Set 			= $ExportationSet . " = " . $Montant;
+					$Where			= "EtatID = " . $Etat;
+					$Table 			= "Etat";
+					UpdateTable($Table, $Where, $Set);
+				//	Message($Partie, 0, "Commerce - Taux", "X : " .$Set, 0, "", "noire", 10);			
+					
+					$GainOr		= $Allocation[$Ressource][$Etat]["Exportation"] * $Prix[$Ressource];
+					$transactionOr = Array("EtatOr" => $GainOr);
+					Transaction($Partie, $Etat, $transaction, false);
+				}
+			}
+		}		
+			
 		
-		// On fait les échanges...
-		
-		
-		// On paye...
-		
-		
-		// Il faut 3 minutes pour un changement complet de taux
-		$Variation['Civil'] 	= round((DeterminerVariationTaux($Offre['Civil'] , $Demande['Civil']) / 10), 2); 
-		$Variation['Commerce'] 	= round((DeterminerVariationTaux($Offre['Commerce'] , $Demande['Commerce']) / 10), 2); 
-		$Variation['Militaire'] = round((DeterminerVariationTaux($Offre['Militaire'] , $Demande['Militaire']) / 10), 2); 
-		$Variation['Religion'] 	= round((DeterminerVariationTaux($Offre['Religion'] , $Demande['Religion']) / 10), 2); 
+		$Variation['Civil'] 	= DeterminerVariationTaux($Offre['Civil'] , $Demande['Civil']); 
+		$Variation['Commerce'] 	= DeterminerVariationTaux($Offre['Commerce'] , $Demande['Commerce']); 
+		$Variation['Militaire'] = DeterminerVariationTaux($Offre['Militaire'] , $Demande['Militaire']); 
+		$Variation['Religion'] 	= DeterminerVariationTaux($Offre['Religion'] , $Demande['Religion']); 
 		
 		$Prix['Civil'] 		+= round($Prix['Civil'] * $Variation['Civil'],2);
 		$Prix['Commerce'] 	+= round($Prix['Commerce'] * $Variation['Commerce'],2);
 		$Prix['Militaire'] 	+= round($Prix['Militaire'] * $Variation['Militaire'],2);
 		$Prix['Religion'] 	+= round($Prix['Religion'] * $Variation['Religion'],2);
 		
+		$Texte = "";
+		$Texte	.= ( $Variation['Civil'] != 0 ) ? "<br />- Civil: " . $Prix['Civil'] . " (".$Variation['Civil']."%)" : "";
+		$Texte	.= ( $Variation['Commerce'] != 0 ) ? "<br />- Commerce: " . $Prix['Commerce'] . " (".$Variation['Commerce']."%)" : "";
+		$Texte	.= ( $Variation['Militaire'] != 0 ) ? "<br />- Militaire: " . $Prix['Militaire'] . " (".$Variation['Militaire']."%)" : "";
+		$Texte	.= ( $Variation['Religion'] != 0 ) ? "<br />- Religion: " . $Prix['Religion'] . " (".$Variation['Religion']."%)" : "";
+		
 		$sql = "INSERT INTO CommerceTaux (CommercePartie, CommerceCivil, CommerceCommerce, CommerceMilitaire, CommerceReligion, CommerceTime)
 			VALUES (" . $Partie . ", " . $Prix['Civil'] . ", " . $Prix['Commerce'] . ", " . $Prix['Militaire'] . ", " . $Prix['Religion'] . ", " . time() . ")";
 		mysql_query($sql) or die('Erreur SQL #157 Commerce<br />'.$sql.'<br />'.mysql_error());	
-
-		Message($Partie, 0, "Commerce - Taux", "De nouveaux taux ont été fixés:<br />- Civil : " . $Prix['Civil'] . "(".$Variation['Civil'].")<br />- Commerce : " . $Prix['Commerce'] . "(".$Variation['Commerce'].")<br />- Militaire : " . $Prix['Militaire'] . "(".$Variation['Militaire'].")<br />- Religion : " . $Prix['Religion'] . "(".$Variation['Religion'].")", 0, "", "noire", 10);			
 		
+		if ( $Texte != "")
+		{
+			Message($Partie, 0, "Commerce - Taux", "De nouveaux taux ont été fixés: " . $Texte, 0, "", "noire", 10);			
+		}
 	break;
 	
 	case "ActionsEnCours":
@@ -1268,7 +1399,8 @@ $(document).ready(function() {
 			
 			// Modulo ?				
 			$Time 			= time() - $data['MessageTime'];
-			$Minutes		= round($Time / 60);
+			$Minutes		= floor($Time / 60);
+			// ICI, il faut arondir au négatif
 
 			$Secondes		= $Time % 60;
 			$Time			= $Minutes . "' " . $Secondes . "''";

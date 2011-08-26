@@ -12,15 +12,42 @@
 	$EtatTerritoires= $Recherche['EtatTerritoires'];
 
 	$JoueurNom 		= Attribut($Joueur, "Joueur", "JoueurNom");
-	
-	/*DeclencherEvenement('famine', 88, $Partie, 0, 
-		array('occupant' => $Joueur + 1, 'test' => $Joueur + 1), 
-		array('TerritoireNom' => 'Boulgourville', 'PopulationMorte' => 42));*/
 
+	$ListeEtats		= "<select id='ListeEtats'>";
+	$ListeEtats .= "<option value='-1'>Destinataire...</option>";
+	$sql = "SELECT EtatJoueur, EtatNom
+		FROM Etat
+		WHERE EtatPartie = " . $Partie;
+	$req = mysql_query($sql) or die('Erreur SQL #155<br />'.$sql.'<br />'.mysql_error());
+	while ( $data = mysql_fetch_array($req) )
+	{
+		$ListeEtats .= "<option value='".$data['EtatJoueur']."'>". $data['EtatNom'] . "</option>";
+	}
+	$ListeEtats .= "<option value='0'>Tous</option>";
+	$ListeEtats .= "</select>";
 ?>
 
 
 <script type="text/javascript">
+
+
+/* Chargement de la carte */
+function EnvoyerMP(Destinataire, Texte)
+{
+	var PartieID 	= $('#Partie').val();
+	var EtatID 		= $('#Etat').val();
+	var JoueurID 	= $('#Joueur').val();
+	$.ajax(
+	{
+		type: "POST",
+		url: "./includes/ajax/partie.php",
+		data: "mode=EnvoyerMP&Partie="+PartieID+"&MessageEtat="+EtatID+"&MessageJoueur="+JoueurID+"&MessageSource="+EtatID+"&MessageDestinataire="+Destinataire+"&MessageTexte="+Texte
+	}
+	);
+	document.getElementById("TexteMP").value = "Tapez et envoyez votre missive pour 1 pièce d'or, prix d'ami";
+
+	setTimeout("MessageLire(true)",500);
+}
 
 
 /* Chargement de la carte */
@@ -136,7 +163,9 @@ function Production(Boucle)
 			}
 	}
 	);
-	setTimeout("MessageLire(false)",500);
+	setTimeout("Commercer(false)",500);
+	setTimeout("MessageLire(false)",1000);
+
 	if ( Boucle == true )
 	{
 		setTimeout("Production(true)",60000);
@@ -482,9 +511,7 @@ $(window).load(function(){
 	Production(true);
 	EtatInformations(<?php echo $Etat ?>);
 	CarteChargement(true);
-	MessageLire(true);
 	AfficherBataille(true);
-	Commercer(true);
 });
 
 
@@ -557,6 +584,8 @@ $(window).load(function(){
 		<table width="100%">
 			<tr>
 				<td width="50%">
+					<div id="Envoyer"><?php echo $ListeEtats; ?><textarea id="TexteMP">Votre message ici</textarea> <a href="#MP" onClick="EnvoyerMP(document.getElementById('ListeEtats').value, document.getElementById('TexteMP').value)">Envoyer</a>
+					</div>
 					<div id="Journal"></div>
 				</td>
 				<td width="50%">				

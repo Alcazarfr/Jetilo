@@ -37,7 +37,7 @@ function connectMaBase()
 // Si $var est négatif, on la colore en rouge
 function Couleur($var)
 {
-	$return = ( $var < 0 ) ? "<font color=\"FF0000\"><b>" . $var . "</b></font>" : "<b>" . $var . "</b>";
+	$return = ( $var < 0 ) ? "<font color=\"FF0000\">" . $var . "</font>" :"<font color=\"green\">" . $var . "</font>";
 	return $return;
 }
 
@@ -138,6 +138,7 @@ function FormaterDetails($Details)
 	}
 	return $EntreeInformations;
 }
+
 function CoutSpecial($Type, $Details)
 {
 	$Cout = Array();
@@ -182,12 +183,13 @@ function Action($ActionType, $ActionSourceID, $ActionCibleID, $Details, $Partie,
 	if ( is_array($Cout) )
 	{
 		// Si oui, On vérifie que le Joueur a les ressources suffisantes
-		if ( !Transaction($Partie, $Joueur, $Etat, $Cout, true) )
+		if ( !Transaction($Partie, $Etat, $Cout, true) )
 		{
 			Message($Partie, $Joueur, "Echec", "Pas assez de ressource", 0, "", "noire", 10);
 			break;
 		}
 	}
+	
 
 	// Création de l'action
 	$ActionNom		= $ACTIONS->action[$ActionType]->nom;
@@ -217,7 +219,9 @@ function Action($ActionType, $ActionSourceID, $ActionCibleID, $Details, $Partie,
 			if ( is_array($Cout) )
 			{
 				// On transmet les ressources au joueur
-				$Transaction = Transaction($Partie, $Joueur, $Etat, $Cout, false);
+				$Transaction = Transaction($Partie, $Etat, $Cout, false);
+				
+				Entretien($ActionType, $Etat, "Ajouter");
 			}
 			Message($Partie, $Joueur, "Nouvelle Action ", $ActionNom, 0, "", "noire", 10);
 		}
@@ -231,6 +235,30 @@ function Action($ActionType, $ActionSourceID, $ActionCibleID, $Details, $Partie,
 		Message($Partie, $Joueur, "Action en cours", $ActionNom, 0, "", "noire", 10);
 	}
 }
+
+function Entretien($ActionType, $Etat, $Mode)
+{
+	global $ACTIONS;
+
+	$TableauDesNomsDesEntretiens	= Array("EtatEntretienCivil", "EtatEntretienCommerce", "EtatEntretienMilitaire", "EtatEntretienReligion", "EtatEntretienOr");
+	$Entretien = "";
+
+	for ( $i = 0; $i < count($TableauDesNomsDesEntretiens); $i++ )
+	{
+		$EntretienPotentiel = $TableauDesNomsDesEntretiens[$i];
+		if ( isset($ACTIONS->action[$ActionType]->entretien->$EntretienPotentiel))
+		{
+			$Operation = ( $Mode == "Ajouter" ) ? " + " : " - ";
+			$Entretien .= ( $Entretien == "" ) ? $EntretienPotentiel . " = " . $EntretienPotentiel . $Operation . $ACTIONS->action[$ActionType]->entretien->$EntretienPotentiel : ", " . $EntretienPotentiel . " = " . $EntretienPotentiel . $Operation . $ACTIONS->action[$ActionType]->entretien->$EntretienPotentiel;
+		}
+	}
+	if ( $Entretien != "" )
+	{
+		UpdateTable("Etat", "EtatID = " . $Etat, $Entretien);
+	}
+
+}
+
 
 function ActionProduireEffets($Partie, $Etat, $Joueur, $ActionType, $Details, $ActionSourceID, $ActionCibleID, $ActionID)
 {
@@ -303,6 +331,12 @@ function ActionProduireEffets($Partie, $Etat, $Joueur, $ActionType, $Details, $A
 					$Valeur 	= $EntreeInformations[$i]["Valeur"];
 					$Donnees	= $Variable . "=" . $Valeur;
 					Supprimer($EffetTable, $Donnees);
+					// On annule l'entretien s'il y en a un
+					if ( isset($ACTIONS->action[$ActionType]->effets[$i]->inverse) )
+					{
+						Entretien($ACTIONS->action[$ActionType]->effets[$i]->inverse, $Etat, "Supprimer");
+					}
+					
 				break;
 					
 				case "UPDATE" :
@@ -798,7 +832,7 @@ function Production($Partie, $Etat)
 	
 	// Mise à jour des infos de l'Etat + Production
 	$sql = "UPDATE Etat 
-		SET EtatPopulation = " . $PopulationTotale . ", EtatCroissance = " . $CroissanceTotaleFin . ", EtatFamine = " . $EtatFamine . ", EtatDerniereProduction = " . time() . ", EtatPointCivil = EtatPointCivil + ( (EtatPopulation*EtatPopulationCivil*".$Coefficient.") / 10000), EtatPointCommerce = EtatPointCommerce + ( (EtatPopulation*EtatPopulationCommerce*".$Coefficient.") / 10000), EtatPointMilitaire = EtatPointMilitaire + ( (EtatPopulation*EtatPopulationMilitaire*".$Coefficient.") / 10000), EtatPointReligion = EtatPointReligion + ( (EtatPopulation*EtatPopulationReligion*".$Coefficient.") / 10000), EtatOr = EtatOr + ( (EtatPopulation*EtatTaxe*".$Coefficient.") / 10000)
+		SET EtatPopulation = " . $PopulationTotale . ", EtatCroissance = " . $CroissanceTotaleFin . ", EtatFamine = " . $EtatFamine . ", EtatDerniereProduction = " . time() . ", EtatPointCivil = EtatPointCivil - EtatEntretienCivil + ( (EtatPopulation*EtatPopulationCivil*".$Coefficient.") / 10000), EtatPointCommerce = EtatPointCommerce - EtatEntretienCommerce + ( (EtatPopulation*EtatPopulationCommerce*".$Coefficient.") / 10000), EtatPointMilitaire = EtatPointMilitaire - EtatEntretienMilitaire + ( (EtatPopulation*EtatPopulationMilitaire*".$Coefficient.") / 10000), EtatPointReligion = EtatPointReligion - EtatEntretienReligion + ( (EtatPopulation*EtatPopulationReligion*".$Coefficient.") / 10000), EtatOr = EtatOr + ( (EtatPopulation*EtatTaxe*".$Coefficient.") / 10000)
 		WHERE EtatID = " . $Etat;
 	mysql_query($sql) or die('Erreur SQL #049<br />'.$sql.'<br />'.mysql_error());
 
@@ -970,7 +1004,7 @@ DestinataireEtat : ID de l'Etat destinataire, s'il y en a un
 
 return TRUE ou FALSE;
 */
-function Transaction($Partie, $Joueur, $Etat, $Donnees, $Verification, $DestinataireEtat=false)
+function Transaction($Partie, $Etat, $Donnees, $Verification, $DestinataireEtat=false)
 {
 	$Requete = "";
 	$RequeteDestinataire = "";
@@ -998,7 +1032,7 @@ function Transaction($Partie, $Joueur, $Etat, $Donnees, $Verification, $Destinat
 		}
 	}
 	else
-	{	
+	{
 		$sql = "UPDATE Etat
 			SET EtatJoueur = EtatJoueur" . $Requete . "
 				WHERE EtatID = " . $Etat;
@@ -1079,58 +1113,87 @@ function Attribut($ReferenceValeur, $Type, $Attribut)
 function DeterminerVariationTaux($Offre, $Demande)
 {
 	$Difference = abs($Offre-$Demande);
+	if ( $Offre <= 3 OR $Demande <= 3 )
+	{
+		// Si l'offre ou la demande est faible, pas de variation de prix
+		return 0;
+	}
+	else if ( $Difference <= 2 )
+	{
+		// Si l'offre et la demande sont proche (+/-5), pas de variation
+		return 0;
+	}
 	
+	// Les variations sont étalées sur 18 tours.
+	// On divise par 25 pour prendre en compte la suite géométrique que compose les variations chaque minute.
 	if ( $Offre > $Demande )
 	{
 		$DifferencePourcent = $Difference / $Offre;
-		$VariationPrix = $DifferencePourcent * -1;
+		$VariationPrix = round(($DifferencePourcent * -1) / 25, 2);
 	}
 	else if ( $Offre < $Demande )
 	{
 		// La demande est supérieure à l'offre
 		//
 		$DifferencePourcent = $Difference / $Demande;
-		$VariationPrix = $DifferencePourcent;
+		$VariationPrix = round($DifferencePourcent / 25, 2);
 	}
 	else
 	{
-		$VariationPrix = 1;
+		$VariationPrix = 0;
 	}
 	return $VariationPrix;
 }
 
-function CommerceAllocation($Ressource, $Offrant, $Demandeur, $Offre, $Demande)
+function CommerceAllocation($Offrant, $Demandeur, $Offre, $Demande)
 {
-	if ( $Demande > $Offre && $Demande > 0 && $Offre > 0 )
+	$Resultat = Array();
+	// Offre et demande sont bien envoyé
+//	Message(1, 0, "OFFRE ET DEMANDE", $Offre . " / " . $Demande, 0, "", "noire", 10);			
+
+	if ( $Demande >= $Offre && $Demande > 0 && $Offre > 0 )
 	{
-		for ( $i = 0; $i < count($Offrant); $i++)
+		if ( count($Offrant) >= 1 )
 		{
-			$Etat 	= @$Offrant[$i]["Etat"];
-			$Valeur = @$Offrant[$i][$Valeur];
-			@$Resultat[$Ressource][$Etat]['Exportation'] = $Valeur;
+			for ( $i = 0; $i < count($Offrant); $i++)
+			{
+				$Etat 	= $Offrant[$i]["Etat"];
+				$Valeur = $Offrant[$i]["Valeur"];
+				$Resultat[$Etat]["Exportation"] = $Valeur;
+			}
 		}
-		for ( $i = 0; $i < count($Demandeur); $i++)
+
+		if ( count($Demandeur) >= 1 )
 		{
-			$Etat 	= @$Demandeur[$i]["Etat"];
-			$Valeur = @$Demandeur[$i][$Valeur];
-			$Proportion = round($Valeur / $Demande, 2);
-			@$Resultat[$Ressource][$Etat]['Importation'] = round($Offre * $Proportion, 2);
+			for ( $i = 0; $i < count($Demandeur); $i++)
+			{
+				$Etat 	= $Demandeur[$i]["Etat"];
+				$Valeur = $Demandeur[$i]["Valeur"];
+				$Proportion = round($Valeur / $Demande, 2);
+				$Resultat[$Etat]["Importation"] = round($Offre * $Proportion, 2);
+			}
 		}
 	}
 	else if ( $Demande < $Offre && $Demande > 0  && $Offre > 0 )
 	{
-		for ( $i = 0; $i < count($Offrant); $i++)
+		if ( count($Offrant) >= 1 )
 		{
-			$Etat 	= @$Offrant[$i]["Etat"];
-			$Valeur = @$Offrant[$i][$Valeur];
-			$Proportion = round($Valeur / $Demande, 2);
-			@$Resultat[$Ressource][$Etat]['Exportation'] = round($Offre * $Proportion, 2);
+			for ( $i = 0; $i < count($Offrant); $i++)
+			{
+				$Etat 	= $Offrant[$i]["Etat"];
+				$Valeur = $Offrant[$i]["Valeur"];
+				$Proportion = round($Valeur / $Offre, 2);
+				$Resultat[$Etat]["Exportation"] = round($Demande * $Proportion, 2);
+			}
 		}
-		for ( $i = 0; $i < count($Demandeur); $i++)
+		if ( count($Demandeur) >= 1 )
 		{
-			$Etat 	= @$Demandeur[$i]["Etat"];
-			$Valeur = @$Demandeur[$i][$Valeur];
-			@$Resultat[$Ressource][$Etat]['Importation'] = $Valeur;
+			for ( $i = 0; $i < count($Demandeur); $i++)
+			{
+				$Etat 	= $Demandeur[$i]["Etat"];
+				$Valeur = $Demandeur[$i]["Valeur"];
+				$Resultat[$Etat]["Importation"] = $Valeur;
+			}
 		}
 	}
 	return $Resultat;
@@ -1298,6 +1361,19 @@ function ModalChampSpecial($Type, $Infos, $Etat, $Joueur)
 			<option value='infanterie-lourde'>" . $Nom3 . "</option>
 			</select>";
 		break;
+		case "ArmeeID":
+			$Champ = "<select name='" . $Type . "' id='" . $Type . "'>";
+			$sql = "SELECT ArmeeID, ArmeeNom
+				FROM Armee
+				WHERE ArmeeEtat = " . $Etat . "
+					AND ArmeeStatut = 0";
+			$req = mysql_query($sql) or die('Erreur SQL # 61R!<br />'.$sql.'<br />'.mysql_error());
+			while ( $data = mysql_fetch_array($req) )
+			{
+				$Champ .= "<option value='" . $data['ArmeeID'] . "'>" . $data['ArmeeNom'] . "</option>";
+			}
+			$Champ .= "</select>";
+		break;
 		case "TerritoiresVoisinsArmee":
 			$TerritoireID	=	Attribut($Infos, "Armee", "ArmeeLieu");
 			$Champ = TerritoireAcces($TerritoireID, "Select");
@@ -1380,6 +1456,27 @@ function ArmeeDegats($ArmeeID, $ArmeeNom, $ArmeeNombre, $ArmeeArmure, $Degats)
 	return $texte;
 }
 
+function ExplodeArray($Array)
+{
+	$Return = "";
+	foreach( $Array as $cle => $element)
+	{
+		if ( is_array($element) == true )
+		{
+			$element = " Array -> <br />" . ExplodeArray($element);
+		}
+	    $Return .= '[' . $cle . '] vaut ' . $element . '<br />';
+	}
+	return $Return;
+}
+
+function UpdateTable($Table, $Where, $Set)
+{
+	$sql = "UPDATE " . $Table . "
+		SET " . $Set . "
+		WHERE " . $Where;
+	$req = mysql_query($sql) or die('Erreur SQL #134<br />'.$sql.'<br />'.mysql_error());
+}
 
 /* Supprimer permet de supprimer une ou plusieurs entrées de la BDD
 

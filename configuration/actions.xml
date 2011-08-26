@@ -318,6 +318,10 @@
 			<EtatPointMilitaire>100</EtatPointMilitaire>
 			<EtatOr>25</EtatOr>
 		</couts>
+		<entretien>
+			<EtatEntretienMilitaire>3</EtatEntretienMilitaire>
+			<EtatEntretienOr>2</EtatEntretienOr>
+		</entretien>
 	</action>
 	<action id="supprimer-armee">
 		<nom>Démobiliser une armée</nom>
@@ -333,8 +337,7 @@
 			<champ>
 				<nom>ArmeeID</nom>
 				<texte>Armée</texte>
-				<taille>3</taille>
-				<type>text</type>
+				<type>special</type>
 				<valeur></valeur>
 			</champ>
 		</modal>
@@ -345,6 +348,7 @@
 				<delai>0</delai>
 				<duree>0</duree>
 				<table_concernee>Armee</table_concernee>
+				<inverse>creer-armee</inverse>
 			</effet>
 		</effets>
 		<couts>
